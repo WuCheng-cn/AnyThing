@@ -6,7 +6,7 @@
       show-trigger="bar"
       content-style="padding: 24px;"
       :width="240"
-      :collapsed-width="10"
+      :collapsed-width="0"
       :on-after-leave="resize"
       :on-after-enter="resize"
     >
@@ -33,6 +33,7 @@
         <n-space size="large" style="padding: 10px 50px;">
           <n-upload
             ref="upload"
+            accept=".xlsx"
             :default-upload="false"
             :show-file-list="false"
             @change="loadExcel"
