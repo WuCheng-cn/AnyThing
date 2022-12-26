@@ -23,9 +23,7 @@
 import { darkTheme, useMessage, NIcon } from 'naive-ui'
 import { Component, h, ref } from 'vue'
 import {
-  PersonCircleOutline as UserIcon,
   Pencil as EditIcon,
-  LogOutOutline as LogoutIcon,
   SettingsSharp as SettingIcon
 } from '@vicons/ionicons5'
 import ThemeSettingVue from './themeSetting.vue';
