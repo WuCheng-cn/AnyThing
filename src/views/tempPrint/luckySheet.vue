@@ -62,9 +62,10 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { exportExcel } from '../../utils/export'
 import LuckyExcel from 'luckyexcel'
 import { DownloadOutline } from '@vicons/ionicons5'
+import type { UploadFileInfo } from 'naive-ui'
+import { exportExcel } from '../../utils/export'
 
 const jsonData = ref({})
 const options = ref({
@@ -75,9 +76,9 @@ const options = ref({
   showinfobar: false, // 是否显示顶部信息栏
   showsheetbar: true, // 是否显示底部sheet按钮
   hook: {
-    cellDragStop: function (cell, postion, sheetFile, ctx, event) {
+    cellDragStop: function (cell:any, postion:any, sheetFile:any, ctx:any, event:any) {
       console.log(postion)
-      luckysheet.setCellValue(postion.r, postion.c, targetValue.value)
+      window.luckysheet.setCellValue(postion.r, postion.c, targetValue.value)
     },
   },
 
@@ -92,21 +93,19 @@ const gridLists = ref([
 const targetValue = ref()
 
 // 拖拽开始的事件
-const onStart = (e) => {
+const onStart = (e:any) => {
   console.log('开始拖拽', e)
   targetValue.value = e.target.dataset.str
 }
 
 // 导入excel
-const loadExcel = (evt) => {
+const loadExcel = (evt: { fileList: UploadFileInfo[] }) => {
   console.log(evt)
-  
   const files = evt.fileList.map(_ => _.file)
   if (files == null || files.length == 0) {
     alert('请选择文件')
     return
   }
-
   // 获取文件名
   const name = files[0].name
   // 获取文件后缀
@@ -116,22 +115,18 @@ const loadExcel = (evt) => {
     alert('当前只能导入xlsx格式文件')
     return
   }
-
   // 转换导入的excel
   LuckyExcel.transformExcelToLucky(
     files[0],
-    function (exportJson, luckysheetfile) {
+    function (exportJson:any, luckysheetfile:any) {
       if (exportJson.sheets == null || exportJson.sheets.length == 0) {
         alert('无法读取excel文件的内容，当前不支持xls文件!')
         return
       }
-
-      console.log('exportJson', exportJson)
+      // console.log('exportJson', exportJson)
       jsonData.value = exportJson
-
       // 销毁之前的表格
       window.luckysheet.destroy()
-
       // 创建新的表格
       window.luckysheet.create({
         ...options.value,
@@ -143,16 +138,16 @@ const loadExcel = (evt) => {
   )
 }
 const downloadExcel = () => {
-  console.log('下载的数据：', luckysheet.getAllSheets())
+  console.log('下载的数据：', window.luckysheet.getAllSheets())
   // 第2个参数是导出的文件名
-  exportExcel(luckysheet.getAllSheets(), '下载')
+  exportExcel(window.luckysheet.getAllSheets(), '下载')
 }
 
-function resize () {
-  luckysheet.resize()
+const resize = () => {
+  window.luckysheet.resize()
 }
 onMounted(() => {
-  luckysheet.create(options.value)
+  window.luckysheet.create(options.value)
 })
 </script>
 

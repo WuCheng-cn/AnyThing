@@ -9,12 +9,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'layout',
-    component: () => import('@/views/layout/index.vue'),
+    component: () => import('@/views/Layout/index.vue'),
     children:[
       {
         path: '',
         name: '模板打印',
-        component: () => import('@/views/tempPrint/index.vue')
+        component: () => import('@/views/TempPrint/index.vue')
+      },
+      {
+        path: '/graphics',
+        name: '图形引擎',
+        component: () => import('@/views/TempPrint/index.vue')
       },
     ]
   },
