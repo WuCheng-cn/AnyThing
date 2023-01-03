@@ -8,6 +8,9 @@ export default defineConfig({
       '@':'/src/'
     }
   },
+  optimizeDeps: {
+    exclude: ['@antv/x6-vue-shape'],
+  },
   base: './', // 打包路径
   server: {
     port: 4000, // 服务端口号
