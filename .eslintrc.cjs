@@ -10,16 +10,11 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/vue3-recommended',
   ],
-  overrides: [
-  ],
-  parser: '@typescript-eslint/parser',
+  overrides: [],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    parser: '@typescript-eslint/parser',
   },
-  plugins: [
-    'vue',
-  ],
   rules: {
     'no-debugger': 'off', // 禁用 debugger
     'no-console': 'off', // 禁用 console
@@ -92,6 +87,5 @@ module.exports = {
     'vue/singleline-html-element-content-newline': 'off', // 要求单行元素的内容前后有一个换行符
     'vue/multi-word-component-names': 0,
     'newline-per-chained-call': ['error', { ignoreChainWithDepth: 2 }], // 要求方法链中每个调用都有一个换行符
-    'multiline-comment-style': ['error', 'bare-block'], // 禁止使用连续单行注释作为块注释
   },
 }

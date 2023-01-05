@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/graphics',
         name: '图形引擎',
-        component: () => import('@/views/TempPrint/index.vue')
+        component: () => import('@/views/GraphicsEngine/index.vue')
       },
     ]
   },

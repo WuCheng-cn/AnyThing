@@ -76,7 +76,7 @@ const options = ref({
   showinfobar: false, // 是否显示顶部信息栏
   showsheetbar: true, // 是否显示底部sheet按钮
   hook: {
-    cellDragStop: function (cell:any, postion:any, sheetFile:any, ctx:any, event:any) {
+    cellDragStop: (cell:any, postion:any, sheetFile:any, ctx:any, event:any) => {
       console.log(postion)
       window.luckysheet.setCellValue(postion.r, postion.c, targetValue.value)
     },
@@ -101,7 +101,7 @@ const onStart = (e:any) => {
 // 导入excel
 const loadExcel = (evt: { fileList: UploadFileInfo[] }) => {
   console.log(evt)
-  const files = evt.fileList.map(_ => _.file)
+  const files = evt.fileList.map(_ => _.file) as unknown as File[]
   if (files == null || files.length == 0) {
     alert('请选择文件')
     return
@@ -118,7 +118,7 @@ const loadExcel = (evt: { fileList: UploadFileInfo[] }) => {
   // 转换导入的excel
   LuckyExcel.transformExcelToLucky(
     files[0],
-    function (exportJson:any, luckysheetfile:any) {
+    (exportJson:any, luckysheetfile:any) => {
       if (exportJson.sheets == null || exportJson.sheets.length == 0) {
         alert('无法读取excel文件的内容，当前不支持xls文件!')
         return
