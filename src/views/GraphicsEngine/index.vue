@@ -1,11 +1,24 @@
+<!--
+ * @Author: 吴成 1965417564@qq.com
+ * @Date: 2023-01-03 16:37:40
+ * @LastEditors: 吴成 1965417564@qq.com
+ * @LastEditTime: 2023-01-06 16:48:20
+ * @FilePath: \anything\src\views\GraphicsEngine\index.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
+-->
 <template>
-  <div id="container" />
+  <Panle>
+    <div id="container" />
+  </Panle>
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { Graph } from '@antv/x6'
-const graph = ref()
+import { Panle } from '@/components/UI'
 
+const graph = ref()
 const data = {
   // 节点
   nodes: [
