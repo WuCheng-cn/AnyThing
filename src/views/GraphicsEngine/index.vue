@@ -2,15 +2,15 @@
  * @Author: 吴成 1965417564@qq.com
  * @Date: 2023-01-03 16:37:40
  * @LastEditors: 吴成 1965417564@qq.com
- * @LastEditTime: 2023-01-06 16:48:20
+ * @LastEditTime: 2023-01-06 17:35:32
  * @FilePath: \anything\src\views\GraphicsEngine\index.vue
  * @Description: 
  * 
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
 -->
 <template>
-  <Panle>
-    <div id="container" />
+  <Panle has-slider>
+    <div id="container" style="width: 100%;height: 100%;" />
   </Panle>
 </template>
 <script lang="ts" setup>
@@ -51,8 +51,6 @@ function init () {
   const container = document.getElementById('container') as unknown as HTMLElement
   graph.value = new Graph({
     container,
-    width: 800,
-    height: 600,
     background: {
       color: '#fffbe6', // 设置画布背景颜色
     },
