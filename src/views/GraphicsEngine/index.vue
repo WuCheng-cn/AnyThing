@@ -2,7 +2,7 @@
  * @Author: 吴成 1965417564@qq.com
  * @Date: 2023-01-03 16:37:40
  * @LastEditors: 吴成 1965417564@qq.com
- * @LastEditTime: 2023-01-06 17:35:32
+ * @LastEditTime: 2023-01-09 14:52:30
  * @FilePath: \anything\src\views\GraphicsEngine\index.vue
  * @Description: 
  * 
@@ -10,15 +10,38 @@
 -->
 <template>
   <Panle has-slider>
-    <div id="container" style="width: 100%;height: 100%;" />
+    <div
+      ref="box"
+      v-resize:200="handleResize"
+      class="box"
+    >
+      <div id="container" class="container" :style="containerStyle" />
+    </div>
   </Panle>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, Ref, ref, computed } from 'vue'
 import { Graph } from '@antv/x6'
 import { Panle } from '@/components/UI'
+import { useConfig } from '@/store/index'
 
-const graph = ref()
+const box = ref<HTMLElement>()
+const graph:Ref<Graph|null> = ref(null)
+
+const boxWidth = ref(0)
+const handleResize = (e:ResizeObserverEntry[]) => {
+  console.log('resize')
+  console.log(e[0].devicePixelContentBoxSize[0].inlineSize)
+  boxWidth.value = e[0].devicePixelContentBoxSize[0].inlineSize
+}
+
+const containerStyle = computed(() => {
+  const expectWidth = useConfig.graph().expectWidth
+  const expectHeight = useConfig.graph().expectHeight
+  const ratio = boxWidth.value / expectWidth  
+  const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
+  return str
+})
 const data = {
   // 节点
   nodes: [
@@ -47,7 +70,7 @@ const data = {
     },
   ],
 }
-function init () {
+const init = () => {
   const container = document.getElementById('container') as unknown as HTMLElement
   graph.value = new Graph({
     container,
@@ -58,6 +81,7 @@ function init () {
       size: 10, // 网格大小 10px
       visible: true, // 渲染网格背景
     },
+    
   })
   graph.value.fromJSON(data)
 }
@@ -66,3 +90,13 @@ onMounted(() => {
 })
 
 </script>
+<style lang="less" scoped>
+.box{
+  padding: 20px 30px;
+}
+.container{
+  transition: all .3s;
+  transform-origin: left top;
+}
+  
+</style>
