@@ -2,7 +2,7 @@
  * @Author: 吴成 1965417564@qq.com
  * @Date: 2023-01-09 10:00:41
  * @LastEditors: 吴成 1965417564@qq.com
- * @LastEditTime: 2023-01-09 10:54:28
+ * @LastEditTime: 2023-01-09 11:16:06
  * @FilePath: \anything\src\store\index.ts
  * @Description: 全局数据管理中心
  * 
@@ -10,8 +10,6 @@
  */
 import { useConfig } from "./config";
 
-export default function useStore(){
-  return {
-    useConfig,
-  }
+export {
+  useConfig,
 }

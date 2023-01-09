@@ -2,7 +2,7 @@
  * @Author: 吴成 1965417564@qq.com
  * @Date: 2022-12-20 10:30:46
  * @LastEditors: 吴成 1965417564@qq.com
- * @LastEditTime: 2023-01-09 11:01:46
+ * @LastEditTime: 2023-01-09 14:26:41
  * @FilePath: \anything\src\main.ts
  * @Description: 
  * 
@@ -16,6 +16,8 @@ import router from './router'
 import naive from 'naive-ui'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+// 自定义指令插件
+import { directivePlugin } from './directives'
 // 通用字体
 import 'vfonts/Lato.css'
 // 等宽字体
@@ -24,8 +26,12 @@ import 'vfonts/FiraCode.css'
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate);
 
-createApp(App)
+const app = createApp(App)
+app
 .use(router)
 .use(naive)
 .use(pinia)
+.use(directivePlugin)
 .mount('#app')
+
+export {app}
