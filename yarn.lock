@@ -29,6 +29,11 @@
   resolved "https://registry.npmmirror.com/@antv/x6-plugin-snapline/-/x6-plugin-snapline-2.1.6.tgz#5401e5b3c2a7914cf042f04805f553ebcbf10c86"
   integrity sha512-DqZsoy8t5kYLrrh/GdkYHqzxifWR2Vbg/NPoKFU9ZiRHb3WkXNyMhr0iQTtIqZMRRI5BVdf72Yu2E9QMDI7N7g==
 
+"@antv/x6-plugin-transform@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.npmmirror.com/@antv/x6-plugin-transform/-/x6-plugin-transform-2.1.5.tgz#ed81052bd1783213254ed4b37010076238329087"
+  integrity sha512-/Cgk28ad5llw1u5TML4FTFcNyDKsiLIkGlFoigb0REBpfyBSDtVU5HYEPgjVJadeBzv8qirdRQvBfmIv4MCHjA==
+
 "@antv/x6-vue-shape@^2.0.9":
   version "2.0.9"
   resolved "https://registry.npmmirror.com/@antv/x6-vue-shape/-/x6-vue-shape-2.0.9.tgz#eadc12e73db07087a61fde5d66cb016f338e5644"
