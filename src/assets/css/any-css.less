@@ -1,3 +1,28 @@
+/* ==============滚动条样式===================== */
+::-webkit-scrollbar {
+  /*高宽分别对应横竖滚动条的尺寸*/
+  width: 6px;
+  height: 6px;
+  scrollbar-arrow-color: red;
+}
+
+::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  scrollbar-arrow-color: red;
+}
+
+::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); */
+  border-radius: 8px;
+  /* background: rgba(0, 0, 0, 0.1); */
+}
+
+/* =============================================== */
+
 div:not(.n-layout),
 span:not(.n-layout){
   border-radius: 6px;

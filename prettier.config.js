@@ -1,3 +1,13 @@
+/*
+ * @Author: 吴成 1965417564@qq.com
+ * @Date: 2022-12-23 09:51:19
+ * @LastEditors: 吴成 1965417564@qq.com
+ * @LastEditTime: 2023-01-09 15:13:32
+ * @FilePath: \anything\prettier.config.js
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
+ */
 module.exports = {
   printWidth: 100,
   tabWidth: 2,
@@ -15,5 +25,5 @@ module.exports = {
   requirePragma: false,
   proseWrap: 'never',
   htmlWhitespaceSensitivity: 'strict',
-  endOfLine: 'lf'
+  endOfLine: 'lf',
 }

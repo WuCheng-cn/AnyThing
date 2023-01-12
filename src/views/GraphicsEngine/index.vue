@@ -22,6 +22,7 @@
 <script lang="ts" setup>
 import { onMounted, Ref, ref, computed } from 'vue'
 import { Graph } from '@antv/x6'
+import { Snapline } from '@antv/x6-plugin-snapline'
 import { Panle } from '@/components/UI'
 import { useConfig } from '@/store/index'
 
@@ -74,6 +75,11 @@ const init = () => {
   const container = document.getElementById('container') as unknown as HTMLElement
   graph.value = new Graph({
     container,
+    // 启用滚轮缩放画布
+    mousewheel: {
+      enabled: true,
+      modifiers: ['ctrl', 'meta'],
+    },
     background: {
       color: '#fffbe6', // 设置画布背景颜色
     },
@@ -81,8 +87,15 @@ const init = () => {
       size: 10, // 网格大小 10px
       visible: true, // 渲染网格背景
     },
-    
   })
+  // 启用对齐线
+  graph.value.use(
+    new Snapline({
+      enabled: true,
+      className: 'any-snapline',
+      clean: false,
+    }),
+  )
   graph.value.fromJSON(data)
 }
 onMounted(() => {
@@ -90,7 +103,18 @@ onMounted(() => {
 })
 
 </script>
+
+<style>
+.any-snapline .x6-widget-snapline-horizontal,
+.any-snapline .x6-widget-snapline-vertical
+{
+    stroke: #8f8f8f;
+    stroke-width: 2;
+    stroke-dasharray:6 4;
+}
+</style>
 <style lang="less" scoped>
+
 .box{
   padding: 20px 30px;
 }
@@ -98,5 +122,5 @@ onMounted(() => {
   transition: all .3s;
   transform-origin: left top;
 }
-  
+
 </style>
