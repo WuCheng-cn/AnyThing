@@ -24,6 +24,8 @@ import { onMounted, Ref, ref, computed } from 'vue'
 import { Graph } from '@antv/x6'
 import { Snapline } from '@antv/x6-plugin-snapline'
 import { Transform } from '@antv/x6-plugin-transform'
+import { Selection } from '@antv/x6-plugin-selection'
+import { Clipboard } from '@antv/x6-plugin-clipboard'
 import { Panle } from '@/components/UI'
 import { useConfig } from '@/store/index'
 
@@ -111,7 +113,18 @@ const init = () => {
         allowReverse: false, // 到达最小宽度或者高度时是否允许控制点反向拖动
       },
     }),
-  )
+  ).use(
+      new Selection({
+        enabled: true,
+        showNodeSelectionBox: true,
+      }),
+    ).use(
+      new Clipboard({
+        enabled: true,
+        useLocalStorage: true,
+      }),
+    )
+  
   graph.value.fromJSON(data)
 }
 onMounted(() => {

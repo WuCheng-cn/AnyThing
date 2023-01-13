@@ -9,7 +9,7 @@ import ContextMenu from '../components/contextMenu.vue'
  * ctrl + y 下一步
  * Mac系统的 ctrl 键是 meta
  */
-export default function (graph) {
+export default function (graph: Graph) {
   const u = navigator.userAgent.includes('Mac')
   const key = u ? 'meta' : 'ctrl'
   // Ctrl + C 拷贝节点
