@@ -26,6 +26,7 @@ import { Snapline } from '@antv/x6-plugin-snapline'
 import { Transform } from '@antv/x6-plugin-transform'
 import { Selection } from '@antv/x6-plugin-selection'
 import { Clipboard } from '@antv/x6-plugin-clipboard'
+import { Keyboard } from '@antv/x6-plugin-keyboard'
 import { Panle } from '@/components/UI'
 import { useConfig } from '@/store/index'
 
@@ -113,18 +114,32 @@ const init = () => {
         allowReverse: false, // 到达最小宽度或者高度时是否允许控制点反向拖动
       },
     }),
-  ).use(
-      new Selection({
-        enabled: true,
-        showNodeSelectionBox: true,
-      }),
-    ).use(
-      new Clipboard({
-        enabled: true,
-        useLocalStorage: true,
-      }),
-    )
+  )
+  .use(
+    new Selection({
+      enabled: true,
+      showNodeSelectionBox: true,
+    }),
+  )
+  .use(
+    new Clipboard({
+      enabled: true,
+      useLocalStorage: true,
+    }),
+  )
+  .use(
+    new Keyboard({
+      enabled: true,
+    }),
+  )
   
+  graph.value.bindKey('ctrl+c', () => {
+    const cells = graph.value?.getSelectedCells()
+    if (cells?.length) {
+      graph.value?.copy(cells)
+    }
+    return false
+  })
   graph.value.fromJSON(data)
 }
 onMounted(() => {
