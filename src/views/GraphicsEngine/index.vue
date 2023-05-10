@@ -10,30 +10,44 @@
 -->
 <template>
   <Panle has-slider>
+    <template #slider>
+      <div @mousedown="handleDrag">xxxx</div>
+    </template>
     <div
       ref="box"
       v-resize:200="handleResize"
       class="box"
     >
       <div id="container" class="container" :style="containerStyle" />
+      <TeleportContainer />
     </div>
   </Panle>
 </template>
 <script lang="ts" setup>
-import { onMounted, Ref, ref, computed } from 'vue'
+import { onMounted, Ref, ref, computed, defineComponent } from 'vue'
 import { Graph } from '@antv/x6'
-import { Snapline } from '@antv/x6-plugin-snapline'
-import { Transform } from '@antv/x6-plugin-transform'
-import { Selection } from '@antv/x6-plugin-selection'
-import { Clipboard } from '@antv/x6-plugin-clipboard'
-import { Keyboard } from '@antv/x6-plugin-keyboard'
 import { Panle } from '@/components/UI'
 import { useConfig } from '@/store/index'
-
+import GraphicsMaker from '@/views/GraphicsEngine/index'
+import { Dnd } from '@antv/x6-plugin-dnd'
+import { register, getTeleport } from '@antv/x6-vue-shape'
+import widgetImage from './component/widget/widget-image.vue'
+register({
+  shape: 'custom-vue-node',
+  width: 100,
+  height: 100,
+  component: widgetImage,
+})
 const box = ref<HTMLElement>()
-const graph:Ref<Graph|null> = ref(null)
-
+const graph = ref<Graph>()
 const boxWidth = ref(0)
+const TeleportContainer = getTeleport()
+defineComponent({
+  name: 'TeleportContainer',
+  components: {
+    TeleportContainer,
+  },
+})
 const handleResize = (e:ResizeObserverEntry[]) => {
   console.log('resize')
   console.log(e[0].devicePixelContentBoxSize[0].inlineSize)
@@ -47,6 +61,18 @@ const containerStyle = computed(() => {
   const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
   return str
 })
+
+function handleDrag (e:MouseEvent) {
+  const dnd = new Dnd({
+    target: graph.value,
+  })
+  const node = graph.value.createNode({
+    shape: 'custom-vue-node',
+    width: 100,
+    height: 40,
+  })
+  dnd.start(node, e)
+}
 const data = {
   // 节点
   nodes: [
@@ -75,75 +101,10 @@ const data = {
     },
   ],
 }
-const init = () => {
-  const container = document.getElementById('container') as unknown as HTMLElement
-  graph.value = new Graph({
-    container,
-    // 启用滚轮缩放画布
-    mousewheel: {
-      enabled: true,
-      modifiers: ['ctrl', 'meta'],
-    },
-    background: {
-      color: '#fffbe6', // 设置画布背景颜色
-    },
-    grid: {
-      size: 10, // 网格大小 10px
-      visible: true, // 渲染网格背景
-    },
-  })
-  // 启用对齐线
-  graph.value.use(
-    new Snapline({
-      enabled: true,
-      className: 'any-snapline',
-      clean: false,
-    }),
-  ).use(
-    new Transform({
-      resizing: {
-        enabled: true, // 是否支持调整节点大小
-        minWidth: 40, // 最小的调整宽度
-        minHeight: 40, // 最小的调整高度
-        maxWidth: Infinity, // 最大的调整宽度
-        maxHeight: Infinity, // 最大的调整高度
-        orthogonal: true, // 是否显示中间调整点
-        restrict: true, // 调整大小边界限制
-        autoScroll: false, // 拖动位置超过画布时是否自动滚动画布
-        preserveAspectRatio: true, // 调整大小过程中是否保持节点的宽高比例
-        allowReverse: false, // 到达最小宽度或者高度时是否允许控制点反向拖动
-      },
-    }),
-  )
-  .use(
-    new Selection({
-      enabled: true,
-      showNodeSelectionBox: true,
-    }),
-  )
-  .use(
-    new Clipboard({
-      enabled: true,
-      useLocalStorage: true,
-    }),
-  )
-  .use(
-    new Keyboard({
-      enabled: true,
-    }),
-  )
-  
-  graph.value.bindKey('ctrl+c', () => {
-    const cells = graph.value?.getSelectedCells()
-    if (cells?.length) {
-      graph.value?.copy(cells)
-    }
-    return false
-  })
-  graph.value.fromJSON(data)
-}
 onMounted(() => {
-  init()
+  const container = document.getElementById('container') as unknown as HTMLElement
+  graph.value = new GraphicsMaker(container).graph
+  graph.value.fromJSON(data)
 })
 
 </script>

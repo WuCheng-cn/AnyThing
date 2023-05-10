@@ -29,6 +29,16 @@
   resolved "https://registry.npmmirror.com/@antv/x6-plugin-clipboard/-/x6-plugin-clipboard-2.1.3.tgz#01b03edd3defc9f9033dfa004feac02f0d2e0583"
   integrity sha512-GZkz9qivuPdng4iNYlRSS5ua76zHW9J3VFWVYr8U6BPRcCM2tGEQAKWwrAZ+cCd54TBdPVGKcnh33tWeqQTO/Q==
 
+"@antv/x6-plugin-dnd@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.npmmirror.com/@antv/x6-plugin-dnd/-/x6-plugin-dnd-2.0.5.tgz#48d67eee6ea7cb4817331ea5d0429f2e5b7fe58f"
+  integrity sha512-g8GGJS2XmM8C59juOBiFqaR/f8i8y8tqw9sJNwta7s1Phh3hwDd7o4kk36Kk5eTKkfZfnjEyWHMOqp/h+EDibQ==
+
+"@antv/x6-plugin-history@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.npmmirror.com/@antv/x6-plugin-history/-/x6-plugin-history-2.2.3.tgz#5fd81f85b07f59406731b6853b19129844920c7d"
+  integrity sha512-yiv5e7CQKm1HrJe7je4iWjkzDzU+I0WsyL8En2j0UwXJrUNaKYyv4BkRg2tvyi52hydxidMgi3tNnNQHEZwoMg==
+
 "@antv/x6-plugin-keyboard@^2.1.4":
   version "2.1.4"
   resolved "https://registry.npmmirror.com/@antv/x6-plugin-keyboard/-/x6-plugin-keyboard-2.1.4.tgz#f3841c066a49ba85284b17e5df617e6302a140ed"
