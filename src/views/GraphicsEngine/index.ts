@@ -21,10 +21,7 @@ export default class GraphicsMaker {
     this.#init(container)
   }
   #init(container: HTMLElement): Graph {
-    this.graph = new Graph({
-      container,
-      ...GraphOption
-    })
+    this.graph = new Graph({ container, ...GraphOption })
     this.#moduleRegister(this.graph)
     this.#hotKeysRegister(this.graph)
     return this.graph

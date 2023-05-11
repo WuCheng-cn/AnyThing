@@ -21,6 +21,8 @@
     "@antv/x6-plugin-transform": "^2.1.5",
     "@antv/x6-vue-shape": "^2.0.9",
     "@vue/eslint-config-standard": "^8.0.1",
+    "echarts": "^5.4.2",
+    "element-resize-detector": "^1.2.4",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
     "luckyexcel": "^1.0.1",
