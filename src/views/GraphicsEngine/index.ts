@@ -17,10 +17,7 @@ import {
 } from './options/index'
 export default class GraphicsMaker {
   graph!: Graph
-  constructor(container: HTMLElement) {
-    this.#init(container)
-  }
-  #init(container: HTMLElement): Graph {
+  create(container: HTMLElement): Graph {
     this.graph = new Graph({ container, ...GraphOption })
     this.#moduleRegister(this.graph)
     this.#hotKeysRegister(this.graph)

@@ -31,8 +31,7 @@ import { useConfig } from '@/store/index'
 import GraphicsMaker from '@/views/GraphicsEngine/index'
 import { Dnd } from '@antv/x6-plugin-dnd'
 import { register, getTeleport } from '@antv/x6-vue-shape'
-// import widgetImage from './component/widget/widget-image.vue'
-import { LineChart, widgetImage } from './component/index'
+import { LineChart, WidgetImage } from './component/index'
 
 register({
   shape: 'custom-vue-node',
@@ -66,16 +65,16 @@ const containerStyle = computed(() => {
 
 function handleDrag (e:MouseEvent) {
   const dnd = new Dnd({
-    target: graph.value,
+    target: graph.value as Graph,
   })
-  const node = graph.value.createNode({
+  const node = graph.value!.createNode({
     shape: 'custom-vue-node',
   })
   dnd.start(node, e)
 }
 onMounted(() => {
-  const container = document.getElementById('container') as unknown as HTMLElement
-  graph.value = new GraphicsMaker(container).graph
+  const container = document.getElementById('container') as HTMLElement
+  graph.value = new GraphicsMaker().create(container)
 })
 
 </script>
