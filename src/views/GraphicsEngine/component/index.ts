@@ -1,29 +1,14 @@
-import Demo from './widget/Demo.vue'
-import LineChart from './charts/lineChart.vue'
-import WidgetImage from './widget/widget-image.vue'
-import { DefineComponent } from 'vue';
-interface RegistryItem {
-  name: string;
-  componentComplete: DefineComponent<{}, {}, any>;
-  componentSample?: DefineComponent<{}, {}, any>;
-}
-const Registry:RegistryItem[] = [
-  {
-    name:'Demo',
-    componentComplete:Demo
-  },
- {
-    name:'LineChart',
-    componentComplete:LineChart
-  },
-  {
-    name:'WidgetImage',
-    componentComplete:WidgetImage
-  }
+import { RegistItem } from '@/model/graph/RegistInterface';
+import Demo from './Demo/index'
+import LineChart from './LineChart/index'
+import WidgetImage from './WidgetImage/index'
+
+const Registry:RegistItem[] = [
+  Demo,
+  LineChart, 
+  WidgetImage,
 ]
 
 export {
-  Demo,
-  LineChart,
-  WidgetImage
+  Registry
 }

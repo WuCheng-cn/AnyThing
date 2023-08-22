@@ -11,7 +11,13 @@
 <template>
   <Panle has-slider>
     <template #slider>
-      <div @mousedown="handleDrag">xxxx</div>
+      <div
+        v-for="(item,index) in Registry"
+        :key="index"
+        @mousedown="handleDrag($event,item)"
+      >
+        {{ item.name }}
+      </div>
     </template>
     <div
       ref="box"
@@ -31,14 +37,9 @@ import { useConfig } from '@/store/index'
 import GraphicsMaker from '@/views/GraphicsEngine/index'
 import { Dnd } from '@antv/x6-plugin-dnd'
 import { register, getTeleport } from '@antv/x6-vue-shape'
-import { LineChart, WidgetImage } from './component/index'
+import { Registry } from './component/index'
+import { RegistItem } from '@/model/graph/RegistInterface'
 
-register({
-  shape: 'custom-vue-node',
-  width: 600,
-  height: 600,
-  component: LineChart,
-})
 const box = ref<HTMLElement>()
 const graph = ref<Graph>()
 const boxWidth = ref(0)
@@ -49,12 +50,6 @@ defineComponent({
     TeleportContainer,
   },
 })
-const handleResize = (e:ResizeObserverEntry[]) => {
-  console.log('resize')
-  console.log(e[0].devicePixelContentBoxSize[0].inlineSize)
-  boxWidth.value = e[0].devicePixelContentBoxSize[0].inlineSize
-}
-
 const containerStyle = computed(() => {
   const expectWidth = useConfig.graph().expectWidth
   const expectHeight = useConfig.graph().expectHeight
@@ -62,16 +57,46 @@ const containerStyle = computed(() => {
   const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
   return str
 })
+/**
+ * @description: 初始化注册组件
+ */
+function init () {
+  Registry.forEach(item => {
+    register({
+      shape: item.nodeShape,
+      width: 400,
+      height: 400,
+      component: item.component,
+    })
+  })
+}
+init()
 
-function handleDrag (e:MouseEvent) {
+/**
+ * @description: 监听容器大小变化
+ */
+function handleResize (e:ResizeObserverEntry[]) {
+  console.log('resize')
+  console.log(e[0].devicePixelContentBoxSize[0].inlineSize)
+  boxWidth.value = e[0].devicePixelContentBoxSize[0].inlineSize
+}
+
+/**
+ * @description: 拖拽组件
+ */
+function handleDrag (e:MouseEvent, item:RegistItem) {
   const dnd = new Dnd({
     target: graph.value as Graph,
   })
   const node = graph.value!.createNode({
-    shape: 'custom-vue-node',
+    shape: item.nodeShape,
   })
   dnd.start(node, e)
 }
+
+/**
+ * @description: 初始化画布
+ */
 onMounted(() => {
   const container = document.getElementById('container') as HTMLElement
   graph.value = new GraphicsMaker().create(container)
