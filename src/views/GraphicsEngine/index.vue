@@ -9,24 +9,27 @@
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
 -->
 <template>
-  <Panle has-slider>
-    <template #slider>
+  <Panle hide-left-slider>
+    <Panle hide-right-slider>
+      <template #slider-left>
+        <div
+          v-for="(item,index) in Registry"
+          :key="index"
+          class="item"
+          @mousedown="handleDrag($event,item)"
+        >
+          {{ item.name }}
+        </div> 
+      </template>
       <div
-        v-for="(item,index) in Registry"
-        :key="index"
-        @mousedown="handleDrag($event,item)"
+        ref="box"
+        v-resize:200="handleResize"
+        class="box"
       >
-        {{ item.name }}
+        <div id="container" class="container" :style="containerStyle" />
+        <TeleportContainer />
       </div>
-    </template>
-    <div
-      ref="box"
-      v-resize:200="handleResize"
-      class="box"
-    >
-      <div id="container" class="container" :style="containerStyle" />
-      <TeleportContainer />
-    </div>
+    </Panle>
   </Panle>
 </template>
 <script lang="ts" setup>
@@ -123,4 +126,7 @@ onMounted(() => {
   transform-origin: left top;
 }
 
+.item{
+  cursor: pointer;
+}
 </style>
