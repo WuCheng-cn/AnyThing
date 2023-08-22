@@ -8,39 +8,78 @@
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
 -->
 <template>
-  <n-layout has-sider class="any-panle">
+  <n-layout has-sider class="any-panle" :sider-placement="siderPlacement">
     <n-layout-sider
-      v-if="hasSlider"
-      bordered
+      v-if="!hideSlider&&!hideLeftSlider"
       collapse-mode="transform"
       show-trigger="bar"
       content-style="padding: 24px;"
-      :width="240"
+      :width="300"
       :collapsed-width="0"
       :on-after-leave="resize"
       :on-after-enter="resize"
     >
-      <slot name="slider" />
+      <slot name="slider-left" />
     </n-layout-sider>
     <n-layout content-style="display: flex;flex-direction: column;">
       <n-layout-content style="flex: 1;">
         <slot />
       </n-layout-content>
     </n-layout>
+    <n-layout-sider  
+      v-if="!hideSlider&&!hideRightSlider"
+      collapse-mode="transform"
+      show-trigger="bar"
+      content-style="padding: 24px;"
+      :width="400"
+      :collapsed-width="0"
+      :on-after-leave="resize"
+      :on-after-enter="resize"
+    >
+      <slot name="slider-right" />
+    </n-layout-sider>
   </n-layout>
 </template>
 <script lang="ts" setup>
+import { computed } from 'vue'
 
 const props = defineProps({
   /**
-   * # 是否有侧边栏
+   * # 是否隐藏全部侧边栏
    */  
-  hasSlider: {
+  hideSlider: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * # 是否隐藏右侧侧边栏
+   */
+  hideRightSlider: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * # 是否隐藏左侧侧边栏
+   */
+  hideLeftSlider: {
     type: Boolean,
     default: false,
   },
 })
 const emitFn = defineEmits(['resize'])
+
+const siderPlacement = computed(() => {
+  if (props.hideSlider) {
+    return undefined
+  }
+  if (props.hideLeftSlider) {
+    return 'right'
+  }
+  if (props.hideRightSlider) {
+    return 'left'
+  }
+  return 'left'
+})
 
 const resize = () => {
   emitFn('resize')
