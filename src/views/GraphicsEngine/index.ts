@@ -19,11 +19,24 @@ export default class GraphicsMaker {
   graph!: Graph
   create(container: HTMLElement): Graph {
     this.graph = new Graph({ container, ...GraphOption })
+    if (import.meta.env.DEV) {
+      this.#createdDevTools(this.graph)
+    }
     this.#moduleRegister(this.graph)
     this.#hotKeysRegister(this.graph)
     return this.graph
     // this.graph.fromJSON(data)
   }
+  
+  /**
+   * # 创建开发者工具
+   * @param instance 画布实例
+   */
+  #createdDevTools(instance: Graph): void {
+    window.__x6_instances__ = []
+    window.__x6_instances__.push(instance)
+  }
+
   /**
    * # 功能模块注册
    * @param instance 画布实例
@@ -40,6 +53,7 @@ export default class GraphicsMaker {
       .use(new History(HistoryOption))
     return instance
   }
+
   /**
    * # 快捷键注册
    * @param instance 画布实例

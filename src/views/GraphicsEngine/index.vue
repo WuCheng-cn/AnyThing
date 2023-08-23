@@ -79,8 +79,8 @@ init()
  * @description: 监听容器大小变化
  */
 function handleResize (e:ResizeObserverEntry[]) {
-  console.log('resize')
-  console.log(e[0].devicePixelContentBoxSize[0].inlineSize)
+  // console.log('resize')
+  // console.log(e[0].devicePixelContentBoxSize[0].inlineSize)
   boxWidth.value = e[0].devicePixelContentBoxSize[0].inlineSize
 }
 

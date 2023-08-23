@@ -5,13 +5,16 @@
 </template>
 <script lang="ts" setup>
 import * as echarts from 'echarts'
-import { onMounted, ref, PropType } from 'vue'
+import { onMounted, ref, PropType, inject } from 'vue'
 const props = defineProps({
   chartConfig: {
     type: Object as PropType<config>,
     required: true,
   },
 })
+const getNode: any = inject('getNode')
+const VueShape = ref(getNode())
+
 type EChartsOption = echarts.EChartsOption;
 const chartDom = ref()
 let myChart :echarts.ECharts

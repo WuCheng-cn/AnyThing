@@ -1,8 +1,8 @@
+
 declare module 'luckyexcel';
 declare module 'file-saver';
 declare module 'vuedraggable';
 declare module 'element-resize-detector';
-
 /**
  * 解决找不到vue模块问题
  */
