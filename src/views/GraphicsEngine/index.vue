@@ -1,13 +1,3 @@
-<!--
- * @Author: 吴成 1965417564@qq.com
- * @Date: 2023-01-03 16:37:40
- * @LastEditors: 吴成 1965417564@qq.com
- * @LastEditTime: 2023-01-09 14:52:30
- * @FilePath: \anything\src\views\GraphicsEngine\index.vue
- * @Description: 
- * 
- * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
--->
 <template>
   <Panle show-right-slider>
     <Panle show-left-slider>
@@ -127,6 +117,9 @@ onMounted(() => {
 }
 
 .item{
-  cursor: pointer;
+  cursor: grab;
+  &:active{
+    cursor: grabbing !important;
+  }
 }
 </style>
