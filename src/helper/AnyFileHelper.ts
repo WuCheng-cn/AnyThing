@@ -9,7 +9,6 @@ interface FileDialogConfig {
 }
 /**
  * 文件助手类
- * @author Hamm
  */
 export abstract class AnyFileHelper {
 
