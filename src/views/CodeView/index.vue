@@ -23,10 +23,8 @@ const oldValue = ref('')
  * 添加当前版本
  */
 async function addCurrentCode () {
-  console.log('addCurrentCode')
-  const [FileSystemFileHandle] = await window.showOpenFilePicker()
-  const file = await FileSystemFileHandle?.getFile()
-  const reslut = await AnyFileHelper.readFileAsText(file)
+  console.log('addCurrentCode') 
+  const reslut = await AnyFileHelper.openAndGetFileContent()
   newValue.value = reslut
 }
 
@@ -35,9 +33,7 @@ async function addCurrentCode () {
  */
 async function addHistoryCode () {
   console.log('addHistoryCode')
-  const [FileSystemFileHandle] = await window.showOpenFilePicker()
-  const file = await FileSystemFileHandle?.getFile()
-  const reslut = await AnyFileHelper.readFileAsText(file)
+  const reslut = await AnyFileHelper.openAndGetFileContent()
   oldValue.value = reslut
 }
 </script>
