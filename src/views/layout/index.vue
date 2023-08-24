@@ -31,8 +31,6 @@ import { useConfig } from '@/store'
 
 const ThemeSettingRef = ref()
 const theme = computed(() => {
-  console.log(useConfig.app().theme)
-  
   return useConfig.app().theme
 })
 

@@ -23,7 +23,6 @@ import { useConfig } from '@/store/index'
 const showOuterRef = ref(false)
 const isLightTheme = ref(false)
 function init () {
-  console.log('init', useConfig.app().theme.name)
   if (useConfig.app().theme.name === 'light') {
     isLightTheme.value = true
   } else {

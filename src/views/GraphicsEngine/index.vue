@@ -46,6 +46,7 @@ defineComponent({
 const containerStyle = computed(() => {
   const expectWidth = useConfig.graph().expectWidth
   const expectHeight = useConfig.graph().expectHeight
+  alert(expectWidth)
   const ratio = boxWidth.value / expectWidth  
   const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
   return str

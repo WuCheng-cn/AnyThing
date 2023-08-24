@@ -14,11 +14,11 @@ import { app } from './appConfig'
 /**
  * # 全局配置文件数据管理中心
  */
-const useConfig = {
+export const useConfig = {
   graph,
   app
 }
 
-export {
-  useConfig,
-}
+// export {
+//   useConfig,
+// }
