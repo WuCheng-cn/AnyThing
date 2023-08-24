@@ -10,7 +10,7 @@
 <template>
   <n-layout has-sider class="any-panle" :sider-placement="siderPlacement">
     <n-layout-sider
-      v-if="!hideSlider&&!hideLeftSlider"
+      v-if="!hideSlider&&showLeftSlider"
       collapse-mode="transform"
       show-trigger="bar"
       content-style="padding: 24px;"
@@ -59,9 +59,9 @@ const props = defineProps({
     default: false,
   },
   /**
-   * # 是否隐藏左侧侧边栏
+   * # 是否显示左侧侧边栏
    */
-  hideLeftSlider: {
+  showLeftSlider: {
     type: Boolean,
     default: false,
   },
@@ -72,10 +72,13 @@ const siderPlacement = computed(() => {
   if (props.hideSlider) {
     return undefined
   }
-  if (props.hideLeftSlider) {
+  if (props.showLeftSlider && props.showRightSlider) {
+    return 'left'
+  }
+  if (!props.showLeftSlider && props.showRightSlider) {
     return 'right'
   }
-  if (!props.showRightSlider) {
+  if (props.showLeftSlider && !props.showRightSlider) {
     return 'left'
   }
   return 'left'

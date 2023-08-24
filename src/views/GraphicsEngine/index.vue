@@ -9,8 +9,8 @@
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
 -->
 <template>
-  <Panle hide-left-slider>
-    <Panle hide-right-slider>
+  <Panle show-right-slider>
+    <Panle show-left-slider>
       <template #slider-left>
         <div
           v-for="(item,index) in Registry"
