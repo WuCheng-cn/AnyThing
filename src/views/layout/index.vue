@@ -1,15 +1,5 @@
-<!--
- * @Author: 吴成 1965417564@qq.com
- * @Date: 2022-12-23 13:27:35
- * @LastEditors: 吴成 1965417564@qq.com
- * @LastEditTime: 2023-01-06 17:12:48
- * @FilePath: \anything\src\views\Layout\index.vue
- * @Description: layout层
- * 
- * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
--->
 <template>
-  <n-config-provider :theme="isDarkTheme">
+  <n-config-provider :theme="theme">
     <n-space vertical>
       <n-layout style="height: 100vh;" content-style="display: flex;flex-direction: column;">
         <n-layout-header :inverted="false" bordered>
@@ -26,24 +16,26 @@
         </n-layout>
       </n-layout>
     </n-space>
-    <ThemeSettingVue ref="ThemeSettingRef" v-model:theme="theme" />
+    <ThemeSettingVue ref="ThemeSettingRef" />
   </n-config-provider>
 </template>
 <script setup lang="ts">
-import { darkTheme, useMessage, NIcon } from 'naive-ui'
+import { NIcon } from 'naive-ui'
 import { Component, h, ref, computed } from 'vue'
 import {
   Pencil as EditIcon,
   SettingsSharp as SettingIcon,
 } from '@vicons/ionicons5'
 import ThemeSettingVue from './themeSetting.vue'
+import { useConfig } from '@/store'
 
-const theme = ref(false)
-const isDarkTheme = computed(() => {
-  return theme.value ? undefined : darkTheme
-})
 const ThemeSettingRef = ref()
-const message = useMessage()
+const theme = computed(() => {
+  console.log(useConfig.app().theme)
+  
+  return useConfig.app().theme
+})
+
 const renderIcon = (icon: Component) => {
   return () => {
     return h(NIcon, null, {
