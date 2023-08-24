@@ -1,5 +1,5 @@
 <template>
-  <Panle>
+  <Panle show-left-slider>
     <MonacoEditer :new-value="newValue" :old-value="oldValue" :language="language" />
     <template #slider-left>
       <n-space>

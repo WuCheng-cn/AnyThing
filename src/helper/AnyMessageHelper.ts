@@ -1,4 +1,4 @@
-import {  MessageType, useMessage } from 'naive-ui'
+import { MessageType, createDiscreteApi } from 'naive-ui'
 type PlacementType = 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' | 'middle'
 
 /**
@@ -18,7 +18,7 @@ export class AnyMessageHelper {
   /**
    * 消息展示位置
    */
-  private placement:PlacementType = 'top'
+  private placement: PlacementType = 'top-end'
 
   /**
    * 消息类型
@@ -37,7 +37,9 @@ export class AnyMessageHelper {
   private keepAliveOnHover = true
 
   #createMessage(message: string) {
-    return useMessage().create(message, {
+    // const messageBox = useMessage()
+    const { message: messageBox } = createDiscreteApi(['message'])
+    messageBox.create(message, {
       duration: this.duration,
       // @ts-ignore
       placement: this.placement,

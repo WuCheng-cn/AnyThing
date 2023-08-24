@@ -1,4 +1,5 @@
 import { AppConfig } from '../AppConfig'
+import { AnyMessageHelper } from './AnyMessageHelper';
 interface FileDialogConfig {
   accept?: string | string[];
   multiple?: boolean;
@@ -146,13 +147,16 @@ export abstract class AnyFileHelper {
    */
   static async readFileAsText(file: File): Promise<string> {
     if (!file) {
+      new AnyMessageHelper().error("文件读取失败\nFile read failed");
       throw new Error('文件为空')
     }
     if (file.size > AppConfig.maxFileSize) {
+      new AnyMessageHelper().error("文件大小超过限制\nFile size exceeds limit");
       throw new Error('文件大小超过限制')
     }
     // 二进制文件不支持
     if (file.type.includes('image') || file.type.includes('audio') || file.type.includes('video')) {
+      new AnyMessageHelper().error("文件类型不支持\nFile type not supported");
       throw new Error('文件类型不支持')
     }
     return new Promise((resolve, reject) => {
