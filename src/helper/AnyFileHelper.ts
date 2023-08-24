@@ -1,4 +1,4 @@
-import { AppConfig } from '../AppConfig'
+import { useConfig } from '@/store';
 import { AnyMessageHelper } from './AnyMessageHelper';
 interface FileDialogConfig {
   accept?: string | string[];
@@ -150,7 +150,7 @@ export abstract class AnyFileHelper {
       new AnyMessageHelper().error("文件读取失败\nFile read failed");
       throw new Error('文件为空')
     }
-    if (file.size > AppConfig.maxFileSize) {
+    if (file.size > useConfig.app().maxFileSize) {
       new AnyMessageHelper().error("文件大小超过限制\nFile size exceeds limit");
       throw new Error('文件大小超过限制')
     }
@@ -203,6 +203,6 @@ export abstract class AnyFileHelper {
     if (url.includes('https://') || url.includes('http://')) {
       return url
     }
-    return AppConfig.staticUrl + url
+    return useConfig.app().staticUrl + url
   }
 }

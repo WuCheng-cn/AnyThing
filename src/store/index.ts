@@ -8,7 +8,16 @@
  * 
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
  */
-import { useConfig } from "./config";
+import { graph } from './graphConfig'
+import { app } from './appConfig'
+
+/**
+ * # 全局配置文件数据管理中心
+ */
+const useConfig = {
+  graph,
+  app
+}
 
 export {
   useConfig,
