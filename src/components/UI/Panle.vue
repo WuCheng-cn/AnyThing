@@ -27,7 +27,7 @@
       </n-layout-content>
     </n-layout>
     <n-layout-sider  
-      v-if="!hideSlider&&!hideRightSlider"
+      v-if="!hideSlider&&showRightSlider"
       collapse-mode="transform"
       show-trigger="bar"
       content-style="padding: 24px;"
@@ -52,9 +52,9 @@ const props = defineProps({
     default: false,
   },
   /**
-   * # 是否隐藏右侧侧边栏
+   * # 是否显示右侧侧边栏
    */
-  hideRightSlider: {
+  showRightSlider: {
     type: Boolean,
     default: false,
   },
@@ -75,7 +75,7 @@ const siderPlacement = computed(() => {
   if (props.hideLeftSlider) {
     return 'right'
   }
-  if (props.hideRightSlider) {
+  if (!props.showRightSlider) {
     return 'left'
   }
   return 'left'

@@ -9,7 +9,8 @@
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
  */
 import Panle from './Panle.vue'
-
+import AButton from './Button.vue'
 export {
-  Panle
+  Panle,
+  AButton
 }

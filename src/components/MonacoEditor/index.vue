@@ -27,7 +27,7 @@ const props = defineProps({
     type: String,
     default: 'aaa',
   },
-  value: {
+  newValue: {
     type: String,
     default: 'aaab',
   },
@@ -42,10 +42,11 @@ const defaultOpts = ref<monaco.editor.IStandaloneDiffEditorConstructionOptions>(
   autoIndent: 'keep', // 自动缩进
   readOnly: false, // 是否只读
   selectOnLineNumbers: true, // 显示行号
+  automaticLayout: true, // 自动布局
 })
 
 watch(
-  () => props.value,
+  () => props.newValue,
   (newVal) => {
     modifiedModel = monaco.editor.createModel(newVal, props.language)
     if (monacoDiffInstance) {
@@ -74,8 +75,7 @@ watch(
 function init () {
   monacoDiffInstance = monaco.editor.createDiffEditor(container.value!, defaultOpts.value)
   originalModel = monaco.editor.createModel(props.oldValue, props.language)
-  modifiedModel = monaco.editor.createModel(props.value, props.language)
-  console.log(originalModel, modifiedModel)
+  modifiedModel = monaco.editor.createModel(props.newValue, props.language)
 
   monacoDiffInstance.setModel({
     original: originalModel as monaco.editor.ITextModel,

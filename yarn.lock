@@ -2860,6 +2860,11 @@ minimist@^1.2.0, minimist@^1.2.6:
   dependencies:
     minimist "^1.2.6"
 
+monaco-editor@^0.41.0:
+  version "0.41.0"
+  resolved "https://registry.npmmirror.com/monaco-editor/-/monaco-editor-0.41.0.tgz#2ba31e5af7e3ae93ac5d7467ec2772ef9b3d967f"
+  integrity sha512-1o4olnZJsiLmv5pwLEAmzHTE/5geLKQ07BrGxlF4Ri/AXAc2yyDGZwHjiTqD8D/ROKUZmwMA28A+yEowLNOEcA==
+
 mousetrap@^1.6.5:
   version "1.6.5"
   resolved "https://registry.npmmirror.com/mousetrap/-/mousetrap-1.6.5.tgz#8a766d8c272b08393d5f56074e0b5ec183485bf9"
