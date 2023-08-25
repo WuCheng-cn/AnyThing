@@ -1,4 +1,4 @@
-import { Record } from '@/model/basic/Record'
+import { InRecord } from '@/interface/base/InRecord'
 /**
  * graph 绑定事件
  * ctrl + c 剪切节点/边
@@ -34,7 +34,7 @@ export enum HotKeys{
 /**
  * # 快捷键翻译
  */
-export const HotKeysRecord :Record[] = [
+export const HotKeysRecord :InRecord[] = [
   {
     key:HotKeys.COPY,
     label:'复制',

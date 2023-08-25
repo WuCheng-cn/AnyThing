@@ -1,4 +1,5 @@
 
+import { getFieldName } from '@/decorator/FieldName'
 import { AnyClassTransformHelper } from '@/helper/AnyClassTransformHelper'
 import { instanceToPlain } from 'class-transformer'
 /**
@@ -15,11 +16,41 @@ export class Basic {
   }
 
   /**
-   * 将模型转换为JSON对象
-   * @returns JSON对象
+  * 获取属性的可阅读名字
+  * @param fieldKey 属性名
+  * @returns 属性的可读名字
+  * 可使用 @FieldName 装饰器修饰 如无修饰 则直接返回属性名
+  */
+  static getCustomFieldName(fieldKey: string): string {
+    return getFieldName(this.newInstance(), fieldKey)
+  }
+
+  /**
+   * 将实体转为字面量对象
+   * @returns 字面量对象
    */
-  toSource(): Record<string, unknown> {
+  toAliasObject(): Record<string, any> {
     return instanceToPlain(this)
+  }
+
+  /**
+   * 将实体按别名转换为JSON字符串
+   * @returns JSON字符串
+   * @description 该方法将实体按别名转换为JSON字符串
+   * @description 如果要直接将实体转换为JSON字符串，请使用toString方法 @see toNormalString
+   */
+  toAliasString(): string {
+    return JSON.stringify(this.toAliasObject())
+  }
+
+  /**
+   * 将实体转换为JSON字符串
+   * @returns JSON字符串
+   * @description 该方法不会按别名转换，而是直接将实体转换为JSON字符串 
+   * @description 如果要按别名转换，请使用toAliasString方法 @see toAliasString
+   */
+  toNormalString(): string {
+    return JSON.stringify(this)
   }
 
   /**
@@ -73,14 +104,4 @@ export class Basic {
     return this
   }
 
-
-  /**
-   * 获取属性的可阅读名字
-   * @param fieldKey 属性名
-   * @returns 属性的可读名字
-   * 可使用 @FieldName 装饰器修饰 如无修饰 则直接返回属性名
-   */
-  static getCustomFieldName(fieldKey: string): string {
-    return this.newInstance().getCustomFieldName(fieldKey)
-  }
 }
