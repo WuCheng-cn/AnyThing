@@ -32,7 +32,7 @@ import { Dnd } from '@antv/x6-plugin-dnd'
 import { register, getTeleport } from '@antv/x6-vue-shape'
 import { Registry } from './component/index'
 import { RegistItem } from '@/model/graph/RegistInterface'
-
+import { graphConfig } from '@/store/graphConfig'
 const box = ref<HTMLElement>()
 const graph = ref<Graph>()
 const boxWidth = ref(0)
@@ -44,9 +44,8 @@ defineComponent({
   },
 })
 const containerStyle = computed(() => {
-  const expectWidth = useConfig.graph().expectWidth
-  const expectHeight = useConfig.graph().expectHeight
-  alert(expectWidth)
+  const expectWidth = useConfig.graphConfig().expectWidth
+  const expectHeight = useConfig.graphConfig().expectHeight
   const ratio = boxWidth.value / expectWidth  
   const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
   return str

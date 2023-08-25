@@ -5,7 +5,7 @@ import { darkTheme } from 'naive-ui'
 /**
  * # app相关配置
  */
-export const app = defineStore('graph', {
+export const appConfig = defineStore('appConfig', {
   // persist: true,
   state: () => {
     return {

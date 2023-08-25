@@ -4,21 +4,17 @@
  * @LastEditors: 吴成 1965417564@qq.com
  * @LastEditTime: 2023-01-09 11:16:06
  * @FilePath: \anything\src\store\index.ts
- * @Description: 全局数据管理中心
+ * @Description: 全局数据
  * 
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
  */
-import { graph } from './graphConfig'
-import { app } from './appConfig'
+import { graphConfig } from './graphConfig'
+import { appConfig } from './appConfig'
 
 /**
- * # 全局配置文件数据管理中心
+ * # 全局配置文件数据中心
  */
 export const useConfig = {
-  graph,
-  app
+  graphConfig,
+  appConfig
 }
-
-// export {
-//   useConfig,
-// }

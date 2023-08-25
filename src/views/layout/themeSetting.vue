@@ -23,7 +23,7 @@ import { useConfig } from '@/store/index'
 const showOuterRef = ref(false)
 const isLightTheme = ref(false)
 function init () {
-  if (useConfig.app().theme.name === 'light') {
+  if (useConfig.appConfig().theme.name === 'light') {
     isLightTheme.value = true
   } else {
     isLightTheme.value = false
@@ -42,9 +42,9 @@ const doShowOuter = () => {
  */
 watch(isLightTheme, (value:boolean) => {
   if (value) {
-    useConfig.app().setTheme(lightTheme)
+    useConfig.appConfig().setTheme(lightTheme)
   } else {
-    useConfig.app().setTheme(darkTheme)
+    useConfig.appConfig().setTheme(darkTheme)
   }
 },
 )

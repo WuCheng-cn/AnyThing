@@ -31,7 +31,7 @@ import { useConfig } from '@/store'
 
 const ThemeSettingRef = ref()
 const theme = computed(() => {
-  return useConfig.app().theme
+  return useConfig.appConfig().theme
 })
 
 const renderIcon = (icon: Component) => {
