@@ -1,4 +1,4 @@
-import { useConfig } from '@/store';
+import { useConfig } from '@/config';
 import { AnyMessageHelper } from './AnyMessageHelper';
 interface FileDialogConfig {
   accept?: string | string[];
