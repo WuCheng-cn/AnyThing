@@ -20,18 +20,22 @@
         <TeleportContainer />
       </div>
     </Panle>
+    <template #slider-right>
+      <AButton @click="handleClick" />
+    </template>
   </Panle>
 </template>
 <script lang="ts" setup>
 import { onMounted, ref, computed, defineComponent } from 'vue'
 import { Graph } from '@antv/x6'
-import { Panle } from '@/components/UI'
+import { AButton, Panle } from '@/components/UI'
 import { useConfig } from '@/config'
 import GraphicsMaker from '@/views/GraphicsEngine/index'
 import { Dnd } from '@antv/x6-plugin-dnd'
 import { register, getTeleport } from '@antv/x6-vue-shape'
 import { Registry } from './component/index'
 import { RegistItem } from '@/model/graph/RegistInterface'
+import { useStore } from '@/store'
 
 const box = ref<HTMLElement>()
 const graph = ref<Graph>()
@@ -73,8 +77,6 @@ init()
  * @description: 监听容器大小变化
  */
 function handleResize (e:ResizeObserverEntry[]) {
-  // console.log('resize')
-  // console.log(e[0].devicePixelContentBoxSize[0].inlineSize)
   boxWidth.value = e[0].devicePixelContentBoxSize[0].inlineSize
 }
 
@@ -84,6 +86,8 @@ function handleResize (e:ResizeObserverEntry[]) {
 function handleDrag (e:MouseEvent, item:RegistItem) {
   const dnd = new Dnd({
     target: graph.value as Graph,
+    getDragNode: (node) => node.clone({ keepId: true }),
+    getDropNode: (node) => node.clone({ keepId: true }),
   })
   const node = graph.value!.createNode({
     shape: item.nodeShape,
@@ -97,8 +101,18 @@ function handleDrag (e:MouseEvent, item:RegistItem) {
 onMounted(() => {
   const container = document.getElementById('container') as HTMLElement
   graph.value = new GraphicsMaker().create(container)
+  graph.value.on('node:selected', ({ node, options }) => {
+    console.log(node)
+    console.log(options)
+    currentData.value = node.id
+  })
 })
 
+const currentData = ref('')
+function handleClick () {
+  useStore().graphStore.recordsCenter[currentData.value]?.series[0].data.push(1000)
+  useStore().graphStore.recordsCenter[currentData.value]?.xAxis.data.push('x')
+}
 </script>
 
 <style>

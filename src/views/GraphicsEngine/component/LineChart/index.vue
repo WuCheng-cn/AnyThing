@@ -5,20 +5,17 @@
 </template>
 <script lang="ts" setup>
 import * as echarts from 'echarts'
-import { onMounted, ref, PropType, inject } from 'vue'
-const props = defineProps({
-  chartConfig: {
-    type: Object as PropType<config>,
-    required: true,
-  },
-})
+import { onMounted, ref, inject, computed, watch } from 'vue'
+import { Node } from '@antv/x6'
+import { useStore } from '@/store'
+
 const getNode: any = inject('getNode')
-const VueShape = ref(getNode())
+const node = ref<Node>(getNode())
 
 type EChartsOption = echarts.EChartsOption;
 const chartDom = ref()
 let myChart :echarts.ECharts
-const option:EChartsOption = {
+const option = ref<EChartsOption>({
   xAxis: {
     type: 'category',
     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -33,13 +30,21 @@ const option:EChartsOption = {
       smooth: true,
     },
   ],
-}
+})
 function handleResize () {
   myChart.resize({ animation: { duration: 300 } })
 }
 onMounted(() => {
   myChart = echarts.init(chartDom.value)
-  option && myChart.setOption(option, true)
+  option.value && myChart.setOption(option.value, true) 
+  console.log(node.value)
+  useStore().graphStore.setRecord(node.value.id, option.value)
+  const record = computed(() => useStore().graphStore.getRecord(node.value.id))
+  watch(record, (newVal) => {
+    console.log(newVal)
+    
+    myChart.setOption(newVal, true)
+  }, { deep: true })
 })
 
 </script>
