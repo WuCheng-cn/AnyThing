@@ -26,13 +26,13 @@
 import { onMounted, ref, computed, defineComponent } from 'vue'
 import { Graph } from '@antv/x6'
 import { Panle } from '@/components/UI'
-import { useConfig } from '@/store/index'
+import { useConfig } from '@/config'
 import GraphicsMaker from '@/views/GraphicsEngine/index'
 import { Dnd } from '@antv/x6-plugin-dnd'
 import { register, getTeleport } from '@antv/x6-vue-shape'
 import { Registry } from './component/index'
 import { RegistItem } from '@/model/graph/RegistInterface'
-import { graphConfig } from '@/store/graphConfig'
+
 const box = ref<HTMLElement>()
 const graph = ref<Graph>()
 const boxWidth = ref(0)
@@ -43,6 +43,10 @@ defineComponent({
     TeleportContainer,
   },
 })
+
+/**
+ * @description: 容器样式
+ */
 const containerStyle = computed(() => {
   const expectWidth = useConfig.graphConfig().expectWidth
   const expectHeight = useConfig.graphConfig().expectHeight

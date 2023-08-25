@@ -27,7 +27,7 @@ import {
   SettingsSharp as SettingIcon,
 } from '@vicons/ionicons5'
 import ThemeSettingVue from './themeSetting.vue'
-import { useConfig } from '@/store'
+import { useConfig } from '@/config'
 
 const ThemeSettingRef = ref()
 const theme = computed(() => {

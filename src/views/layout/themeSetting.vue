@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { darkTheme, lightTheme } from 'naive-ui'
-import { useConfig } from '@/store/index'
+import { useConfig } from '@/config'
   
 const showOuterRef = ref(false)
 const isLightTheme = ref(false)
