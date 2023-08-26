@@ -8,8 +8,8 @@
  * 
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
  */
-import { graphConfig } from './graphConfig'
-import { appConfig } from './appConfig'
+import { graphConfig } from './GraphConfig'
+import { appConfig } from './AppConfig'
 
 /**
  * # 全局配置文件数据中心
