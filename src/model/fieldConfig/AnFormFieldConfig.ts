@@ -2,12 +2,13 @@ import { useConfig } from "@/config";
 import { EFormType } from "@/enum/EFormType";
 import { InFormFieldConfig } from "@/interface/base/InFormFiledConfig";
 import { AnFieldConfig } from "./AnFieldConfig";
+
 const AppConfig = useConfig().AppConfig;
 /**
  * # 表单配置实现类
  */
 export class AnFormFieldConfig extends AnFieldConfig implements InFormFieldConfig {
-  formType?: EFormType = EFormType.TEXT;
+  formType: EFormType = EFormType.TEXT;
 
   max?: number = AppConfig.max;
 
@@ -26,6 +27,6 @@ export class AnFormFieldConfig extends AnFieldConfig implements InFormFieldConfi
   hidden?: boolean = false;
 
   defaultValue?: any = '';
-  
+
   trim?: boolean = true;
 }

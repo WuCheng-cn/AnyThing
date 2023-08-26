@@ -33,11 +33,11 @@ export const AppConfig = defineStore('appConfig', {
       /**
        * 最大长度
        */
-      maxLength: 999999999999999,
+      maxLength: 16,
       /**
        * 最小长度
        */
-      minLength: -999999999999999,      
+      minLength: 0,      
     }
   },
   actions: {
