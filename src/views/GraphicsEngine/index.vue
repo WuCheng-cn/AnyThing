@@ -52,8 +52,8 @@ defineComponent({
  * @description: 容器样式
  */
 const containerStyle = computed(() => {
-  const expectWidth = useConfig.graphConfig().expectWidth
-  const expectHeight = useConfig.graphConfig().expectHeight
+  const expectWidth = useConfig().GraphConfig.expectWidth
+  const expectHeight = useConfig().GraphConfig.expectHeight
   const ratio = boxWidth.value / expectWidth  
   const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
   return str

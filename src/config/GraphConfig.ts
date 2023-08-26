@@ -3,7 +3,7 @@ import { defineStore } from "pinia"
 /**
  * # 画布相关配置
  */
-export const graphConfig = defineStore('graphConfig', {
+export const GraphConfig = defineStore('graphConfig', {
   persist: true,
   state: () => {
     return {

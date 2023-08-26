@@ -5,7 +5,7 @@ import { darkTheme } from 'naive-ui'
 /**
  * # app相关配置
  */
-export const appConfig = defineStore('appConfig', {
+export const AppConfig = defineStore('appConfig', {
   // persist: true,
   state: () => {
     return {
@@ -21,7 +21,23 @@ export const appConfig = defineStore('appConfig', {
       /**
        * 上传/读取文件大小限制
        */
-      maxFileSize: 1024 * 1024 * 10
+      maxFileSize: 1024 * 1024 * 10,
+      /**
+       * 最大值
+       */
+      max: 999999999999999,
+      /**
+       * 最小值
+       */
+      min: -999999999999999,
+      /**
+       * 最大长度
+       */
+      maxLength: 999999999999999,
+      /**
+       * 最小长度
+       */
+      minLength: -999999999999999,      
     }
   },
   actions: {

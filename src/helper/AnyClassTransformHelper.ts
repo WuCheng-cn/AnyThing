@@ -1,4 +1,4 @@
-import { Basic } from "@/model/basic/Basic";
+import { AnBasic } from "@/model/basic/AnBasic";
 import { plainToInstance } from "class-transformer";
 import { ClassConstructor,TargetMap } from "class-transformer/types/interfaces";
 /**
@@ -42,7 +42,7 @@ export class AnyClassTransformHelper {
   }
 
 
-  static copy<F extends Basic, T extends Basic>(from: F, to: ClassConstructor<T>): T {
+  static copy<F extends AnBasic, T extends AnBasic>(from: F, to: ClassConstructor<T>): T {
     return this.parse(from.toSource(), to)
   }
 }

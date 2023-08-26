@@ -31,7 +31,7 @@ import { useConfig } from '@/config'
 
 const ThemeSettingRef = ref()
 const theme = computed(() => {
-  return useConfig.appConfig().theme
+  return useConfig().AppConfig.theme
 })
 
 const renderIcon = (icon: Component) => {

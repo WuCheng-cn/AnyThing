@@ -8,13 +8,16 @@
  * 
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
  */
-import { graphConfig } from './GraphConfig'
-import { appConfig } from './AppConfig'
+import { GraphConfig } from './GraphConfig'
+import { AppConfig } from './AppConfig'
 
 /**
  * # 全局配置文件数据中心
  */
-export const useConfig = {
-  graphConfig,
-  appConfig
+export const useConfig = ()=>{
+  return {
+    GraphConfig:GraphConfig(),
+    AppConfig:AppConfig()
+  }
 }
+

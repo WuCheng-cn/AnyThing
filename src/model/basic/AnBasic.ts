@@ -5,13 +5,13 @@ import { instanceToPlain } from 'class-transformer'
 /**
  * 模型基类（最基础的模型操作）
  */
-export class Basic {
+export class AnBasic {
   /**
    * 创建一个当前类型的实例
    * @returns 当前类型的实例
    * @description 该方法是对new操作符的封装，用于创建当前类型的实例
    */
-  static newInstance<T extends Basic>(): T {
+  static newInstance<T extends AnBasic>(): T {
     return new (this as any)()
   }
 
