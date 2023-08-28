@@ -26,7 +26,7 @@ export class AnBasic {
   }
 
   /**
-   * 将实体转为字面量对象
+   * 将实体按别名转为字面量对象
    * @returns 字面量对象
    */
   toAliasObject(): Record<string, any> {

@@ -43,6 +43,6 @@ export class AnyClassTransformHelper {
 
 
   static copy<F extends AnBasic, T extends AnBasic>(from: F, to: ClassConstructor<T>): T {
-    return this.parse(from.toSource(), to)
+    return this.parse(from.toAliasObject(), to)
   }
 }
