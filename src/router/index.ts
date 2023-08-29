@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
         name: '代码编辑器',
         component: () => import('@/views/CodeView/index.vue')
       },
+      {
+        path: '/demo',
+        name: 'demo',
+        component: () => import('@/views/Demo/index.vue')
+      },
     ]
   },
 ]
