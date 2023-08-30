@@ -36,6 +36,7 @@
     "reflect-metadata": "^0.1.13",
     "vfonts": "^0.0.3",
     "vite-plugin-eslint": "^1.8.1",
+    "vooks": "^0.2.12",
     "vue": "^3.2.45",
     "vue-router": "4"
   },

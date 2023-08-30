@@ -1,6 +1,6 @@
 import { App, Component, createApp, h, Transition } from "vue";
 import naive from 'naive-ui'
-import { NModal } from 'naive-ui'
+import DialogVue from "@/components/UI/Dialog.vue";
 
 export class AnyDialogHelper {
   /**
@@ -43,28 +43,17 @@ export class AnyDialogHelper {
        */
       const renderApp = {
         render: () => h(
-          Transition,
+          DialogVue,
           {
-            name: 'fade-in-scale-up-transition',
-            key: "mask"
+            "onOn-after-leave": () => {
+              console.log('unmount');
+              unmount()
+            }
           },
           {
-            default: () => h(
-              NModal,
-              {
-                show: true,
-                preset: 'dialog',
-                ['onUpdate:show']: (v: boolean) => {
-                  if (!v) {
-                    unmount()
-                  }
-                }
-              },
-              {
-                default: () => h(view, dialogParam)
-              }
-            )
-          })
+            default: () => h(view, dialogParam)
+          }
+        )
       }
       app = createApp(renderApp).use(naive)
       document.body.appendChild(parentNode)
