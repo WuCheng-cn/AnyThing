@@ -32,10 +32,6 @@ export class AnyDialogHelper {
           unmount()
           resolve(p)
         },
-        onCancel: () => {
-          unmount()
-          reject()
-        },
         ...param,
       }
       /**
@@ -48,6 +44,7 @@ export class AnyDialogHelper {
             "onOn-after-leave": () => {
               console.log('unmount');
               unmount()
+              // reject()
             }
           },
           {

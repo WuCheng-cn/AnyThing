@@ -15,14 +15,16 @@
         <template #header-extra>
           噢！
         </template>
-        内容
+        <CodeView />
         <template #footer>
           尾部
         </template>
       </n-card>
     </n-modal>
-    <AButton @click="AnyDialogHelper.showModel(CodeView)">打开弹窗</AButton>
-    <AButton @click="showModal = !showModal">打开弹窗</AButton>
+    <n-space>
+      <AButton @click="AnyDialogHelper.showModel(CodeView)">打开弹窗（api调用）</AButton>
+      <AButton @click="showModal = !showModal">打开弹窗（组件式）</AButton>
+    </n-space>
   </Panle>
 </template>
 <script lang="ts" setup>

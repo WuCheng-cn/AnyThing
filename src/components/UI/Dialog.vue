@@ -34,6 +34,18 @@ import { ref, onMounted, computed } from 'vue'
 import { useConfig } from '@/config'
 import { useStore } from '@/store'
 
+defineProps({
+  onConfirm: {
+    type: Function,
+    default: () => () => {
+      console.log('onConfirm')
+    },
+  },
+  param: {
+    type: Object,
+    default: () => ({}),
+  },
+})
 const theme = computed(() => {
   return useConfig().AppConfig.theme
 })
@@ -41,6 +53,9 @@ const emits = defineEmits(['on-after-leave'])
 
 const showModal = ref(false)
 
+/**
+ * 模态框关闭后的回调
+ */
 function onAfterLeave () {  
   emits('on-after-leave')
 }
