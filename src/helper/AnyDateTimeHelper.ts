@@ -76,10 +76,6 @@ export class AnyDateTimeHelper {
    */
   static getTimeText(date: Date | number | string): string {
     const now = new Date().getTime()
-    // ios不支持2020-01-01这种格式，需要转换成2020/01/01
-    if (typeof date === 'string') {
-      date = date.replace(/-/g, '/')
-    }
     const time = this.getTime(date)
     const diff = now - time
     const day = diff / (24 * 60 * 60 * 1000)
