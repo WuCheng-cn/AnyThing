@@ -2,6 +2,15 @@ import { App, Component, createApp, h, Transition } from "vue";
 import naive from 'naive-ui'
 import DialogVue from "@/components/UI/Dialog.vue";
 
+/**
+ * 对话框帮助类
+ * @description 用于创建对话框
+ * @example
+ * ```ts
+ * // 创建一个对话框
+ * AnyDialogHelper.showModel(HelloWorld, { name: 'world' })
+ * ```
+ */
 export class AnyDialogHelper {
   /**
    * 创建一个对话框
@@ -42,7 +51,6 @@ export class AnyDialogHelper {
           DialogVue,
           {
             "onOn-after-leave": () => {
-              console.log('unmount');
               unmount()
               // reject()
             }
