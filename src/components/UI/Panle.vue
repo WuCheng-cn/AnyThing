@@ -66,7 +66,7 @@ const props = defineProps({
     default: false,
   },
 })
-const emitFn = defineEmits(['resize'])
+const emits = defineEmits(['resize'])
 
 const siderPlacement = computed(() => {
   if (props.hideSlider) {
@@ -85,7 +85,7 @@ const siderPlacement = computed(() => {
 })
 
 const resize = () => {
-  emitFn('resize')
+  emits('resize')
 }
 </script>
 <style lang="less" scoped>

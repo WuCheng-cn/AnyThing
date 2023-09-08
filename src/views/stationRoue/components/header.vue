@@ -72,11 +72,11 @@ const status = [
 const selectRoute = () => {
   console.log(1)
 }
-const emit = defineEmits(['changeCarNum', 'changeRoute'])
+const emits = defineEmits(['changeCarNum', 'changeRoute'])
 const isCarNum = ref(false)
 const switchShow = (boolean) => {
   isCarNum.value = boolean
-  emit('changeCarNum', boolean)
+  emits('changeCarNum', boolean)
 }
 
 </script>

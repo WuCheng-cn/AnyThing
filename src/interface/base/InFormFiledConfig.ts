@@ -3,6 +3,7 @@ import { InFieldConfig } from "./InFieldConfig";
 
 export interface InFormFieldConfig extends InFieldConfig{
   formType?: EFormType;
+  label?: string;
   max?: number;
   min?: number;
   maxLength?: number;

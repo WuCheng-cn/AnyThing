@@ -9,7 +9,7 @@
         <span class="car_driver">驾驶员:{{ props.dialog_data.driverName }}</span>
         <span class="car_driver">部位:{{ props.dialog_data.place }}</span>
       </div>
-      <div class="dialog_hide" @click="()=>emit('closeDilog')">
+      <div class="dialog_hide" @click="()=>emits('closeDilog')">
         X
       </div>
     </div>
@@ -76,7 +76,7 @@ const methods = ref([
     btn: '发车时间修改',
   },
 ])
-const emit = defineEmits('closeDilog')
+const emits = defineEmits('closeDilog')
 nextTick(() => {
   const dialog_car = document.querySelector('.dialog_car')
   dialog_car.style.left = props.x

@@ -156,7 +156,7 @@ graphData.value.edges = [...upEdge.value, ...downEdge.value]
 
 // boxRef
 const boxCard = ref(null)
-const emit = defineEmits(['showCarDialog'])
+const emits = defineEmits(['showCarDialog'])
 onMounted(() => {
   // 渲染函数
   const graph = new Graph({
@@ -178,7 +178,7 @@ onMounted(() => {
   graph.on('node:click', (e) => {
     console.log(e)
     if (e.node.shape == 'car_vue_node') {
-      emit('showCarDialog', e)
+      emits('showCarDialog', e)
     }
   })
   // 图例事件
