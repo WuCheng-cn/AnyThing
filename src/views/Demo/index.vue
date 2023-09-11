@@ -26,6 +26,7 @@
       {{ AnyDateTimeHelper.format('Fri Sep 08 2023 10:20:13 GMT+0800 (中国标准时间)') }}
       <Text v-model="text" />
       <TextArea v-model="text" />
+      <Select v-model="sel" />
     </n-space>
   </Panle>
 </template>
@@ -37,6 +38,8 @@ import CodeView from '@/views/CodeView/index.vue'
 import { ref } from 'vue'
 import Text from '@/components/Form/formItem/Text.vue'
 import TextArea from '@/components/Form/formItem/TextArea.vue'
+import Select from '@/components/Form/formItem/Select.vue'
 const showModal = ref(false)
 const text = ref('')
+const sel = ref('')
 </script>

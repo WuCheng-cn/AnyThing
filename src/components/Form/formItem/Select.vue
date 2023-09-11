@@ -10,7 +10,7 @@
     :multiple="props.multiple"
     :clearable="fieldConfig?.clearable"
     :render-option="renderOption"
-    :options="(enumRecord as unknown as SelectMixedOption[]) "
+    :options="((enumRecord ? enumRecord : fieldConfig?.emumRecord)as unknown as SelectMixedOption[]) "
   />
 </template>
 <script lang="ts" setup>
