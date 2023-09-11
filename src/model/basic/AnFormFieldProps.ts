@@ -1,11 +1,10 @@
-import { ClassConstructor } from "class-transformer";
 import { PropType } from "vue";
 import { AnBasic } from "./AnBasic";
 
 export function AnFormFieldProps(){
   return {
     modelValue: {
-      type: String,
+      type: [String, Number, Boolean, Array, Object, Date],
       default: undefined,
     },
     /**
@@ -20,7 +19,7 @@ export function AnFormFieldProps(){
      * 如同时传入了```modifier```或```v-model```指令的```modifier``` 则自动生成兜底的```placeholder```等信息
      */
     entity: {
-      type: Function as unknown as PropType<ClassConstructor<AnBasic>>,
+      type: Function as unknown as PropType<AnBasic>,
       default: undefined,
     },
     /**
@@ -30,12 +29,22 @@ export function AnFormFieldProps(){
       type: String,
       default: undefined,
     },
+    /**
+     * # 是否禁用
+     */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * # 是否圆角
+     * @description 仅在```type```为```text ， textarea```时生效
+     * @default false
+     */
+    round: {
+      type: Boolean,
+      default: false,
+    },
   }
 }
 
-export type  AnFormFieldPropsType = {
-  modelValue:string
-  modelModifiers:Record<string,boolean>
-  entity: AnBasic;
-  placeholder:string
-}

@@ -10,55 +10,6 @@ export enum EFormType {
    */
   TEXT = "text",
   /**
-   * # 数字
-   * @description 数字框
-   * @description 用于输入数字
-   * @description 该类型的字段将会被渲染为数字框
-   */
-  NUMBER = "number",
-  /**
-   * # 日期
-   * @description 日期框
-   * @description 用于输入日期
-   * @description 该类型的字段将会被渲染为日期框
-   */
-  DATE = "date",
-  /**
-   * # 日期时间
-   * @description 日期时间框
-   * @description 用于输入日期时间
-   * @description 该类型的字段将会被渲染为日期时间框
-   */
-  DATETIME = "dateTime",
-  /**
-   * # 时间
-   * @description 时间框
-   * @description 用于输入时间
-   * @description 该类型的字段将会被渲染为时间框
-   */
-  TIME = "time",
-  /**
-   * # 日期范围
-   * @description 日期范围框
-   * @description 用于输入日期范围
-   * @description 该类型的字段将会被渲染为日期范围框
-   */
-  DATE_RANGE = "dateRange",
-  /**
-   * # 日期时间范围
-   * @description 日期时间范围框
-   * @description 用于输入日期时间范围
-   * @description 该类型的字段将会被渲染为日期时间范围框
-   */
-  DATETIME_RANGE = "dateTimeRange",
-  /**
-   * # 时间范围
-   * @description 时间范围框
-   * @description 用于输入时间范围
-   * @description 该类型的字段将会被渲染为时间范围框
-   */
-  TIME_RANGE = "timeRange",
-  /**
    * # 文本域
    * @description 文本域
    * @description 用于输入大段文本
@@ -72,6 +23,13 @@ export enum EFormType {
    * @description 该类型的字段将会被渲染为富文本框
    */   
   RICHTEXT = "richText",
+  /**
+   * # 日期
+   * @description 日期框
+   * @description 用于输入日期
+   * @description 该类型的字段将会被渲染为日期框
+   */
+  DATE = "date",
   /**
    * # 单选
    * @description 单选框
@@ -93,13 +51,6 @@ export enum EFormType {
    * @description 该类型的字段将会被渲染为下拉框
    */
   SELECT = "select",
-  /**
-   * # 下拉多选
-   * @description 下拉多选框
-   * @description 用于选择多项
-   * @description 该类型的字段将会被渲染为下拉多选框
-   */
-  SELECT_MULTIPLE = "selectMultiple",
   /**
    * # 开关
    * @description 开关
