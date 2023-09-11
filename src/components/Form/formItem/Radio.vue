@@ -40,8 +40,12 @@ watch(
     deep: true,
   },
 )
+/**
+ * 绑定数据
+ */
+const value = ref<string|number|boolean>('')
 watch(
-  () => value.value,
+  value,
   (newValue) => {
     emits('update:modelValue', newValue)
   },
@@ -49,11 +53,6 @@ watch(
     deep: true,
   },
 )
-/**
- * 绑定数据
- */
-const value = ref<string|number|boolean>('')
-
 /**
  * 字段的表单配置信息
  */

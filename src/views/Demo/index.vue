@@ -25,6 +25,7 @@
       <AButton @click="showModal = !showModal">打开弹窗（组件式）</AButton>
       {{ AnyDateTimeHelper.format('Fri Sep 08 2023 10:20:13 GMT+0800 (中国标准时间)') }}
       <Text v-model="text" />
+      <TextArea v-model="text" />
     </n-space>
   </Panle>
 </template>
@@ -34,8 +35,8 @@ import { AnyDateTimeHelper } from '@/helper/AnyDateTimeHelper'
 import { AnyDialogHelper } from '@/helper/AnyDialogHelper'
 import CodeView from '@/views/CodeView/index.vue'
 import { ref } from 'vue'
-import Text from '@/components/Form/input/Text.vue'
-
+import Text from '@/components/Form/formItem/Text.vue'
+import TextArea from '@/components/Form/formItem/TextArea.vue'
 const showModal = ref(false)
 const text = ref('')
 </script>

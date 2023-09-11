@@ -55,8 +55,13 @@ watch(
     deep: true,
   },
 )
+
+/**
+ * 绑定数据
+ */
+const value = ref<number|[number, number]>()
 watch(
-  () => value.value,
+  value,
   (newValue) => {
     emits('update:modelValue', newValue)
   },
@@ -64,10 +69,6 @@ watch(
     deep: true,
   },
 )
-/**
- * 绑定数据
- */
-const value = ref<number|[number, number]>()
 /**
  * 字段的表单配置信息
  */
