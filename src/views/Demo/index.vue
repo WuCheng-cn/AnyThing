@@ -36,9 +36,9 @@ import { AnyDateTimeHelper } from '@/helper/AnyDateTimeHelper'
 import { AnyDialogHelper } from '@/helper/AnyDialogHelper'
 import CodeView from '@/views/CodeView/index.vue'
 import { ref } from 'vue'
-import Text from '@/components/Form/formItem/Text.vue'
-import TextArea from '@/components/Form/formItem/TextArea.vue'
-import Select from '@/components/Form/formItem/Select.vue'
+import Text from '@/components/Form/Text.vue'
+import TextArea from '@/components/Form/TextArea.vue'
+import Select from '@/components/Form/Select.vue'
 const showModal = ref(false)
 const text = ref('')
 const sel = ref('')
