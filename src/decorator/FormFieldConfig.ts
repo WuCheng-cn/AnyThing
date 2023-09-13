@@ -1,6 +1,6 @@
 import { InFormFieldConfig } from "@/interface/base/InFormFiledConfig";
 import { AnBasic } from "@/model/basic/AnBasic";
-import { AnFormFieldConfig } from "@/model/fieldConfig/AnFormFieldConfig";
+import { AnFormFieldConfig } from "@/model/basic/AnFormFieldConfig";
 import { getFieldName } from "./FieldName";
 
 const customFormFieldConfigName = Symbol('customFormFieldConfigName');

@@ -3,7 +3,7 @@ import { getFieldName } from '@/decorator/FieldName'
 import { getFormFieldConfig, getFormFieldConfigList, getFormFieldList } from '@/decorator/FormFieldConfig'
 import { AnyClassTransformHelper } from '@/helper/AnyClassTransformHelper'
 import { instanceToPlain } from 'class-transformer'
-import { AnFormFieldConfig } from '../fieldConfig/AnFormFieldConfig'
+import { AnFormFieldConfig } from './AnFormFieldConfig'
 /**
  * 模型基类（最基础的模型操作）
  */

@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, PropType } from 'vue'
 import { AnFormFieldProps } from '@/model/basic/AnFormFieldProps'
-import { AnFormFieldConfig } from '@/model/fieldConfig/AnFormFieldConfig'
+import { AnFormFieldConfig } from '@/model/basic/AnFormFieldConfig'
 import { EPlacementType } from '@/enum/EPlacementType'
 import { IsDateDisabled } from 'naive-ui/es/date-picker/src/interface'
 

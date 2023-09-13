@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue'
 import { AnFormFieldProps } from '@/model/basic/AnFormFieldProps'
-import { AnFormFieldConfig } from '@/model/fieldConfig/AnFormFieldConfig'
+import { AnFormFieldConfig } from '@/model/basic/AnFormFieldConfig'
 import { InRecord } from '@/interface/base/InRecord'
 import { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 import { RenderOption } from 'naive-ui/es/dropdown/src/interface'

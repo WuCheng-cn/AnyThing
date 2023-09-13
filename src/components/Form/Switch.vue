@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { AnFormFieldProps } from '@/model/basic/AnFormFieldProps'
-import { AnFormFieldConfig } from '@/model/fieldConfig/AnFormFieldConfig'
+import { AnFormFieldConfig } from '@/model/basic/AnFormFieldConfig'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
