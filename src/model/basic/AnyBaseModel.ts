@@ -84,7 +84,6 @@ export class AnyBaseModel {
     return getFormFieldConfigList(this)
   }
 
-
   /**
    * 获取标记了表单配置的字段列表（含所有父类的）
    * ---
@@ -97,7 +96,6 @@ export class AnyBaseModel {
   getCustomFormList(): string[] {
     return getFormFieldList(this)
   }
-
 
   /**
    * 获取属性的可阅读名字
