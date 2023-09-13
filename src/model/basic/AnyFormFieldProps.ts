@@ -1,7 +1,7 @@
 import { PropType } from "vue";
-import { AnBasic } from "./AnBasic";
+import { AnyBasic } from "./AnyBasic";
 
-export function AnFormFieldProps(){
+export function AnyFormFieldProps(){
   return {
     modelValue: {
       type: [String, Number, Boolean, Array, Object, Date],
@@ -19,7 +19,7 @@ export function AnFormFieldProps(){
      * 如同时传入了```modifier```或```v-model```指令的```modifier``` 则自动生成兜底的```placeholder```等信息
      */
     entity: {
-      type: Function as unknown as PropType<AnBasic>,
+      type: Function as unknown as PropType<AnyBasic>,
       default: undefined,
     },
     /**

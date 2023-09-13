@@ -1,7 +1,7 @@
 import { useConfig } from "@/config";
 import { EFormType } from "@/enum/EFormType";
 import { InFormFieldConfig } from "@/interface/base/InFormFiledConfig";
-import { AnFieldConfig } from "./AnFieldConfig";
+import { AnyFieldConfig } from "./AnyFieldConfig";
 import { EDateFormType } from "@/enum/EDateFormType";
 import { InRecord } from "@/interface/base/InRecord";
 
@@ -9,7 +9,7 @@ const AppConfig = useConfig().AppConfig;
 /**
  * # 表单配置实现类
  */
-export class AnFormFieldConfig extends AnFieldConfig implements InFormFieldConfig {
+export class AnyFormFieldConfig extends AnyFieldConfig implements InFormFieldConfig {
   /**
    * # 表单类型
    * @description 该字段将会被渲染为什么类型的表单

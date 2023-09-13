@@ -1,4 +1,4 @@
-import { AnBasic } from "@/model/basic/AnBasic";
+import { AnyBasic } from "@/model/basic/AnyBasic";
 
 const customFieldNameMetaKey = Symbol("customFieldName");
 
@@ -18,13 +18,13 @@ export function FieldName(customFieldName: string) {
  * @returns 字段的自定义名称
  * @description 该方法用于获取字段的自定义名称，如果字段没有自定义名称，则返回字段名
  */
-export function getFieldName<E extends AnBasic>(target: E, fieldKey: string): string {
+export function getFieldName<E extends AnyBasic>(target: E, fieldKey: string): string {
   let fieldName = Reflect.getOwnMetadata(customFieldNameMetaKey, target, fieldKey)
   if (fieldName) {
     return fieldName
   }
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === AnBasic.name) {
+  if (superClass.constructor.name === AnyBasic.name) {
     return fieldKey
   }
   fieldName = getFieldName(superClass, fieldKey)

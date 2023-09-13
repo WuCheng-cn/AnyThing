@@ -17,13 +17,13 @@
 </template>
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue'
-import { AnFormFieldProps } from '@/model/basic/AnFormFieldProps'
-import { AnFormFieldConfig } from '@/model/basic/AnFormFieldConfig'
+import { AnyFormFieldProps } from '@/model/basic/AnyFormFieldProps'
+import { AnyFormFieldConfig } from '@/model/basic/AnyFormFieldConfig'
 import { InRecord } from '@/interface/base/InRecord'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
-  ...AnFormFieldProps(),
+  ...AnyFormFieldProps(),
   /**
    * # 枚举值翻译，用于渲染选项 优先级大于fieldConfig.emumRecord
    */
@@ -73,7 +73,7 @@ watch(
 /**
  * 字段的表单配置信息
  */
-const fieldConfig = ref<AnFormFieldConfig | null>(null)
+const fieldConfig = ref<AnyFormFieldConfig | null>(null)
 
 /**
  * 初始化

@@ -3,17 +3,17 @@ import { getFieldName } from '@/decorator/FieldName'
 import { getFormFieldConfig, getFormFieldConfigList, getFormFieldList } from '@/decorator/FormFieldConfig'
 import { AnyClassTransformHelper } from '@/helper/AnyClassTransformHelper'
 import { instanceToPlain } from 'class-transformer'
-import { AnFormFieldConfig } from './AnFormFieldConfig'
+import { AnyFormFieldConfig } from './AnyFormFieldConfig'
 /**
  * 模型基类（最基础的模型操作）
  */
-export class AnBasic {
+export class AnyBasic {
   /**
    * 创建一个当前类型的实例
    * @returns 当前类型的实例
    * @description 该方法是对new操作符的封装，用于创建当前类型的实例
    */
-  static newInstance<T extends AnBasic>(): T {
+  static newInstance<T extends AnyBasic>(): T {
     return new (this as any)()
   }
 
@@ -34,7 +34,7 @@ export class AnBasic {
     * @description 该方法用于获取字段的自定义表单配置，如果字段没有自定义表单配置，则返回null
     * @description 该方法是对getFormFieldConfig方法的封装，用于获取字段的自定义表单配置
     */
-  static getCustomFormFieldConfig(fieldKey: string): AnFormFieldConfig | null {
+  static getCustomFormFieldConfig(fieldKey: string): AnyFormFieldConfig | null {
     return getFormFieldConfig(this.newInstance(), fieldKey)
   }
 
@@ -44,7 +44,7 @@ export class AnBasic {
    * @description 该方法用于获取实体的所有自定义表单配置
    * @description 该方法是对getFormFieldConfigList方法的封装，用于获取实体的所有自定义表单配置
    */
-  static getCustomFormFieldConfigList(): AnFormFieldConfig[] {
+  static getCustomFormFieldConfigList(): AnyFormFieldConfig[] {
     return getFormFieldConfigList(this.newInstance())
   }
 
@@ -67,7 +67,7 @@ export class AnBasic {
    * @description 该方法是对getFormFieldConfig方法的封装，用于获取字段的自定义表单配置
    * @see getCustomFormFieldConfig
    */
-  getCustomFormFieldConfig(fieldKey: string): AnFormFieldConfig | null {
+  getCustomFormFieldConfig(fieldKey: string): AnyFormFieldConfig | null {
     return getFormFieldConfig(this, fieldKey)
   }
 
@@ -80,7 +80,7 @@ export class AnBasic {
    * @deprecated 该方法已被废弃，请使用getCustomFormFieldConfigList方法
    * @see getCustomFormFieldConfigList
    */
-  getCustomFormConfigList(): AnFormFieldConfig[] {
+  getCustomFormConfigList(): AnyFormFieldConfig[] {
     return getFormFieldConfigList(this)
   }
 

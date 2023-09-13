@@ -1,6 +1,6 @@
 import { InFormFieldConfig } from "@/interface/base/InFormFiledConfig";
-import { AnBasic } from "@/model/basic/AnBasic";
-import { AnFormFieldConfig } from "@/model/basic/AnFormFieldConfig";
+import { AnyBasic } from "@/model/basic/AnyBasic";
+import { AnyFormFieldConfig } from "@/model/basic/AnyFormFieldConfig";
 import { getFieldName } from "./FieldName";
 
 const customFormFieldConfigName = Symbol('customFormFieldConfigName');
@@ -11,10 +11,10 @@ const customFormFieldConfigListName = Symbol('customFormFieldConfigListName');
  * @param customFormFieldConfig 自定义表单配置
  * @description 该装饰器用于为字段指定自定义表单配置
  */
-  export function FormFieldConfig<E extends AnBasic>(customFormFieldConfig: InFormFieldConfig) {
+  export function FormFieldConfig<E extends AnyBasic>(customFormFieldConfig: InFormFieldConfig) {
     return function (target: any, key: string) {
       if (!customFormFieldConfig) {
-        customFormFieldConfig = new AnFormFieldConfig();
+        customFormFieldConfig = new AnyFormFieldConfig();
       }
       const formFieldList = Reflect.getOwnMetadata(customFormFieldConfigListName, target) || []
       formFieldList.push(key)
@@ -30,17 +30,17 @@ const customFormFieldConfigListName = Symbol('customFormFieldConfigListName');
  * @returns 字段的自定义表单配置
  * @description 该方法用于获取字段的自定义表单配置，如果字段没有自定义表单配置，则返回null
  */
-export function getFormFieldConfig<E extends AnBasic>(target: E, fieldKey: string): AnFormFieldConfig | null {
+export function getFormFieldConfig<E extends AnyBasic>(target: E, fieldKey: string): AnyFormFieldConfig | null {
   let formFieldConfig = Reflect.getOwnMetadata(customFormFieldConfigName, target, fieldKey)
   //当前实例没有自定义表单配置，从父类获取
   if (!formFieldConfig) {
     const superClass = Object.getPrototypeOf(target)
-    if (superClass.constructor.name === AnBasic.name) {
+    if (superClass.constructor.name === AnyBasic.name) {
       return null
     }
     formFieldConfig = getFormFieldConfig(superClass, fieldKey)
   }
-  // 如果一直到AnBasic也没有自定义表单配置，则返回null
+  // 如果一直到AnyBasic也没有自定义表单配置，则返回null
   if (!formFieldConfig) {
     return null
   }
@@ -49,7 +49,7 @@ export function getFormFieldConfig<E extends AnBasic>(target: E, fieldKey: strin
     formFieldConfig.label = getFieldName(target, fieldKey)
   }
   // 将自定义配置中的属性覆盖到默认配置中并返回
-  const defaultFormFieldConfig = new AnFormFieldConfig()
+  const defaultFormFieldConfig = new AnyFormFieldConfig()
   formFieldConfig = Object.assign(defaultFormFieldConfig, formFieldConfig)
   return formFieldConfig
 }
@@ -60,9 +60,9 @@ export function getFormFieldConfig<E extends AnBasic>(target: E, fieldKey: strin
  * @returns 实体的所有自定义表单配置
  * @description 该方法用于获取实体的所有自定义表单配置
  */
-export function getFormFieldConfigList<E extends AnBasic>(target: E): AnFormFieldConfig[] {
+export function getFormFieldConfigList<E extends AnyBasic>(target: E): AnyFormFieldConfig[] {
   const formFieldList = Reflect.getOwnMetadata(customFormFieldConfigListName, target) || []
-  const formFieldConfigList: AnFormFieldConfig[] = []
+  const formFieldConfigList: AnyFormFieldConfig[] = []
   for (const fieldKey of formFieldList) {
     const formFieldConfig = getFormFieldConfig(target, fieldKey)
     if (formFieldConfig) {
@@ -78,10 +78,10 @@ export function getFormFieldConfigList<E extends AnBasic>(target: E): AnFormFiel
  * @returns 标记了表单配置的字段列表
  * @description 该方法用于获取标记了表单配置的字段列表
  */
-export function getFormFieldList<E extends AnBasic>(target: E): string[] {
+export function getFormFieldList<E extends AnyBasic>(target: E): string[] {
   const formFieldList = Reflect.getOwnMetadata(customFormFieldConfigListName, target) || []
   const superClass = Object.getPrototypeOf(target)
-  if (superClass.constructor.name === AnBasic.name) {
+  if (superClass.constructor.name === AnyBasic.name) {
     return formFieldList
   }
   const superFormFieldList = getFormFieldList(superClass)

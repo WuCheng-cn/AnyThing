@@ -13,14 +13,14 @@
 
 <script lang="ts" setup>
 import { ref, watch, computed, PropType } from 'vue'
-import { AnFormFieldProps } from '@/model/basic/AnFormFieldProps'
-import { AnFormFieldConfig } from '@/model/basic/AnFormFieldConfig'
+import { AnyFormFieldProps } from '@/model/basic/AnyFormFieldProps'
+import { AnyFormFieldConfig } from '@/model/basic/AnyFormFieldConfig'
 import { EPlacementType } from '@/enum/EPlacementType'
 import { IsDateDisabled } from 'naive-ui/es/date-picker/src/interface'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
-  ...AnFormFieldProps(),
+  ...AnyFormFieldProps(),
   /**
    * # 面板的弹出位置
    * @default bottom
@@ -72,7 +72,7 @@ watch(
 /**
  * 字段的表单配置信息
  */
-const fieldConfig = ref<AnFormFieldConfig | null>(null)
+const fieldConfig = ref<AnyFormFieldConfig | null>(null)
 
 /**
  * 占位符信息

@@ -1,4 +1,4 @@
-import { AnBasic } from "@/model/basic/AnBasic";
+import { AnyBasic } from "@/model/basic/AnyBasic";
 import { plainToInstance } from "class-transformer";
 import { ClassConstructor,TargetMap } from "class-transformer/types/interfaces";
 /**
@@ -42,7 +42,7 @@ export class AnyClassTransformHelper {
   }
 
 
-  static copy<F extends AnBasic, T extends AnBasic>(from: F, to: ClassConstructor<T>): T {
+  static copy<F extends AnyBasic, T extends AnyBasic>(from: F, to: ClassConstructor<T>): T {
     return this.parse(from.toAliasObject(), to)
   }
 }

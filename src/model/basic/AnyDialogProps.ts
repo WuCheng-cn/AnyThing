@@ -1,4 +1,4 @@
-export function AnDialogProps(){
+export function AnyDialogProps(){
   return {
     /**
      * 确认事件
