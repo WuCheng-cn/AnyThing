@@ -7,13 +7,13 @@ import { AnyFormFieldConfig } from './AnyFormFieldConfig'
 /**
  * 模型基类（最基础的模型操作）
  */
-export class AnyBasic {
+export class AnyBaseModel {
   /**
    * 创建一个当前类型的实例
    * @returns 当前类型的实例
    * @description 该方法是对new操作符的封装，用于创建当前类型的实例
    */
-  static newInstance<T extends AnyBasic>(): T {
+  static newInstance<T extends AnyBaseModel>(): T {
     return new (this as any)()
   }
 

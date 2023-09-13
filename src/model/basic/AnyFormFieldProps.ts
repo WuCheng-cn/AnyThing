@@ -1,5 +1,5 @@
 import { PropType } from "vue";
-import { AnyBasic } from "./AnyBasic";
+import { AnyBaseModel } from "./AnyBaseModel";
 
 export function AnyFormFieldProps(){
   return {
@@ -19,7 +19,7 @@ export function AnyFormFieldProps(){
      * 如同时传入了```modifier```或```v-model```指令的```modifier``` 则自动生成兜底的```placeholder```等信息
      */
     entity: {
-      type: Function as unknown as PropType<AnyBasic>,
+      type: Function as unknown as PropType<AnyBaseModel>,
       default: undefined,
     },
     /**
