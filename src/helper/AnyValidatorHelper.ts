@@ -101,7 +101,7 @@ export class AnyValidatorHelper {
    * # 验证是否满足正则表达式
    * @param value 
    */
-  public static isMatchRegExp(value: string, regExp: RegExp): boolean {
+  public static isMatch(value: string, regExp: RegExp): boolean {
     return regExp.test(value)
   }
 

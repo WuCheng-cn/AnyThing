@@ -367,4 +367,12 @@ export class AnyFormValidator {
     }
     return this
   }
+
+  /**
+   * # 自行传入验证器
+   */
+  setCustomValidator(validator:(rule:any,value:string) => Promise<void>){
+    this.validator = validator
+    return this
+  }
 }
