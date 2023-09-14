@@ -10,6 +10,8 @@
  */
 // TypeScript反射库
 import 'reflect-metadata'
+// 环境垫片，把es6的新特性引入到旧环境中
+import 'es6-shim'
 
 import { createApp } from 'vue'
 import './assets/css'
