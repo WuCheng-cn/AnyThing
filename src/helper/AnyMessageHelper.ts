@@ -1,4 +1,4 @@
-import { MessageType, createDiscreteApi } from 'naive-ui'
+import { MessageReactive, MessageType, createDiscreteApi } from 'naive-ui'
 type PlacementType = 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' | 'middle'
 
 /**
@@ -28,7 +28,12 @@ export class AnyMessageHelper {
   /**
    * 消息是否可关闭
    */
-  private closable = true
+  private closable = false
+
+  /**
+   * 消息实例
+   */
+  private messageInstance:MessageReactive|null = null
 
   /**
    * 消息是否保持悬停
@@ -39,7 +44,7 @@ export class AnyMessageHelper {
   #createMessage(message: string) {
     // const messageBox = useMessage()
     const { message: messageBox } = createDiscreteApi(['message'])
-    messageBox.create(message, {
+    this.messageInstance = messageBox.create(message, {
       duration: this.duration,
       // @ts-ignore
       placement: this.placement,
@@ -110,6 +115,16 @@ export class AnyMessageHelper {
     this.placement = 'middle'
     this.type = 'loading'
     this.#createMessage(message)
+    return this
+  }
+
+  /**
+   * 关闭消息
+   * @description 该方法只能关闭由该助手创建的消息
+   * @description 该方法只能关闭未关闭的消息
+   */
+  close() {
+    this.messageInstance?.destroy()
   }
 
   /**
