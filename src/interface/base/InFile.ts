@@ -5,7 +5,6 @@ export interface InFile extends FileInfo {
   id:string
   name:string
   url:string
-  file?:File
   status:EFileUploadStatus
   percentage?: number | null;
 }

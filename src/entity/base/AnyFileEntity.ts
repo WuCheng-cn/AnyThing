@@ -17,10 +17,6 @@ export class AnyFileEntity extends AnyBaseModel implements InFile{
   @Expose()
   url!: string;
 
-  @FieldName('源文件')
-  @Expose()
-  file?: File;
-
   @FieldName('文件上传状态')
   @Expose()
   status!: EFileUploadStatus;
