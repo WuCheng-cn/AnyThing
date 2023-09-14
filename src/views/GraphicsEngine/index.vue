@@ -27,15 +27,15 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, ref, computed, defineComponent } from 'vue'
-import { Graph } from '@antv/x6'
-import { AButton, Panle } from '@/components/UI'
-import { useConfig } from '@/config'
-import GraphicsMaker from '@/views/GraphicsEngine/index'
 import { Dnd } from '@antv/x6-plugin-dnd'
-import { register, getTeleport } from '@antv/x6-vue-shape'
-import { Registry } from './component/index'
-import { RegistItem } from '@/model/graph/RegistInterface'
+import { Graph } from '@antv/x6'
 import { useStore } from '@/store'
+import { useConfig } from '@/config'
+import { Registry } from './component/index'
+import { AButton, Panle } from '@/components/UI'
+import { register, getTeleport } from '@antv/x6-vue-shape'
+import { RegistItem } from '@/model/graph/RegistInterface'
+import GraphicsMaker from '@/views/GraphicsEngine/index'
 
 const box = ref<HTMLElement>()
 const graph = ref<Graph>()

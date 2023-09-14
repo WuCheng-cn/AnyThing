@@ -36,13 +36,23 @@ function handleResize () {
 }
 onMounted(() => {
   myChart = echarts.init(chartDom.value)
-  option.value && myChart.setOption(option.value, true) 
-  console.log(node.value)
+
+  option.value && myChart.setOption(option.value as unknown as EChartsOption, true) 
+  
+  /**
+   * 存储图表数据
+   */
   useStore().graphStore.setRecord(node.value.id, option.value)
+
+  /**
+   * 监听图表数据变化
+   */
   const record = computed(() => useStore().graphStore.getRecord(node.value.id))
+
+  /**
+   * 监听图表数据变化
+   */
   watch(record, (newVal) => {
-    console.log(newVal)
-    
     myChart.setOption(newVal, true)
   }, { deep: true })
 })
