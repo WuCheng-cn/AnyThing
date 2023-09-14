@@ -23,7 +23,7 @@ import { InRecord } from '@/interface/base/InRecord'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
-  ...AnyFormFieldProps(),
+  ...AnyFormFieldProps<Array<string | number> | null>(),
   /**
    * # 枚举值翻译，用于渲染选项 优先级大于fieldConfig.emumRecord
    */

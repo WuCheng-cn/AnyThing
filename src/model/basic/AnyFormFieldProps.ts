@@ -1,11 +1,11 @@
 import { PropType } from "vue";
 import { AnyBaseModel } from "./AnyBaseModel";
 
-export function AnyFormFieldProps(){
+export function AnyFormFieldProps<T>(value: T | undefined = undefined){
   return {
     modelValue: {
-      type: [String, Number, Boolean, Array, Object, Date],
-      default: undefined,
+      type: undefined as unknown as PropType<T>,
+      default: value,
     },
     /**
      * # 传入的修饰符

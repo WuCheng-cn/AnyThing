@@ -20,7 +20,7 @@ import { IsDateDisabled } from 'naive-ui/es/date-picker/src/interface'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
-  ...AnyFormFieldProps(),
+  ...AnyFormFieldProps<number|[number, number]>(),
   /**
    * # 面板的弹出位置
    * @default bottom

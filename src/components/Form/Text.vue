@@ -17,7 +17,7 @@ import { AnyFormFieldConfig } from '@/model/basic/AnyFormFieldConfig'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
-  ...AnyFormFieldProps(),
+  ...AnyFormFieldProps(''),
 })
 
 watch(
