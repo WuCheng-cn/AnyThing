@@ -22,6 +22,7 @@ export const resize: ObjectDirective = {
         if (t) {
           clearTimeout(t)
         }
+        //@ts-ignore
         const context = this
         const args = arguments
         t = setTimeout(function () {
