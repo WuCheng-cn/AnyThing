@@ -8,13 +8,18 @@
  * 
  * Copyright (c) 2023 by 吴成 1965417564@qq.com, All Rights Reserved. 
  */
+// TypeScript反射库
+import 'reflect-metadata'
+
 import { createApp } from 'vue'
 import './assets/css'
 import './style.css'
 import App from './App.vue'
 import router from './router'
 import naive from 'naive-ui'
+
 import { createPinia } from 'pinia'
+// pinia数据持久化插件
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 // 自定义指令插件
 import { directivePlugin } from './directives'

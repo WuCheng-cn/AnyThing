@@ -6,7 +6,7 @@ import { ClassConstructor,TargetMap } from "class-transformer/types/interfaces";
  */
 export class AnyClassTransformHelper {
   /**
-   * 将一个对象转换为指定类型的对象
+   * # 将一个对象转换为指定类型的对象
    * @param from 源对象
    * @param to 目标类型
    * @param targetMaps 目标类型的属性映射
@@ -29,7 +29,7 @@ export class AnyClassTransformHelper {
   }
 
   /**
-   * 将一个对象转换为指定类型的对象数组
+   * # 将一个对象转换为指定类型的对象数组
    * @param from 源对象
    * @param to 目标类型
    * @param targetMaps 目标类型的属性映射
@@ -41,7 +41,13 @@ export class AnyClassTransformHelper {
     return list
   }
 
-
+  /**
+   * # 按别名复制一个对象
+   * @param from 源对象
+   * @param to 目标类型
+   * @returns 复制后的对象
+   * @description 该方法是对parse方法的封装，用于按别名复制一个对象
+   */ 
   static copy<F extends AnyBaseModel, T extends AnyBaseModel>(from: F, to: ClassConstructor<T>): T {
     return this.parse(from.toAliasObject(), to)
   }
