@@ -135,6 +135,7 @@ function handleClick () {
 }
 
 .item{
+  width: 600px;
   cursor: grab;
   &:active{
     cursor: grabbing !important;
