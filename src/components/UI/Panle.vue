@@ -22,8 +22,9 @@
     </n-layout-content>
     <n-layout-sider  
       v-if="!hideSlider&&showRightSlider"
-      collapse-mode="transform"
+      bordered
       show-trigger="bar"
+      collapse-mode="transform"
       content-style="padding: 24px;"
       :width="400"
       :collapsed-width="0"
