@@ -11,14 +11,14 @@
           {{ item.name }}
         </div> 
       </template>
-      <div
+      <n-el
         ref="box"
         v-resize:200="handleResize"
         class="box"
       >
         <div id="container" class="container" :style="containerStyle" />
         <TeleportContainer />
-      </div>
+      </n-el>
     </Panle>
     <template #slider-right>
       <AButton @click="handleClick" />
@@ -26,7 +26,7 @@
   </Panle>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, computed, defineComponent } from 'vue'
+import { onMounted, ref, computed, defineComponent, watch } from 'vue'
 import { Dnd } from '@antv/x6-plugin-dnd'
 import { Graph } from '@antv/x6'
 import { useStore } from '@/store'
@@ -58,6 +58,7 @@ const containerStyle = computed(() => {
   const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
   return str
 })
+
 /**
  * @description: 初始化注册组件
  */
@@ -106,6 +107,13 @@ onMounted(() => {
     console.log(options)
     currentData.value = node.id
   })
+
+  // 监听明暗主题变化
+  watch(() => useConfig().AppConfig.theme, () => {
+    graph.value?.drawBackground({
+      color: useConfig().AppConfig.theme.common.tableColor, 
+    })
+  }, { immediate: true, deep: true })
 })
 
 const currentData = ref('')
@@ -114,28 +122,22 @@ function handleClick () {
   useStore().graphStore.recordsCenter[currentData.value]?.xAxis.data.push('x')
 }
 </script>
-
-<style>
-.any-snapline .x6-widget-snapline-horizontal,
-.any-snapline .x6-widget-snapline-vertical
-{
-    stroke: #8f8f8f;
-    stroke-width: 1.5;
-    stroke-dasharray:6 4;
-}
+<style lang="less">
+// 画布的全局样式文件
+@import url('./css/index.less');
 </style>
 <style lang="less" scoped>
-
 .box{
+  height: 100%;
   padding: 20px 30px;
-}
-.container{
-  transition: all .3s;
-  transform-origin: left top;
+  .container{
+    transition: all .3s;
+    transform-origin: left top;
+    box-shadow: var(--box-shadow-3);
+  }
 }
 
 .item{
-  width: 600px;
   cursor: grab;
   &:active{
     cursor: grabbing !important;

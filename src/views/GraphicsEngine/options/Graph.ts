@@ -11,5 +11,6 @@ export const GraphOption:any = {
   grid: {
     size: 10, // 网格大小 10px
     visible: true, // 渲染网格背景
+    
   },
 }
