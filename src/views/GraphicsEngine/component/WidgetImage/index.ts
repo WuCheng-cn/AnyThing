@@ -8,7 +8,6 @@ const regist:InRegistItem = {
   height: 200,
   component: WidgetImage,
   defaultOption: {},
-  isParent: false
 }
 
 export default regist

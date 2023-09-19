@@ -1,4 +1,5 @@
 import { Component } from "vue";
+import { InDefaultOption } from "./InDefaultOption";
 
 /**
  * 画布组件注册接口
@@ -25,11 +26,6 @@ export interface InRegistItem{
   height:number,
 
   /**
-   * 是否作为可嵌套父级组件
-   */
-  isParent:boolean,
-
-  /**
    * 组件内容
    */
   component:Component,
@@ -37,5 +33,5 @@ export interface InRegistItem{
   /**
    * 组件默认配置
    */
-  defaultOption:any,
+  defaultOption:InDefaultOption,
 }

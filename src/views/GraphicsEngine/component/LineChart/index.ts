@@ -8,7 +8,6 @@ const regist:InRegistItem = {
   defaultOption: {},
   width: 400,
   height: 400,
-  isParent: false
 }
 
 export default regist
