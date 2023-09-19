@@ -15,9 +15,11 @@ import {
   KeyboardOption,
   HistoryOption,
 } from './options/index'
+import { register } from '@antv/x6-vue-shape'
+import { InRegistItem } from "@/interface/graph/InRegistItem";
 export default class GraphicsMaker {
-  graph!: Graph
-  create(container: HTMLElement): Graph {
+ static graph: Graph
+ static create(container: HTMLElement): Graph {
     this.graph = new Graph({ container, ...GraphOption })
     if (import.meta.env.DEV) {
       this.#createdDevTools(this.graph)
@@ -32,7 +34,7 @@ export default class GraphicsMaker {
    * # 创建开发者工具
    * @param instance 画布实例
    */
-  #createdDevTools(instance: Graph): void {
+  static #createdDevTools(instance: Graph): void {
     window.__x6_instances__ = []
     window.__x6_instances__.push(instance)
   }
@@ -42,7 +44,7 @@ export default class GraphicsMaker {
    * @param instance 画布实例
    * @returns 画布实例
    */
-  #moduleRegister(instance: Graph): Graph {
+  static #moduleRegister(instance: Graph): Graph {
     instance
       // 启用对齐线
       .use(new Snapline(SnaplineOption))
@@ -59,7 +61,7 @@ export default class GraphicsMaker {
    * @param instance 画布实例
    * @returns 画布实例
    */
-  #hotKeysRegister(instance: Graph): Graph {
+  static #hotKeysRegister(instance: Graph): Graph {
     // 复制
     instance.bindKey(HotKeysRecord.find(item => item.key === HotKeys.COPY)?.value as unknown as string, () => {
       const cells = instance.getSelectedCells()
@@ -82,4 +84,21 @@ export default class GraphicsMaker {
     })
     return instance
   }
+
+  /**
+   * 注册自定义组件
+   */
+  static registComponent(Registry:InRegistItem[]): void {
+    Registry.forEach(item => {
+      register({
+        shape: item.nodeShape,
+        width: item.width,
+        height: item.height,
+        component: item.component,
+        data:item.defaultOption
+      })
+    })
+  
+  }
+
 }

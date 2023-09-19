@@ -16,7 +16,7 @@
         v-resize:200="handleResize"
         class="box"
       >
-        <div id="container" class="container" :style="containerStyle" />
+        <div id="container" class="container" />
         <TeleportContainer />
       </n-el>
     </Panle>
@@ -34,7 +34,7 @@ import { useConfig } from '@/config'
 import { Registry } from './component/index'
 import { AButton, Panle } from '@/components/UI'
 import { register, getTeleport } from '@antv/x6-vue-shape'
-import { RegistItem } from '@/model/graph/RegistInterface'
+import { InRegistItem } from '@/interface/graph/InRegistItem'
 import GraphicsMaker from '@/views/GraphicsEngine/index'
 
 const box = ref<HTMLElement>()
@@ -49,30 +49,9 @@ defineComponent({
 })
 
 /**
- * @description: 容器样式
- */
-const containerStyle = computed(() => {
-  const expectWidth = useConfig().GraphConfig.expectWidth
-  const expectHeight = useConfig().GraphConfig.expectHeight
-  const ratio = boxWidth.value / expectWidth  
-  const str = `width:${expectWidth}px;height:${expectHeight}px;transform:scale(${ratio});`
-  return str
-})
-
-/**
  * @description: 初始化注册组件
  */
-function init () {
-  Registry.forEach(item => {
-    register({
-      shape: item.nodeShape,
-      width: 400,
-      height: 400,
-      component: item.component,
-    })
-  })
-}
-init()
+GraphicsMaker.registComponent(Registry)
 
 /**
  * @description: 监听容器大小变化
@@ -84,7 +63,7 @@ function handleResize (e:ResizeObserverEntry[]) {
 /**
  * @description: 拖拽组件
  */
-function handleDrag (e:MouseEvent, item:RegistItem) {
+function handleDrag (e:MouseEvent, item:InRegistItem) {
   const dnd = new Dnd({
     target: graph.value as Graph,
     getDragNode: (node) => node.clone({ keepId: true }),
@@ -101,7 +80,16 @@ function handleDrag (e:MouseEvent, item:RegistItem) {
  */
 onMounted(() => {
   const container = document.getElementById('container') as HTMLElement
-  graph.value = new GraphicsMaker().create(container)
+  graph.value = GraphicsMaker.create(container)
+  // 将Screen组件添加进画布
+  graph.value.addNode({
+    shape: 'Screen',
+    x: 20,
+    y: 20,
+    width: useConfig().GraphConfig.expectWidth,
+    height: useConfig().GraphConfig.expectHeight,
+  })
+
   graph.value.on('node:selected', ({ node, options }) => {
     console.log(node)
     console.log(options)
@@ -129,8 +117,9 @@ function handleClick () {
 <style lang="less" scoped>
 .box{
   height: 100%;
-  padding: 20px 30px;
   .container{
+    width: 100vw;
+    height: 100%;
     transition: all .3s;
     transform-origin: left top;
     box-shadow: var(--box-shadow-3);

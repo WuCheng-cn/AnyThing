@@ -1,7 +1,7 @@
-import { RegistItem } from "@/model/graph/RegistInterface";
+import { InRegistItem } from "@/interface/graph/InRegistItem";
 import  Demo  from "./index.vue";
 
-const regist:RegistItem = {
+const regist:InRegistItem = {
   name:'Demo',
   nodeShape:'demo',
   component:Demo,
