@@ -86,8 +86,6 @@ onMounted(() => {
     shape: 'Screen',
     x: 20,
     y: 20,
-    width: useConfig().GraphConfig.expectWidth,
-    height: useConfig().GraphConfig.expectHeight,
   })
 
   graph.value.on('node:selected', ({ node, options }) => {

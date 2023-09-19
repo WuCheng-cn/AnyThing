@@ -1,6 +1,9 @@
 
-import { CellView } from "@antv/x6/lib/view/cell"
-import {Rectangle} from "@antv/x6-geometry"
+
+import { Cell,Graph } from "@antv/x6"
+import {NodeView} from '@antv/x6'
+import { InDefaultOption } from "@/interface/graph/InDefaultOption"
+
 export const GraphOption:any = {
   // 启用滚轮缩放画布
   mousewheel: {
@@ -14,6 +17,33 @@ export const GraphOption:any = {
     size: 16, // 网格大小 10px
     visible: true, // 渲染网格背景
     
+  },
+  embedding: {
+    enabled: true,
+    findParent({node} ):Cell[] {
+      const bbox = node.getBBox()
+      return (this as unknown as Graph).getNodes().filter((node:Cell) => {
+        const data = node.getData<InDefaultOption>()
+        if (data.isParent) {
+          const targetBBox = node.getBBox()
+          return bbox.isIntersectWithRect(targetBBox)
+        }
+        return false
+      })
+    },
+  },
+  highlighting: {
+    embedding: {
+      name: 'stroke',
+      args: {
+        padding: -1,
+        attrs: {
+          stroke: 'var(--primary-color)',
+          strokeWidth: 2,
+          strokeDasharray:'6 4',
+        },
+      },
+    },
   },
   // translating:{
   //   /**
