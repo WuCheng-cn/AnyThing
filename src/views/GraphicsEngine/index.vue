@@ -2,6 +2,7 @@
   <Panle show-right-slider>
     <Panle show-left-slider>
       <template #slider-left>
+        <WidgetFilter />
         <div
           v-for="(item,index) in Registry"
           :key="index"
@@ -35,6 +36,7 @@ import { AButton, Panle } from '@/components/UI'
 import { getTeleport } from '@antv/x6-vue-shape'
 import { InRegistItem } from '@/interface/graph/InRegistItem'
 import GraphicsHelper from '@/views/GraphicsEngine/index'
+import WidgetFilter from './component/WidgetFilter/index.vue'
 
 const graph = ref<Graph>()
 const TeleportContainer = getTeleport()
