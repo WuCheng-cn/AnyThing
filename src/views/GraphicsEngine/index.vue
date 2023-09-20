@@ -12,8 +12,7 @@
         </div> 
       </template>
       <n-el
-        ref="box"
-        v-resize:200="handleResize"
+        v-resize:100="resize"
         class="box"
       >
         <div id="container" class="container" />
@@ -26,20 +25,18 @@
   </Panle>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, computed, defineComponent, watch } from 'vue'
+import { onMounted, ref, defineComponent, watch } from 'vue'
 import { Dnd } from '@antv/x6-plugin-dnd'
 import { Graph } from '@antv/x6'
 import { useStore } from '@/store'
 import { useConfig } from '@/config'
 import { Registry } from './component/index'
 import { AButton, Panle } from '@/components/UI'
-import { register, getTeleport } from '@antv/x6-vue-shape'
+import { getTeleport } from '@antv/x6-vue-shape'
 import { InRegistItem } from '@/interface/graph/InRegistItem'
-import GraphicsMaker from '@/views/GraphicsEngine/index'
+import GraphicsHelper from '@/views/GraphicsEngine/index'
 
-const box = ref<HTMLElement>()
 const graph = ref<Graph>()
-const boxWidth = ref(0)
 const TeleportContainer = getTeleport()
 defineComponent({
   name: 'TeleportContainer',
@@ -51,25 +48,31 @@ defineComponent({
 /**
  * @description: 初始化注册组件
  */
-GraphicsMaker.registComponent(Registry)
+GraphicsHelper.registComponent(Registry)
 
 /**
- * @description: 监听容器大小变化
+ * @description: 画布自适应
  */
-function handleResize (e:ResizeObserverEntry[]) {
-  boxWidth.value = e[0].devicePixelContentBoxSize[0].inlineSize
+function resize (e:ResizeObserverEntry[]) {
+  const boxWidth = e[0].devicePixelContentBoxSize[0].inlineSize
+  const boxHeight = e[0].devicePixelContentBoxSize[0].blockSize
+  graph.value?.resize(boxWidth, boxHeight)
+  graph.value?.zoomToFit({
+    padding: 20,
+  })
 }
 
 /**
  * @description: 拖拽组件
  */
 function handleDrag (e:MouseEvent, item:InRegistItem) {
+  if (!graph.value) return
   const dnd = new Dnd({
     target: graph.value as Graph,
     getDragNode: (node) => node.clone({ keepId: true }),
     getDropNode: (node) => node.clone({ keepId: true }),
   })
-  const node = graph.value!.createNode({
+  const node = graph.value.createNode({
     shape: item.nodeShape,
   })
   dnd.start(node, e)
@@ -80,13 +83,9 @@ function handleDrag (e:MouseEvent, item:InRegistItem) {
  */
 onMounted(() => {
   const container = document.getElementById('container') as HTMLElement
-  graph.value = GraphicsMaker.create(container)
+  graph.value = GraphicsHelper.create(container)
   // 将Screen组件添加进画布
-  graph.value.addNode({
-    shape: 'Screen',
-    x: 20,
-    y: 20,
-  })
+  graph.value.addNode({ shape: 'Screen', x: 20, y: 20 })
 
   graph.value.on('node:selected', ({ node, options }) => {
     console.log(node)
@@ -115,8 +114,9 @@ function handleClick () {
 <style lang="less" scoped>
 .box{
   height: 100%;
+  overflow: hidden;
   .container{
-    width: 100vw;
+    width: 100%;
     height: 100%;
     transition: all .3s;
     transform-origin: left top;

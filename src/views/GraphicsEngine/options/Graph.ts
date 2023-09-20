@@ -1,26 +1,29 @@
 
 
-import { Cell,Graph } from "@antv/x6"
-import {NodeView} from '@antv/x6'
+// import {NodeView} from '@antv/x6'
+import { Cell,Graph, Node } from "@antv/x6"
 import { InDefaultOption } from "@/interface/graph/InDefaultOption"
+import { Options } from "@antv/x6/lib/graph/options"
 
-export const GraphOption:any = {
+export const GraphOption: Partial<Options.Manual> = {
   // 启用滚轮缩放画布
   mousewheel: {
     enabled: true,
     modifiers: ['ctrl', 'meta'],
   },
   background: {
-    color: '#fffbe6', // 设置画布背景颜色
+    // 画布背景颜色
+    color: '#fffbe6', 
   },
   grid: {
-    size: 16, // 网格大小 10px
-    visible: true, // 渲染网格背景
-    
+    // 网格大小
+    size: 16, 
+    // 渲染网格背景 默认点状
+    visible: true, 
   },
   embedding: {
     enabled: true,
-    findParent({node} ):Cell[] {
+    findParent({node}:{node:Node} ):Cell[] {
       const bbox = node.getBBox()
       return (this as unknown as Graph).getNodes().filter((node:Cell) => {
         const data = node.getData<InDefaultOption>()

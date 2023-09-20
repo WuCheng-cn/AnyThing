@@ -2,7 +2,7 @@ export const SelectionOption = {
   enabled: true,
   className: 'any-selection',//	选框的自定义 class 名称
   multiple: true,//是否启用点击多选，启用后按住 ctrl 或 command 键点击节点实现多选
-  rubberband: false,//是否启用框选节点功能
+  rubberband: true,//是否启用框选节点功能
   showNodeSelectionBox: true,//	是否显示节点的选择框
   showEdgeSelectionBox: false,//	是否显示边的选择框
   pointerEvents: 'none' as  'none' | 'auto',//	如果打开 showNodeSelectionBox 时，会在节点上方盖一层元素，导致节点的事件无法响应，此时可以配置 pointerEvents: none 来解决，默认值是 auto
