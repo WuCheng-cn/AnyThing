@@ -1,21 +1,13 @@
 <template>
-  <div class="any-screen" :style="screenStyle" />
+  <div class="any-screen" />
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useConfig } from '@/config'
 
-const GraphConfig = useConfig().GraphConfig
-
-const screenStyle = computed(() => {
-  return {
-    width: GraphConfig.expectWidth + 'px',
-    height: GraphConfig.expectHeight + 'px',
-  }
-})
 </script>
 <style lang="less" scoped>
 .any-screen{
+  width: 100%;
+  height: 100%;
   transition: all 0.3s var(--cubic-bezier-ease-in-out);
   background-color: #232324;
   border-radius: 16px;

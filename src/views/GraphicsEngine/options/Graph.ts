@@ -13,7 +13,7 @@ export const GraphOption: Partial<Options.Manual> = {
   },
   background: {
     // 画布背景颜色
-    color: '#fffbe6', 
+    color: 'var(--body-color)', 
   },
   grid: {
     // 网格大小

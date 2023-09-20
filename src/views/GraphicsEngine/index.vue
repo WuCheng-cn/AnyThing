@@ -92,13 +92,6 @@ onMounted(() => {
     console.log(options)
     currentData.value = node.id
   })
-
-  // 监听明暗主题变化
-  watch(() => useConfig().AppConfig.theme, () => {
-    graph.value?.drawBackground({
-      color: useConfig().AppConfig.theme.common.tableColor, 
-    })
-  }, { immediate: true, deep: true })
 })
 
 const currentData = ref('')
@@ -120,7 +113,6 @@ function handleClick () {
     height: 100%;
     transition: all .3s;
     transform-origin: left top;
-    box-shadow: var(--box-shadow-3);
   }
 }
 
