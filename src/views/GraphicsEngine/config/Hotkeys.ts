@@ -30,6 +30,10 @@ export enum HotKeys{
    * 重做
    */
   REDO = 'shift+z',
+  /**
+   * 删除
+   */
+  DELETE = 'delete',
 }
 /**
  * # 快捷键翻译
@@ -54,5 +58,10 @@ export const HotKeysRecord :InRecord[] = [
     key:HotKeys.REDO,
     label:'重做',
     value:`${command}+${HotKeys.REDO}`
+  },
+  {
+    key:HotKeys.DELETE,
+    label:'删除',
+    value:`${HotKeys.DELETE}`
   },
 ]

@@ -17,17 +17,21 @@ import {
 } from './options/index'
 import { register } from '@antv/x6-vue-shape'
 import { InRegistItem } from "@/interface/graph/InRegistItem";
-export default class GraphicsMaker {
- static graph: Graph
+export default class GraphicsHelper extends Graph {
+  /**
+   * # 创建画布实例
+   * @param container 画布容器
+   * @returns 画布实例
+   */
  static create(container: HTMLElement): Graph {
-    this.graph = new Graph({ container, ...GraphOption })
+   const graph = new Graph({ container, ...GraphOption })
     if (import.meta.env.DEV) {
-      this.#createdDevTools(this.graph)
+      this.#createdDevTools(graph)
     }
-    this.#moduleRegister(this.graph)
-    this.#hotKeysRegister(this.graph)
-    return this.graph
-    // this.graph.fromJSON(data)
+    this.#moduleRegister(graph)
+    this.#hotKeysRegister(graph)
+    return graph
+    // graph.fromJSON(data)
   }
   
   /**
@@ -66,7 +70,7 @@ export default class GraphicsMaker {
     instance.bindKey(HotKeysRecord.find(item => item.key === HotKeys.COPY)?.value as unknown as string, () => {
       const cells = instance.getSelectedCells()
       if (cells.length) {
-        this.graph.copy(cells)
+        instance.copy(cells)
       }
       return false
     })
@@ -81,6 +85,11 @@ export default class GraphicsMaker {
     // 重做
     instance.bindKey(HotKeysRecord.find(item => item.key === HotKeys.REDO)?.value as unknown as string, () => {
       instance.redo()
+    })
+    // 删除
+    instance.bindKey(HotKeysRecord.find(item => item.key === HotKeys.DELETE)?.value as unknown as string, () => {
+      const cells = instance.getSelectedCells()
+      instance.removeCells(cells)
     })
     return instance
   }
@@ -98,7 +107,6 @@ export default class GraphicsMaker {
         data:item.defaultOption
       })
     })
-  
   }
 
 }
