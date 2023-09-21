@@ -14,7 +14,7 @@ import 'reflect-metadata'
 import 'es6-shim'
 
 import { createApp } from 'vue'
-import './assets/css'
+import './assets/css/global'
 import './style.css'
 import App from './App.vue'
 import router from './router'

@@ -1,6 +1,6 @@
 <template>
   <Panle show-right-slider>
-    <Panle show-left-slider>
+    <Panle show-left-slider custom-class-left-slider="any-dynamic-fuzzy-background">
       <template #slider-left>
         <WidgetFilter />
         <div
@@ -107,6 +107,7 @@ function handleClick () {
 @import url('./css/index.less');
 </style>
 <style lang="less" scoped>
+@import url('@/assets/css/beautify/anyDynamicFuzzyBackground.less');
 .box{
   height: 100%;
   overflow: hidden;

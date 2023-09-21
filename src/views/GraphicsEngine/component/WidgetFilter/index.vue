@@ -2,10 +2,9 @@
   <div class="any-widget-filter" />
 </template>
 <style>
-.any-widget-filter {
+/* .any-widget-filter {
   width: 100%;
   height: 100%;
- 
   background-image:
     radial-gradient(closest-side, rgba(235, 105, 78, 1), rgba(235, 105, 78, 0)),
     radial-gradient(closest-side, rgba(243, 11, 164, 1), rgba(243, 11, 164, 0)),
@@ -100,4 +99,5 @@
       -10vmax 10vmax,
       40vmax 60vmax;
   }
-}</style>
+} */
+</style>

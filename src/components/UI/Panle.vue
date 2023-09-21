@@ -10,6 +10,7 @@
       show-trigger="bar"
       collapse-mode="transform"
       content-style="padding: 24px;"
+      :class="customClassLeftSlider"
       :width="300"
       :collapsed-width="0"
       :on-after-leave="resize"
@@ -60,6 +61,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * # 自定义左侧侧边栏样式
+   */
+  customClassLeftSlider: {
+    type: String,
+    default: '',
+  },
 })
 const emits = defineEmits(['resize'])
 
@@ -84,4 +92,5 @@ const resize = () => {
 }
 </script>
 <style lang="less" scoped>
+
 </style>
