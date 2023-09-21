@@ -1,103 +1,70 @@
 <template>
-  <div class="any-widget-filter" />
+  <div class="any-widget-filter">
+    <n-el class="search">
+      <div class="title">
+        <span>组件</span>
+        <n-icon :component="Filter" />
+      </div>
+      <div class="input-group">
+        <div class="input-group-input">
+          <n-input 
+            placeholder="组件名称..."
+            @focus="isFocus = true"
+            @blur="isFocus = false"
+          />
+        </div>
+        <n-tooltip>
+          <template #trigger>
+            <AButton
+              class="input-group-button"
+              :style="isFocus ? { width: 0, padding: 0 } : ''"
+              :level="EButtonLevel.TERTIARY"
+              :icon="isGrid ? Grid : SquareSharp"
+              @click="isGrid = !isGrid"
+            />
+          </template>
+          {{ isGrid ? '双列展示' : '单列展示' }}
+        </n-tooltip>
+      </div>
+    </n-el>
+  </div>
 </template>
-<style>
-/* .any-widget-filter {
-  width: 100%;
-  height: 100%;
-  background-image:
-    radial-gradient(closest-side, rgba(235, 105, 78, 1), rgba(235, 105, 78, 0)),
-    radial-gradient(closest-side, rgba(243, 11, 164, 1), rgba(243, 11, 164, 0)),
-    radial-gradient(closest-side, rgba(254, 234, 131, 1), rgba(254, 234, 131, 0)),
-    radial-gradient(closest-side, rgba(170, 142, 245, 1), rgba(170, 142, 245, 0)),
-    radial-gradient(closest-side, rgba(248, 192, 147, 1), rgba(248, 192, 147, 0));
-  background-size:
-    130vmax 130vmax,
-    80vmax 80vmax,
-    90vmax 90vmax,
-    110vmax 110vmax,
-    90vmax 90vmax;
-  background-position:
-    -80vmax -80vmax,
-    60vmax -30vmax,
-    10vmax 10vmax,
-    -30vmax -10vmax,
-    50vmax 50vmax;
-  background-repeat: no-repeat;
-  animation: 10s movement linear infinite;
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { AButton } from '@/components/UI'
+import { Filter, Grid, SquareSharp } from '@vicons/ionicons5'
+import { EButtonLevel } from '@/enum/EButtonLevel'
 
-  &::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
+const isFocus = ref<boolean>(false)
+const isGrid = ref<boolean>(false)
+</script>
+<style lang="less" scoped>
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0 5px 10px;
+  background-color: var(--table-color);
+  opacity: 0.6;
+  backdrop-filter: blur(17.5px);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
 }
 
-@keyframes movement {
+.title {
+  display: flex;
+  align-items: center;
+}
 
-  0%,
-  100% {
-    background-size:
-      130vmax 130vmax,
-      80vmax 80vmax,
-      90vmax 90vmax,
-      110vmax 110vmax,
-      90vmax 90vmax;
-    background-position:
-      -80vmax -80vmax,
-      60vmax -30vmax,
-      10vmax 10vmax,
-      -30vmax -10vmax,
-      50vmax 50vmax;
-  }
+.input-group {
+  display: flex;
+  gap: 10px;
+  width: 180px;
+  overflow: hidden;
+  justify-content: space-between;
 
-  25% {
-    background-size:
-      100vmax 100vmax,
-      90vmax 90vmax,
-      100vmax 100vmax,
-      90vmax 90vmax,
-      60vmax 60vmax;
-    background-position:
-      -60vmax -90vmax,
-      50vmax -40vmax,
-      0vmax -20vmax,
-      -40vmax -20vmax,
-      40vmax 60vmax;
+  & &-button {
+    transition: all .3s;
   }
-
-  50% {
-    background-size:
-      80vmax 80vmax,
-      110vmax 110vmax,
-      80vmax 80vmax,
-      60vmax 60vmax,
-      80vmax 80vmax;
-    background-position:
-      -50vmax -70vmax,
-      40vmax -30vmax,
-      10vmax 0vmax,
-      20vmax 10vmax,
-      30vmax 70vmax;
-  }
-
-  75% {
-    background-size:
-      90vmax 90vmax,
-      90vmax 90vmax,
-      100vmax 100vmax,
-      90vmax 90vmax,
-      70vmax 70vmax;
-    background-position:
-      -50vmax -40vmax,
-      50vmax -30vmax,
-      20vmax 0vmax,
-      -10vmax 10vmax,
-      40vmax 60vmax;
-  }
-} */
+}
 </style>

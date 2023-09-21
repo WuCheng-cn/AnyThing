@@ -9,7 +9,7 @@
       bordered
       show-trigger="bar"
       collapse-mode="transform"
-      content-style="padding: 24px;"
+      content-style="padding: 16px;"
       :class="customClassLeftSlider"
       :width="300"
       :collapsed-width="0"
@@ -26,7 +26,7 @@
       bordered
       show-trigger="bar"
       collapse-mode="transform"
-      content-style="padding: 24px;"
+      content-style="padding: 16px;"
       :width="400"
       :collapsed-width="0"
       :on-after-leave="resize"
@@ -65,7 +65,7 @@ const props = defineProps({
    * # 自定义左侧侧边栏样式
    */
   customClassLeftSlider: {
-    type: String,
+    type: [String, Array<string>],
     default: '',
   },
 })

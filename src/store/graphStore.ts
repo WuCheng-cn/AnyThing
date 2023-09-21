@@ -5,7 +5,6 @@ import { nextTick } from "vue";
  * # 画布数据中心
  */
 export const graphStore = defineStore('graphStore', {
-  persist: true,
   state: () => {
     return {
       recordsCenter:{} as Record<string,any>
@@ -42,6 +41,13 @@ export const graphStore = defineStore('graphStore', {
      */ 
     deleteRecord(key:string){
       delete this.recordsCenter[key]
+    },
+    
+    /**
+     * 重置画布组件数据
+     */
+    resetRecord(){
+      this.recordsCenter = {}
     }
   }
 })
