@@ -1,19 +1,19 @@
 import { defineStore } from "pinia"
 import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface'
-import { darkTheme } from 'naive-ui'
+import { GlobalThemeOverrides, darkTheme } from 'naive-ui'
+import { EThemeType } from "@/enum/EThemeType"
 
 /**
  * # app相关配置
  */
 export const AppConfig = defineStore('appConfig', {
-  // persist: true,
+  persist: true,
   state: () => {
     return {
       /**
        * 主题
-       * @description 该属性会自动切换naive-ui的主题
        */
-      theme: darkTheme,
+      themeType: EThemeType.DARK,
       /**
        * 静态资源地址
        */
@@ -40,15 +40,24 @@ export const AppConfig = defineStore('appConfig', {
       minLength: 0,      
     }
   },
+  getters: {
+    /**
+     * 获取主题
+     * @returns
+     */
+    theme():BuiltInGlobalTheme | undefined {
+      return this.themeType === EThemeType.DARK ? darkTheme : undefined
+    },
+  },
   actions: {
     /**
-     * 设置主题
-     * @param theme 主题
+     * 设置主题类型
+     * @param themeType 主题类型
      * @returns
      * @description 该方法会自动切换naive-ui的主题
      */
-    setTheme(theme: BuiltInGlobalTheme) {      
-      this.theme = theme
-    }  
+    setThemeType(themeType: EThemeType) {
+      this.themeType = themeType
+    }
   }
 })

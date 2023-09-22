@@ -1,5 +1,7 @@
 <template>
-  <n-config-provider :theme="useConfig().AppConfig.theme">
+  <n-config-provider 
+    :theme="useConfig().AppConfig.theme"
+  >
     <n-message-provider>
       <router-view />
     </n-message-provider>
