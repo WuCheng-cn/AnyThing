@@ -1,13 +1,4 @@
 <template>
-  <!-- <AButton 
-    :icon="AppConfig.theme.name === 'light' ? Sunny : Moon"
-    :level="EButtonLevel.QUATERNARY"  
-    @click="handleToggleTheme()"
-  /> -->
-  <!-- <div class="controls">
-    <label for="sync">Sync &lt;body&gt;</label>
-    <input id="sync" type="checkbox">
-  </div> -->
   <n-el
     class="toggle"
     :aria-pressed="`${AppConfig.themeType === EThemeType.DARK}`"
