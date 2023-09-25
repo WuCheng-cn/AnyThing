@@ -13,14 +13,26 @@
       v-show="widgetFilterWidth"
       :columns="columns"
       :widget-list="Registry"
+      :on-mousedown="onMousedown"
     />
   </n-el>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, PropType } from 'vue'
 import ListVue from './list.vue'
 import SearchVue from './search.vue'
 import { Registry } from '../../widget'
+import { InRegistItem } from '@/interface/graph/InRegistItem'
+
+defineProps({
+  /**
+   * # 拖拽事件
+   */
+  onMousedown: {
+    type: Function as PropType<(e:MouseEvent, item:InRegistItem) => void>,
+    default: () => () => ({}),
+  },
+})
 
 const columns = ref<number>(1)
 

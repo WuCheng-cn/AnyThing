@@ -5,12 +5,12 @@
       :custom-class-left-slider="['customm-slider-left']"
     >
       <template #slider-left>
-        <WidgetFilter />
+        <WidgetFilter :on-mousedown="onMousedown" />
         <!-- <div
           v-for="(item,index) in Registry"
           :key="index"
           class="item"
-          @mousedown="handleDrag($event,item)"
+          @mousedown="onMousedown($event,item)"
         >
           {{ item.name }}
         </div>  -->
@@ -70,7 +70,7 @@ function resize (e:ResizeObserverEntry[]) {
 /**
  * @description: 拖拽组件
  */
-function handleDrag (e:MouseEvent, item:InRegistItem) {
+function onMousedown (e:MouseEvent, item:InRegistItem) {
   if (!graph.value) return
   const dnd = new Dnd({
     target: graph.value as Graph,

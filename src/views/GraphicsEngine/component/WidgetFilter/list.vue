@@ -13,6 +13,7 @@
           ? '10px'
           : getTopPosition(index),
       }"
+      @mousedown="onMousedown($event,item)"
     >
       <div class="t">
         <n-ellipsis class="widget-name">
@@ -24,7 +25,6 @@
           class="widget-image"
           lazy
           preview-disabled
-          width="auto"
           object-fit="scale-down"
           :src="item.image"
         />
@@ -51,6 +51,14 @@ const props = defineProps({
     type: Number as PropType<number>,
     default: 1,
   },
+  /**
+   * # 拖拽事件
+   */
+  onMousedown: {
+    type: Function as PropType<(e:MouseEvent, item:InRegistItem) => void>,
+    default: () => () => ({}),
+  },
+  
 })
 
 function getTopPosition (index:number) {
@@ -68,10 +76,12 @@ function getTopPosition (index:number) {
   height: 100%;
   padding: 10px;
   overflow: auto;
+  background-color: var(--body-color);
 }
 
 .widget-item {
-  transition: all 0.3s var(--cubic-bezier-ease-in-out);
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 100%;
   aspect-ratio: 1 / 1.25;
@@ -81,15 +91,22 @@ function getTopPosition (index:number) {
   border: 1px solid var(--border-color);
   box-shadow: var(--box-shadow-2);
   padding: 10px;
+  transition: all 0.3s var(--cubic-bezier-ease-in-out);
   :deep(.widget-name){
     transition: all 0.3s var(--cubic-bezier-ease-in-out);
     font-size: 12px;
+    letter-spacing: .2rem;
   }
-  .widget-image{
-    transition: all 0.3s var(--cubic-bezier-ease-in-out);
-    border: 1px solid var(--border-color);
-    border-radius:var(--any-border-radius);
-    aspect-ratio: 1/1;
+  .c{
+    flex: 1;
+    height: 0;
+    .widget-image{
+      transition: all 0.3s var(--cubic-bezier-ease-in-out);
+      border: 1px solid var(--border-color);
+      border-radius:var(--any-border-radius);
+      aspect-ratio: 1/1;
+      background-color: #f2f2f28e;
+    }
   }
 }
 </style>

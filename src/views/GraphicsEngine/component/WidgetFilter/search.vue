@@ -52,11 +52,11 @@ function handleGridChange () {
   justify-content: space-between;
   padding: 5px 0 5px 10px;
   background-color: var(--table-color);
-  opacity: 0.6;
   backdrop-filter: blur(17.5px);
   border-radius: 10px 10px 0 0;
-  transition: background-color .3s var(--cubic-bezier-ease-in-out);
-  // border: 2px solid rgba(255, 255, 255, 0.18);
+  box-shadow: var(--box-shadow-2);
+  border-bottom: 1px solid var(--border-color);
+  transition: all .3s var(--cubic-bezier-ease-in-out);
 }
 
 .title {
