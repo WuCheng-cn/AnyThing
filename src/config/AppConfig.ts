@@ -14,6 +14,8 @@ export const AppConfig = defineStore('appConfig', {
        * 主题
        */
       themeType: EThemeType.DARK,
+      themeOverrides:{
+      } as GlobalThemeOverrides,
       /**
        * 静态资源地址
        */

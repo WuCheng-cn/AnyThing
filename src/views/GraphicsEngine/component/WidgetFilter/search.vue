@@ -18,11 +18,11 @@
             class="input-group-button"
             :style="isFocus ? { width: 0, padding: 0 } : ''"
             :level="EButtonLevel.TERTIARY"
-            :icon="isGrid ? Grid : SquareSharp"
-            @click="isGrid = !isGrid"
+            :icon="columns === 1 ? SquareSharp : Grid "
+            @click="handleGridChange"
           />
         </template>
-        {{ isGrid ? '双列展示' : '单列展示' }}
+        {{ `${columns}列` }}
       </n-tooltip>
     </div>
   </div>
@@ -33,8 +33,17 @@ import { AButton } from '@/components/UI'
 import { Filter, Grid, SquareSharp } from '@vicons/ionicons5'
 import { EButtonLevel } from '@/enum/EButtonLevel'
 
+const emits = defineEmits<{(event: 'columnsChange', data: number): void;}>()
+
 const isFocus = ref<boolean>(false)
-const isGrid = ref<boolean>(false)
+const columns = ref(1)
+
+function handleGridChange () {
+  columns.value >= 4 
+    ? columns.value = 1
+    : columns.value += 1
+  emits('columnsChange', columns.value)
+}
 </script>
 <style lang="less" scoped>
 .search {

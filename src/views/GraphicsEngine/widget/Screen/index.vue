@@ -10,7 +10,7 @@
   height: 100%;
   transition: all 0.3s var(--cubic-bezier-ease-in-out);
   background-color: #232324;
-  border-radius: 16px;
+  border-radius:var(--any-border-radius);
   opacity: 0.8;
 }
 </style>

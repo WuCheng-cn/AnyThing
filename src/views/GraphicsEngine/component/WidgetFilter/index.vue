@@ -1,12 +1,41 @@
 <template>
-  <n-el class="any-widget-filter">
-    <SearchVue />
+  <n-el 
+    v-resize:0="resize"
+    class="any-widget-filter"
+    :style="{
+      '--widget-filter-width':`${widgetFilterWidth}px`
+    }"
+  >
+    <SearchVue 
+      @columns-change="columns = $event"
+    />
+    <ListVue 
+      v-show="widgetFilterWidth"
+      :columns="columns"
+      :widget-list="Registry"
+    />
   </n-el>
 </template>
 <script lang="ts" setup>
+import { ref } from 'vue'
+import ListVue from './list.vue'
 import SearchVue from './search.vue'
+import { Registry } from '../../widget'
 
+const columns = ref<number>(1)
+
+/**
+ * 组件过滤器宽度
+ */
+const widgetFilterWidth = ref<number>(0)
+function resize (e:ResizeObserverEntry[]) {
+  widgetFilterWidth.value = e[0].devicePixelContentBoxSize[0].inlineSize
+}
 </script>
 <style lang="less" scoped>
-
+.any-widget-filter{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 </style>

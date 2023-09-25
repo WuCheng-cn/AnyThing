@@ -26,6 +26,11 @@ export interface InRegistItem{
   height:number,
 
   /**
+   * 组件缩略图
+   */
+  image:string,
+
+  /**
    * 组件内容
    */
   component:Component,

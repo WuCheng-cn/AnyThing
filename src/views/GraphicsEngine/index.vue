@@ -2,18 +2,18 @@
   <Panle show-right-slider>
     <Panle 
       show-left-slider
-      :custom-class-left-slider="['any-dynamic-fuzzy-background','customm-slider-left']"
+      :custom-class-left-slider="['customm-slider-left']"
     >
       <template #slider-left>
         <WidgetFilter />
-        <div
+        <!-- <div
           v-for="(item,index) in Registry"
           :key="index"
           class="item"
           @mousedown="handleDrag($event,item)"
         >
           {{ item.name }}
-        </div> 
+        </div>  -->
       </template>
       <n-el
         v-resize:100="resize"
