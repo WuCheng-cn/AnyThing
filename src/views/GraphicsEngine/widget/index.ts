@@ -7,12 +7,6 @@ const Registry:InRegistItem[] = [
   Screen,
   LineChart, 
   WidgetImage,
-  Screen,
-  LineChart, 
-  WidgetImage,
-  Screen,
-  LineChart, 
-  WidgetImage,
 ]
 
 export {

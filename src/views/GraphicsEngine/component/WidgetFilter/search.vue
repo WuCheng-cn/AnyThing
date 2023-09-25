@@ -7,9 +7,11 @@
     <div class="input-group">
       <div class="input-group-input">
         <n-input 
+          v-model:value="searchValue"
           placeholder="组件名称..."
           @focus="isFocus = true"
           @blur="isFocus = false"
+          @input="emits('change', searchValue)"
         />
       </div>
       <n-tooltip>
@@ -33,10 +35,15 @@ import { AButton } from '@/components/UI'
 import { Filter, Grid, SquareSharp } from '@vicons/ionicons5'
 import { EButtonLevel } from '@/enum/EButtonLevel'
 
-const emits = defineEmits<{(event: 'columnsChange', data: number): void;}>()
+/* eslint-disable-next-line */
+const emits = defineEmits<{
+  (event: 'change', data: string): void,
+  (event: 'columnsChange', data: number): void,
+}>()
 
 const isFocus = ref<boolean>(false)
 const columns = ref(1)
+const searchValue = ref('')
 
 function handleGridChange () {
   columns.value >= 4 
@@ -44,6 +51,7 @@ function handleGridChange () {
     : columns.value += 1
   emits('columnsChange', columns.value)
 }
+
 </script>
 <style lang="less" scoped>
 .search {

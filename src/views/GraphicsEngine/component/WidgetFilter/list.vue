@@ -2,7 +2,7 @@
   <div class="widget-list">
     <div
       v-for="(item, index) in widgetList"
-      :key="index"
+      :key="item.name"
       class="widget-item"
       :style="{
         width: `calc((100% - 10px) / ${columns} - 10px)`,
@@ -90,12 +90,13 @@ function getTopPosition (index:number) {
   border-radius: var(--any-border-radius);
   border: 1px solid var(--border-color);
   box-shadow: var(--box-shadow-2);
-  padding: 10px;
+  padding:0 10px;
   transition: all 0.3s var(--cubic-bezier-ease-in-out);
   :deep(.widget-name){
     transition: all 0.3s var(--cubic-bezier-ease-in-out);
-    font-size: 12px;
     letter-spacing: .2rem;
+    font-size: 14px;
+    padding: 5px 0;
   }
   .c{
     flex: 1;

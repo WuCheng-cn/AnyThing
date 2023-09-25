@@ -6,14 +6,6 @@
     >
       <template #slider-left>
         <WidgetFilter :on-mousedown="onMousedown" />
-        <!-- <div
-          v-for="(item,index) in Registry"
-          :key="index"
-          class="item"
-          @mousedown="onMousedown($event,item)"
-        >
-          {{ item.name }}
-        </div>  -->
       </template>
       <n-el
         v-resize:100="resize"

@@ -8,17 +8,19 @@
   >
     <SearchVue 
       @columns-change="columns = $event"
+      @change="searchValue = $event"
     />
     <ListVue 
       v-show="widgetFilterWidth"
+      :search-value="searchValue"
       :columns="columns"
-      :widget-list="Registry"
+      :widget-list="list"
       :on-mousedown="onMousedown"
     />
   </n-el>
 </template>
 <script lang="ts" setup>
-import { ref, PropType } from 'vue'
+import { ref, PropType, computed } from 'vue'
 import ListVue from './list.vue'
 import SearchVue from './search.vue'
 import { Registry } from '../../widget'
@@ -35,6 +37,18 @@ defineProps({
 })
 
 const columns = ref<number>(1)
+
+/**
+ * 搜索条件
+ */
+const searchValue = ref<string>('')
+
+/**
+ * # 过滤后的组件
+ */
+const list = computed(() => {
+  return Registry.filter(item => item.name.toLocaleLowerCase().includes(searchValue.value))
+})
 
 /**
  * 组件过滤器宽度
