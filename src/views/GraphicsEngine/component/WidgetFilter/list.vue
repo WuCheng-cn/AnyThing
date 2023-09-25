@@ -77,9 +77,11 @@ function getTopPosition (index:number) {
   padding: 10px;
   overflow: auto;
   background-color: var(--body-color);
+  transition: all 0.3s var(--cubic-bezier-ease-in-out);
 }
 
 .widget-item {
+  cursor: grab;
   display: flex;
   flex-direction: column;
   position: absolute;
