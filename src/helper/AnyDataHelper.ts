@@ -1,10 +1,10 @@
+/**
+ * # 深拷贝一个对象
+ * @param data 源对象
+ * @returns 拷贝后的对象
+ * @description 解决循环引用的问题
+ */
 export class AnyDataHelper {
-  /**
-   * # 深拷贝一个对象
-   * @param data 源对象
-   * @returns 拷贝后的对象
-   * @description 解决循环引用的问题
-   */
   static deepClone<T>(data: T): T {
     /**
      * 数据缓存
