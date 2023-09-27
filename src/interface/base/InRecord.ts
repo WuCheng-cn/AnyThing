@@ -13,5 +13,5 @@ export interface InRecord {
   /**
    * 常量值
    */
-  value:string | number | boolean,
+  value?:string | number | boolean,
 }

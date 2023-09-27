@@ -22,11 +22,6 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/GraphicsEngine/index.vue')
       },
       {
-        path: '/station',
-        name: 'x5公交站线路',
-        component: () => import('@/views/stationRoue/index.vue')
-      },
-      {
         path: '/codeEditor',
         name: '代码编辑器',
         component: () => import('@/views/CodeView/index.vue')
