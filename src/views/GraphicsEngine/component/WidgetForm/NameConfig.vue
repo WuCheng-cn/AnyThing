@@ -1,3 +1,3 @@
 <template>
-  <n-el>x</n-el>
+  开发中...
 </template>

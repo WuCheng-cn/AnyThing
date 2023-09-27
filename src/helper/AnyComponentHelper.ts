@@ -3,9 +3,9 @@ export class AnyComponentHelper {
   /**
    * 注册异步组件
    */
-  static asyncComponent(url: string) {
+  static asyncComponent(loader: AsyncComponentLoader) {
     return defineAsyncComponent({
-      loader:(() => import(url)) as AsyncComponentLoader,
+      loader,
       delay: 20,
     })
   }

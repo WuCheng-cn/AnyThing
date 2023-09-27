@@ -1,3 +1,4 @@
+import { AsyncComponentLoader } from "vue";
 import { EFormType } from "@/enum/EFormType";
 import { InFieldConfig } from "./InFieldConfig";
 import { EDateFormType } from "@/enum/EDateFormType";
@@ -19,4 +20,5 @@ export interface InFormFieldConfig extends InFieldConfig{
   emumRecord?: InRecord[];
   checkedValue?: any;
   unCheckedValue?: any;
+  component?: AsyncComponentLoader;
 }
