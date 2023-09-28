@@ -9,10 +9,5 @@
 
 </script>
 <style lang="less">
-.n-image{
-  width: 100% ;
-  img{
-    width: 100% !important;
-  }
-}
+
 </style>

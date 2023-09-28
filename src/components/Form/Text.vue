@@ -20,6 +20,11 @@ const props = defineProps({
   ...AnyFormFieldProps(''),
 })
 
+/**
+ * 绑定数据
+ */
+const value = ref<string>('')
+
 watch(
   () => props.modelValue,
   (newValue) => {
@@ -27,13 +32,9 @@ watch(
   },
   {
     deep: true,
+    immediate: true,
   },
 )
-
-/**
- * 绑定数据
- */
-const value = ref<string>('')
 watch(
   value,
   (newValue) => {

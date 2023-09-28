@@ -28,6 +28,7 @@
       <Text v-model="text" />
       <TextArea v-model="text" />
       <Select v-model="sel" />
+      <Number v-model="number" />
     </n-space>
   </Panle>
 </template>
@@ -41,7 +42,9 @@ import Text from '@/components/Form/Text.vue'
 import TextArea from '@/components/Form/TextArea.vue'
 import Select from '@/components/Form/Select.vue'
 import Upload from '@/components/Form/Upload.vue'
+import Number from '@/components/Form/Number.vue'
 const showModal = ref(false)
 const text = ref('')
 const sel = ref('')
+const number = ref(0)
 </script>

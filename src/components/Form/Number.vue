@@ -1,8 +1,6 @@
 <template>
-  <n-input
+  <n-input-number
     v-model:value="value" 
-    rows="3"
-    type="textarea"
     :round="props.round"
     :disabled="props.disabled"
     :placeholder="placeholderComputed"
@@ -19,17 +17,17 @@ import { AnyFormFieldConfig } from '@/model/basic/AnyFormFieldConfig'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
-  ...AnyFormFieldProps(''),
+  ...AnyFormFieldProps<number>(),
 })
 
 /**
  * 绑定数据
  */
-const value = ref<string>('')
+const value = ref(0)
 watch(
   () => props.modelValue,
-  (newValue) => {
-    value.value = (newValue as string) ?? ''
+  (newValue:number) => {
+    value.value = newValue ?? 0
   },
   {
     deep: true,

@@ -1,4 +1,6 @@
+import { PropType } from "vue";
 import { EWigetFormConfigType } from "@/enum/EWigetFormConfigType";
+import { AnyBaseModel } from "@/model/basic/AnyBaseModel";
 import { AsyncComponentLoader } from "vue";
 
 /**
@@ -21,7 +23,17 @@ export interface InWidgetFormConfig {
   type: EWigetFormConfigType;
 
   /**
+   * 表单实体
+   */
+  entity: PropType<AnyBaseModel>;
+
+  /**
    * 表单组件
    */
-  component: AsyncComponentLoader
+  component: AsyncComponentLoader;
+
+  /**
+   * 表单数据
+   */
+  data: AnyBaseModel;
 }

@@ -33,6 +33,10 @@ const props = defineProps({
 
 })
 
+/**
+ * 绑定数据
+ */
+const value = ref<string|number|boolean>('')
 watch(
   () => props.modelValue,
   (newValue) => {
@@ -40,13 +44,9 @@ watch(
   },
   {
     deep: true,
+    immediate: true,
   },
 )
-
-/**
- * 绑定数据
- */
-const value = ref<string|number|boolean>('')
 watch(
   value,
   (newValue) => {

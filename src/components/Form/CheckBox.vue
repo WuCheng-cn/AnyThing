@@ -47,6 +47,10 @@ const props = defineProps({
   },
 })
 
+/**
+ * 绑定数据
+ */
+const value = ref<Array<string | number> | null>([])
 watch(
   () => props.modelValue,
   (newValue) => {
@@ -54,13 +58,9 @@ watch(
   },
   {
     deep: true,
+    immediate: true,
   },
 )
-
-/**
- * 绑定数据
- */
-const value = ref<Array<string | number> | null>([])
 watch(
   value,
   (newValue) => {

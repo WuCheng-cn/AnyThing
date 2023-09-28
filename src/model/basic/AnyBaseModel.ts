@@ -60,7 +60,6 @@ export class AnyBaseModel {
 
   /**
    * 获取字段的自定义表单配置
-   * @deprecated 该方法已被废弃，请使用``` getCustomFormFieldConfig ```方法
    * @param fieldKey 字段名
    * @returns 字段的自定义表单配置
    * @description 该方法用于获取字段的自定义表单配置，如果字段没有自定义表单配置，则返回null

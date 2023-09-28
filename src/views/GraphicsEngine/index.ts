@@ -104,7 +104,7 @@ export default class GraphicsHelper extends Graph {
         width: item.width,
         height: item.height,
         component: item.component,
-        data:item.defaultOption
+        data:item.defaultOption,
       })
     })
   }

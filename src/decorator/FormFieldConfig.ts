@@ -11,7 +11,7 @@ const customFormFieldConfigListName = Symbol('customFormFieldConfigListName');
  * @param customFormFieldConfig 自定义表单配置
  * @description 该装饰器用于为字段指定自定义表单配置
  */
-  export function FormFieldConfig<E extends AnyBaseModel>(customFormFieldConfig: InFormFieldConfig) {
+  export function FormFieldConfig<E extends AnyBaseModel>(customFormFieldConfig?: InFormFieldConfig) {
     return function (target: any, key: string) {
       if (!customFormFieldConfig) {
         customFormFieldConfig = new AnyFormFieldConfig();

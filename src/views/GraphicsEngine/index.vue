@@ -16,14 +16,24 @@
       </n-el>
     </Panle>
     <template #slider-right>
+      <div 
+        v-for="item in (currentData?.getData() as InDefaultOption)?.formConfig"
+        :key="item.title"
+      >
+        <component 
+          :is="item.component"
+          v-model="item.data"
+          :resize-handler="resizeHandler"
+        />
+      </div>
       <AButton @click="handleClick" />
     </template>
   </Panle>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref, defineComponent, watch } from 'vue'
+import { onMounted, ref, defineComponent } from 'vue'
 import { Dnd } from '@antv/x6-plugin-dnd'
-import { Graph } from '@antv/x6'
+import { Graph, Node } from '@antv/x6'
 import { useStore } from '@/store'
 import { useConfig } from '@/config'
 import { Registry } from './widget/index'
@@ -32,6 +42,9 @@ import { getTeleport } from '@antv/x6-vue-shape'
 import { InRegistItem } from '@/interface/graph/InRegistItem'
 import GraphicsHelper from '@/views/GraphicsEngine/index'
 import WidgetFilter from './component/WidgetFilter/index.vue'
+import { InDefaultOption } from '@/interface/graph/InDefaultOption'
+import { InWidgetFormConfig } from '@/interface/graph/InWidgetFormConfig'
+import { WidgetConfigEntity } from '@/entity/graph/WidgetConfigEntity'
 
 const graph = ref<Graph>()
 const TeleportContainer = getTeleport()
@@ -84,17 +97,29 @@ onMounted(() => {
   // 将Screen组件添加进画布
   graph.value.addNode({ shape: 'Screen', x: 20, y: 20 })
 
-  graph.value.on('node:selected', ({ node, options }) => {
+  graph.value.on('node:selected', ({ node }) => {
     console.log(node)
-    console.log(options)
-    currentData.value = node.id
+    console.log(node.getData())
+    currentData.value = node
+  })
+  graph.value.on('node:resizing', ({ node }) => {
+    const { width, height } = node.getSize()
+    const data = node.getData() as InDefaultOption
+    const baseConfig = data.formConfig.find((item) => item.title === '基础配置') as InWidgetFormConfig
+    const fromData = baseConfig.data as WidgetConfigEntity
+    fromData.width = width
+    fromData.height = height
   })
 })
 
-const currentData = ref('')
+const resizeHandler = (width:number, height:number) => {
+  currentData.value?.setSize(width, height)
+}
+
+const currentData = ref<Node<Node.Properties>>()
 function handleClick () {
-  useStore().graphStore.recordsCenter[currentData.value]?.series[0].data.push(1000)
-  useStore().graphStore.recordsCenter[currentData.value]?.xAxis.data.push('x')
+  useStore().graphStore.recordsCenter[currentData.value?.id || '']?.series[0].data.push(1000)
+  useStore().graphStore.recordsCenter[currentData.value?.id || '']?.xAxis.data.push('x')
 }
 </script>
 <style lang="less">

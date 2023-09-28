@@ -1,5 +1,5 @@
-import Screen from "./index.vue";
 import { useConfig } from "@/config";
+import { AnyComponentHelper } from "@/helper/AnyComponentHelper";
 import { InRegistItem } from "@/interface/graph/InRegistItem";
 
 const regist:InRegistItem = {
@@ -7,7 +7,7 @@ const regist:InRegistItem = {
   nodeShape:'Screen',
   width:useConfig().GraphConfig.expectWidth,
   height:useConfig().GraphConfig.expectHeight,
-  component:Screen,
+  component:AnyComponentHelper.asyncComponent(() => import('./index.vue')),
   defaultOption:{
     isParent:true,
   }
