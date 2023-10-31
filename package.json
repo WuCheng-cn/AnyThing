@@ -60,6 +60,7 @@
     "prettier": "^2.8.1",
     "typescript": "*",
     "vite": "^4.0.0",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-externals": "^0.6.2",
     "vite-plugin-insert-html": "^1.0.1",
     "vite-plugin-static-copy": "^0.17.0",
