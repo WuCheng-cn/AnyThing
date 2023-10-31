@@ -7,6 +7,8 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
 import { insertHtml, h } from 'vite-plugin-insert-html'
 // vite静态文件拷贝插件
 import { viteStaticCopy } from 'vite-plugin-static-copy'
+// vite打包压缩插件
+import compress from 'vite-plugin-compression'
 
 export default defineConfig({
   plugins: [
