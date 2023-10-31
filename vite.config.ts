@@ -1,11 +1,35 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+// 依赖外部化，不参与打包
+import { viteExternalsPlugin } from 'vite-plugin-externals'
+// vite插入script标签插件
+import { insertHtml, h } from 'vite-plugin-insert-html'
+
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    splitVendorChunkPlugin(),
+    viteExternalsPlugin({
+      // key 是要外部化的依赖名，value 是全局访问的名称，这里填写的是 'Cesium'
+      // 意味着外部化后的 cesium 依赖可以通过 window['Cesium'] 访问；
+      // 支持链式访问，参考此插件的文档
+      cesium: 'Cesium',
+    },{
+      disableInServe:true//开发环境下不将依赖外部化
+    }),
+    insertHtml({
+      head: [// 在head标签中插入引入Cesium.js的标签
+        h('script', {
+          src: 'libs/cesium/Cesium.js'
+        })
+      ]
+    })
+
+  ],
   resolve: {
     alias: {
-      '@':'/src/'
+      '@': '/src/'
     }
   },
   optimizeDeps: {
