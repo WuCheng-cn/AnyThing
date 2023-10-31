@@ -27,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/CodeView/index.vue')
       },
       {
+        path: '/cesium',
+        name: 'GIS引擎',
+        component: () => import('@/views/GIS/Cesium/index.vue')
+      },
+      {
         path: '/demo',
         name: 'demo',
         component: () => import('@/views/Demo/index.vue')

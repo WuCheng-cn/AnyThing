@@ -11,5 +11,6 @@ declare global {  //设置全局属性
     __x6_instances__: any;//x6实例
     MonacoEnvironment?: Environment | undefined ;//monaco实例
     showOpenFilePicker: any;//打开文件
+    CESIUM_BASE_URL: string;//cesium基准地址
   }
 }
