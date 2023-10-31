@@ -5,6 +5,8 @@ import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 // vite插入script标签插件
 import { insertHtml, h } from 'vite-plugin-insert-html'
+// vite静态文件拷贝插件
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
   plugins: [
@@ -17,6 +19,30 @@ export default defineConfig({
       cesium: 'Cesium',
     },{
       disableInServe:true//开发环境下不将依赖外部化
+    }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'node_modules/cesium/Build/CesiumUnminified/Cesium.js', // 要复制的文件路径
+          dest: 'libs/cesium/' // 打包后根路径的相对路径
+        },
+        {
+          src: 'node_modules/cesium/Build/CesiumUnminified/Assets/*',
+          dest: 'libs/cesium/Assets/'
+        },
+        {
+          src: 'node_modules/cesium/Build/CesiumUnminified/ThirdParty/*',
+          dest: 'libs/cesium/ThirdParty/'
+        },
+        {
+          src: 'node_modules/cesium/Build/CesiumUnminified/Workers/*',
+          dest: 'libs/cesium/Workers/'
+        },
+        {
+          src: 'node_modules/cesium/Build/CesiumUnminified/Widgets/*',
+          dest: 'libs/cesium/Widgets/'
+        },
+      ]
     }),
     insertHtml({
       head: [// 在head标签中插入引入Cesium.js的标签

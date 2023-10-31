@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vite/client"], // 使用由 vite/client 提供的 import.meta 类型
     "composite": true,
     "module": "esnext",
     "moduleResolution": "node",
