@@ -15,7 +15,7 @@ onMounted(() => {
     imageryProvider: new UrlTemplateImageryProvider({
       url: 'https://webst02.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
     }),
-    baseLayerPicker: false, // 如果设置为false，将不会创建右上角图层按钮。
+    // baseLayerPicker: false, // 如果设置为false，将不会创建右上角图层按钮。
     geocoder: false, // 如果设置为false，将不会创建右上角查询(放大镜)按钮。
     navigationHelpButton: false, // 如果设置为false，则不会创建右上角帮助(问号)按钮。
     homeButton: false, // 如果设置为false，将不会创建右上角主页(房子)按钮。
