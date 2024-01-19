@@ -877,10 +877,45 @@
     "@typescript-eslint/types" "5.47.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vicons/antd@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmmirror.com/@vicons/antd/-/antd-0.12.0.tgz#56612381fb3fc79c0bf8d117c2f4de24de52cbbd"
+  integrity sha512-C0p6aO1EmGG1QHrqgUWQS1No20934OdWSRQshM5NIDK5H1On6tC26U0hT6Rmp40KfUsvhvX5YW8BoWJdNFifPg==
+
+"@vicons/carbon@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmmirror.com/@vicons/carbon/-/carbon-0.12.0.tgz#dfcc5d6283662eccee55700b2d5c29e688a70f5a"
+  integrity sha512-kCOgr/ZOhZzoiFLJ8pwxMa2TMxrkCUOA22qExPabus35F4+USqzcsxaPoYtqRd9ROOYiHrSqwapak/ywF0D9bg==
+
+"@vicons/fa@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmmirror.com/@vicons/fa/-/fa-0.12.0.tgz#a5f92db45990f8a47b5eeedcdb9b673f0dababc8"
+  integrity sha512-g2PIeJLsTHUjt6bK63LxqC0uYQB7iu+xViJOxvp1s8b9/akpXVPVWjDTTsP980/0KYyMMe4U7F/aUo7wY+MsXA==
+
+"@vicons/fluent@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmmirror.com/@vicons/fluent/-/fluent-0.12.0.tgz#7e9a39190114f7cb682a71dd166e7efec35e5e9c"
+  integrity sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==
+
+"@vicons/ionicons4@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmmirror.com/@vicons/ionicons4/-/ionicons4-0.12.0.tgz#20fc1c76b048638a49e76880c10846843b63dc1f"
+  integrity sha512-i+7YwlpCrqD6m9esbZLy1bpVQlh4CKugtS3OzgfNw6BLTQQK6HT7drktaJgcESj/BTr4avdNbAtMQXx56wSVMg==
+
 "@vicons/ionicons5@^0.12.0":
   version "0.12.0"
   resolved "https://registry.npmmirror.com/@vicons/ionicons5/-/ionicons5-0.12.0.tgz#c39fda04420dfae3b58053faf8aaf3555253299d"
   integrity sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==
+
+"@vicons/material@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmmirror.com/@vicons/material/-/material-0.12.0.tgz#068e72fa40bd7f780af5fc68011fb69010c8e0b5"
+  integrity sha512-chv1CYAl8P32P3Ycwgd5+vw/OFNc2mtkKdb1Rw4T5IJmKy6GVDsoUKV3N2l208HATn7CCQphZtuPDdsm7K2kmA==
+
+"@vicons/tabler@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmmirror.com/@vicons/tabler/-/tabler-0.12.0.tgz#11924d2288e9346d47b44dd643ac20e72a32e089"
+  integrity sha512-3+wUFuxb7e8OzZ8Wryct1pzfA2vyoF4lwW98O9s27ZrfCGaJGNmqG+q8A7vQ92Mf+COCgxpK+rhNPTtTvaU6qw==
 
 "@vitejs/plugin-vue@^2.3.3":
   version "2.3.4"

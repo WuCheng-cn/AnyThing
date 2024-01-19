@@ -1,15 +1,16 @@
 <template>
   <div
-    class="main"
+    class="desktop"
+    :style="{ backgroundImage: `url(${backgroundImage})` }"
+    @mouseup="dragend"
     @mouseleave="dragend"
     @mousemove="mouseMove($event)"
   >
     <ToolBar key="ToolBar" />
     <transition-group
-      class="desktop"
-      name="drag"
+      class="main"
       tag="div"
-      @mouseup="dragend"
+      name="drag"
     >
       <APP
         v-for="(item, index) in AppList"
@@ -22,17 +23,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { InApp } from '@/interface/desktop/InApp'
-import { UseWallpaper } from './hooks/UseWallpaper'
 import AppIcon from '@/assets/img/appIcon/app.png'
 import AppIconSvg from '@/assets/img/appIcon/anyIcon.svg'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
+import { useConfig } from '@/config'
 
 const APP = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/APP.vue'))
 const ToolBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/ToolBar.vue'))
-
-const { setWallpaper } = UseWallpaper()
 
 const AppList = ref<InApp[]>([
   {
@@ -56,6 +55,11 @@ const AppList = ref<InApp[]>([
     icon: AppIcon,
   },
 ])
+
+const backgroundImage = computed(() => {
+  const { currentBackgroundImg, defaultBackgroundImg } = useConfig().DesktopConfig
+  return currentBackgroundImg || defaultBackgroundImg
+})
 
 const dragIndex = ref<number>(0)
 
@@ -147,25 +151,25 @@ function dragend () {
     if (targetEl.value?.classList.contains('dragging')) {
       targetEl.value?.classList.remove('dragging')
     }
-  }, 300)
+  }, 500)
 }
-
 onMounted(() => {
-  const desktop = document.querySelector('.desktop') as HTMLElement
-  if (desktop) {
-    // setWallpaper(desktop)
-  }
+  
 })
 </script>
 <style lang="less" scoped>
-.main{
+.desktop{
   position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  transition: background-image 1s;
 }
-.desktop {
+.main {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
   overflow: hidden;
   user-select: none;
   padding: 50px;
@@ -174,15 +178,14 @@ onMounted(() => {
   grid-template-columns: repeat(auto-fill, 72px);
   grid-auto-flow: dense;
   grid-gap: 50px;
-  background: url('../../assets/img/MacBg-2k.jpg') no-repeat center center;
 }
 
 .drag-move {
-  transition: transform .3s;
+  transition: transform .5s;
 }
 
 :deep(.dragging_back){
-  transition: all .3s;
+  transition: all .5s;
 }
 
 :deep(.dragging_copy) {
@@ -194,12 +197,12 @@ onMounted(() => {
 }
 
 :deep(.dragging) {
-  border: 2px dashed #f2f2f286;
-  border-radius: 12px;
-  z-index: 1;
+  border: 2px dashed #f2f2f2ce !important;
+  border-radius: 12px !important;
+  z-index: 1 !important;
 
   .app_icon {
-    opacity: 0;
+    opacity: 0 !important;
   }
 
   .app_name {
