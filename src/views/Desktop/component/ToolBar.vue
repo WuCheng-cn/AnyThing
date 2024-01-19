@@ -10,6 +10,7 @@
     </div>
     <div class="tool_bar-right">
       <WallPaperQuick />
+      <Battery />
       <slot name="right" />
     </div>
   </div>
@@ -18,6 +19,7 @@
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 
 const WallPaperQuick = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/WallPaperQuick.vue'))
+const Battery = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/Battery.vue'))
 
 </script>
 <style lang="less" scoped>
@@ -58,7 +60,7 @@ const WallPaperQuick = AnyComponentHelper.asyncComponent(() => import('@/views/D
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 10px;
+    gap:4px;
   }
 }
 

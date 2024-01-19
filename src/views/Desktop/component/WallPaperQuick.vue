@@ -1,10 +1,10 @@
 <template>
-  <div class="wallpaper_quick" @click="changeWallpaper">
+  <ToolBarIconContain class="wallpaper_quick" @click="changeWallpaper">
     <transition name="wallpaper">
       <n-icon v-if="isLoading" class="loading icon" :component="Loader" />
       <n-icon v-else class="icon" :component="Image" />
     </transition>
-  </div>
+  </ToolBarIconContain>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
@@ -12,6 +12,9 @@ import { Image } from '@vicons/ionicons5'
 import { Loader } from '@vicons/tabler'
 import { UseWallpaper } from '@/hooks/UseWallpaper'
 import { useConfig } from '@/config'
+import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
+
+const ToolBarIconContain = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/ToolBarIconContain.vue'))
 
 const isLoading = ref(false)
 
@@ -25,15 +28,6 @@ async function changeWallpaper () {
 </script>
 <style lang="less" scoped>
 .wallpaper_quick{
-  position: relative;
-  width: 32px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all .5s;
-  color: #fff;
-  font-size: 20px;
   &:hover{
     cursor: pointer;
     background-color: #f2f2f225;
