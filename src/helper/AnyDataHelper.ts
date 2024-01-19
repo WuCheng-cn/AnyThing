@@ -1,3 +1,4 @@
+
 /**
  * # 深拷贝一个对象
  * @param data 源对象
@@ -42,7 +43,24 @@ export class AnyDataHelper {
 
   }
 
-
+  /**
+   * 防抖函数
+   */
+  static debounce(fn: Function, delay: number) {
+    let timer: number | null = null
+    return function () {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      //@ts-ignore
+      const context = this
+      const args = arguments
+      timer = setTimeout(function () {
+        fn.apply(context, args)
+      }
+        , delay)
+    }
+  }
 }
 
 

@@ -1,5 +1,4 @@
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 // 依赖外部化，不参与打包
 import { viteExternalsPlugin } from 'vite-plugin-externals'

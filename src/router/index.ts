@@ -1,6 +1,11 @@
-import { createRouter, RouteRecordRaw ,createWebHistory ,createWebHashHistory} from 'vue-router'
+import { createRouter, RouteRecordRaw, createWebHistory, createWebHashHistory } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '',
+    name: '桌面',
+    component: () => import('@/views/Desktop/index.vue')
+  },
   {
     path: '/home',
     name: 'Home',
@@ -10,11 +15,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'layout',
     component: () => import('@/views/Layout/index.vue'),
-    children:[
+    children: [
       {
-        path: '',
+        path: '/tempPrint',
         name: '模板打印',
-        component: () => import('@/views/TempPrint/index.vue')
+        component: () => import('@/views/TempPrint/index.vue'),
       },
       {
         path: '/graphics',

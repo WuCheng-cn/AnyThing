@@ -4,6 +4,6 @@ import { graphStore } from './graphStore'
 export function useStore() {
   return {
     graphStore: graphStore(),
-    clickPositionStore: clickPositionStore()
+    clickPositionStore: clickPositionStore(),
   }
 }

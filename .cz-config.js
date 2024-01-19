@@ -50,6 +50,10 @@ module.exports = {
     }
   ],
   scopes: [
+    { name: "view" },
+    { name: "desktop" },
+    { name: "graph" },
+    { name: "gis" },
     { name: "decorator" },
     { name: "dto" },
     { name: "entity" },

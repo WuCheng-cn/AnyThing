@@ -1,0 +1,209 @@
+<template>
+  <div
+    class="main"
+    @mouseleave="dragend"
+    @mousemove="mouseMove($event)"
+  >
+    <ToolBar key="ToolBar" />
+    <transition-group
+      class="desktop"
+      name="drag"
+      tag="div"
+      @mouseup="dragend"
+    >
+      <APP
+        v-for="(item, index) in AppList"
+        :key="item.name"
+        :data="item"
+        @mouseenter="dragenter($event, index)"
+        @mousedown="dragstart($event, index)"
+      />
+    </transition-group>
+  </div>
+</template>
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
+import { InApp } from '@/interface/desktop/InApp'
+import { UseWallpaper } from './hooks/UseWallpaper'
+import AppIcon from '@/assets/img/appIcon/app.png'
+import AppIconSvg from '@/assets/img/appIcon/anyIcon.svg'
+import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
+
+const APP = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/APP.vue'))
+const ToolBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/ToolBar.vue'))
+
+const { setWallpaper } = UseWallpaper()
+
+const AppList = ref<InApp[]>([
+  {
+    name: '模板打印',
+    icon: AppIconSvg,
+  },
+  {
+    name: '图形引擎',
+    icon: AppIcon,
+  },
+  {
+    name: '代码编辑器',
+    icon: AppIcon,
+  },
+  {
+    name: 'GIS引擎',
+    icon: AppIcon,
+  },
+  {
+    name: '切换壁纸',
+    icon: AppIcon,
+  },
+])
+
+const dragIndex = ref<number>(0)
+
+const cloneEl = ref<HTMLElement>()
+
+const targetEl = ref<HTMLElement>()
+
+const initial = ref({
+  offsetX: 0,
+  offsetY: 0,
+  pageX: 0,
+  pageY: 0,
+})
+
+let timer:any
+
+// eslint-disable-next-line no-undef
+function recordInitial (e: HTMLElementEvent<HTMLElement>) {
+  const { offsetX, offsetY, pageX, pageY } = e
+  initial.value = { offsetX, offsetY, pageX, pageY }
+  targetEl.value = e.target as HTMLElement
+}
+
+// eslint-disable-next-line no-undef
+function changePositionToMouse (e: MouseEvent, delay = 100) {
+  setTimeout(() => {
+    if (cloneEl.value && !cloneEl.value.classList.contains('dragging_back')) {
+      const positionLeft = e.clientX - initial.value.offsetX
+      const positionTop = e.clientY - initial.value.offsetY
+      const cssText = `
+        left: ${positionLeft}px;
+        top: ${positionTop}px;
+      `
+      cloneEl.value.style.cssText = cssText
+    }
+  }, delay)
+}
+
+// eslint-disable-next-line no-undef
+function dragstart (e: HTMLElementEvent<HTMLElement>, index: number) {
+  timer = setTimeout(() => {
+    dragIndex.value = index
+    if (!cloneEl.value && e.target.classList.contains('app_item')) {
+      recordInitial(e)
+      cloneEl.value = e.target.cloneNode(true) as HTMLElement
+      cloneEl.value.classList.add('dragging_copy')
+      e.target.parentElement?.appendChild(cloneEl.value)
+      changePositionToMouse(e, 0)
+      e.target.classList.add('dragging')
+    }
+  }, 16 * 15)
+}
+
+// eslint-disable-next-line no-undef
+function mouseMove (e: MouseEvent) {
+  clearTimeout(timer)
+  changePositionToMouse(e)
+}
+
+// eslint-disable-next-line no-undef
+function dragenter (e: HTMLElementEvent<HTMLElement>, index: number) {
+  e.preventDefault()
+  // 避免源对象触发自身的dragenter事件
+  if (dragIndex.value !== index && cloneEl.value && !cloneEl.value?.classList.contains('dragging_back')) {
+    const source = AppList.value[dragIndex.value]
+    AppList.value.splice(dragIndex.value, 1)
+    AppList.value.splice(index, 0, source)
+    // 排序变化后目标对象的索引变成源对象的索引
+    dragIndex.value = index
+  }
+}
+
+function dragend () {
+  clearTimeout(timer)
+  cloneEl.value?.classList.add('dragging_back')
+  // 将克隆元素位置移动到目标元素位置
+  // clearTimeout(timer)
+  if (targetEl.value && cloneEl.value) {
+    const { left, top } = targetEl.value.getBoundingClientRect()
+    const cssText = `
+      left: ${left}px;
+      top: ${top}px;
+    `
+    cloneEl.value.style.cssText = cssText
+  }
+  setTimeout(() => {
+    cloneEl.value?.remove()
+    cloneEl.value = undefined
+    if (targetEl.value?.classList.contains('dragging')) {
+      targetEl.value?.classList.remove('dragging')
+    }
+  }, 300)
+}
+
+onMounted(() => {
+  const desktop = document.querySelector('.desktop') as HTMLElement
+  if (desktop) {
+    // setWallpaper(desktop)
+  }
+})
+</script>
+<style lang="less" scoped>
+.main{
+  position: relative;
+}
+.desktop {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
+  user-select: none;
+  padding: 50px;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 72px);
+  grid-template-columns: repeat(auto-fill, 72px);
+  grid-auto-flow: dense;
+  grid-gap: 50px;
+  background: url('../../assets/img/MacBg-2k.jpg') no-repeat center center;
+}
+
+.drag-move {
+  transition: transform .3s;
+}
+
+:deep(.dragging_back){
+  transition: all .3s;
+}
+
+:deep(.dragging_copy) {
+  position: absolute;
+  z-index: 9999;
+  top: -9999px;
+  left: -9999px;
+  pointer-events: none;
+}
+
+:deep(.dragging) {
+  border: 2px dashed #f2f2f286;
+  border-radius: 12px;
+  z-index: 1;
+
+  .app_icon {
+    opacity: 0;
+  }
+
+  .app_name {
+    display: none;
+  }
+}
+</style>

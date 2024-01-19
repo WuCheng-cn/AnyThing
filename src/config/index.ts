@@ -10,6 +10,7 @@
  */
 import { GraphConfig } from './GraphConfig'
 import { AppConfig } from './AppConfig'
+import { DesktopConfig } from './DesktopConfig'
 
 /**
  * # 全局配置文件数据中心
@@ -17,7 +18,8 @@ import { AppConfig } from './AppConfig'
 export const useConfig = ()=>{
   return {
     GraphConfig:GraphConfig(),
-    AppConfig:AppConfig()
+    AppConfig:AppConfig(),
+    DesktopConfig:DesktopConfig(),
   }
 }
 
