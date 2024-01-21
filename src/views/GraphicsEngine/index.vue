@@ -1,30 +1,17 @@
 <template>
   <Panle show-right-slider>
-    <Panle 
-      show-left-slider
-      :custom-class-left-slider="['customm-slider-left']"
-    >
+    <Panle show-left-slider :custom-class-left-slider="['customm-slider-left']">
       <template #slider-left>
         <WidgetFilter :on-mousedown="onMousedown" />
       </template>
-      <n-el
-        v-resize:100="resize"
-        class="box"
-      >
+      <n-el v-resize:100="resize" class="box">
         <div id="container" class="container" />
         <TeleportContainer />
       </n-el>
     </Panle>
     <template #slider-right>
-      <div 
-        v-for="item in (currentData?.getData() as InDefaultOption)?.formConfig"
-        :key="item.title"
-      >
-        <component 
-          :is="item.component"
-          v-model="item.data"
-          :resize-handler="resizeHandler"
-        />
+      <div v-for="item in (currentData?.getData() as InDefaultOption)?.formConfig" :key="item.title">
+        <component :is="item.component" v-model="item.data" :resize-handler="resizeHandler" />
       </div>
       <AButton @click="handleClick" />
     </template>
@@ -63,7 +50,7 @@ GraphicsHelper.registComponent(Registry)
 /**
  * @description: 画布自适应
  */
-function resize (e:ResizeObserverEntry[]) {
+function resize (e: ResizeObserverEntry[]) {
   const boxWidth = e[0].devicePixelContentBoxSize[0].inlineSize
   const boxHeight = e[0].devicePixelContentBoxSize[0].blockSize
   graph.value?.resize(boxWidth, boxHeight)
@@ -75,7 +62,7 @@ function resize (e:ResizeObserverEntry[]) {
 /**
  * @description: 拖拽组件
  */
-function onMousedown (e:MouseEvent, item:InRegistItem) {
+function onMousedown (e: MouseEvent, item: InRegistItem) {
   if (!graph.value) return
   const dnd = new Dnd({
     target: graph.value as Graph,
@@ -112,7 +99,7 @@ onMounted(() => {
   })
 })
 
-const resizeHandler = (width:number, height:number) => {
+const resizeHandler = (width: number, height: number) => {
   currentData.value?.setSize(width, height)
 }
 
@@ -129,10 +116,11 @@ function handleClick () {
 <style lang="less" scoped>
 @import url('@/assets/css/beautify/anyDynamicFuzzyBackground.less');
 
-.box{
+.box {
   height: 100%;
   overflow: hidden;
-  .container{
+
+  .container {
     width: 100%;
     height: 100%;
     transition: all .3s;
@@ -140,17 +128,28 @@ function handleClick () {
   }
 }
 
-.item{
+.item {
   cursor: grab;
-  &:active{
+
+  &:active {
     cursor: grabbing !important;
   }
 }
-:deep(.customm-slider-left){
 
-  .n-layout-sider-scroll-container{
+:deep(.customm-slider-left) {
+  .n-layout-sider-scroll-container {
     padding: unset !important;
 
   }
+}
+
+:deep(.widget-image) {
+  // :deep(.n-image)  {
+    width: 100%;
+
+    img {
+      width: 100% !important;
+    }
+  // }
 }
 </style>

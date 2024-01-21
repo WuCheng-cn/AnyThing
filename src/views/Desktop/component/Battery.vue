@@ -10,8 +10,7 @@ import { BatteryHalf } from '@vicons/ionicons5'
 
 const ToolBarIconContain = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/ToolBarIconContain.vue'))
 
-
-function init() {
+function init () {
   // @ts-ignore
   if (navigator.getBattery) {
     // @ts-ignore
