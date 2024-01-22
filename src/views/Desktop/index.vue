@@ -3,6 +3,7 @@
     class="desktop"
     :style="{ backgroundImage: `url(${backgroundImage})` }"
     @mouseup="dragend"
+    @mouseleave="dragend"
     @mousemove="mouseMove($event)"
   >
     <ToolBar key="ToolBar" />
@@ -22,7 +23,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { InApp } from '@/interface/desktop/InApp'
 import AppIcon from '@/assets/img/appIcon/app.png'
 import AppIconSvg from '@/assets/img/appIcon/anyIcon.svg'
@@ -164,9 +165,6 @@ function getAnimateTime () {
   const distance = Math.sqrt(Math.pow(pageX - left, 2) + Math.pow(pageY - top, 2))
   return Math.min(distance / 2, 500)  
 }
-onMounted(() => {
-  
-})
 </script>
 <style lang="less" scoped>
 .desktop{

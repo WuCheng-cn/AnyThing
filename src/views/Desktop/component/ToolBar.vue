@@ -1,26 +1,29 @@
 <template>
   <div class="tool_bar">
     <div class="tool_bar-left">
+      <User />
       <slot name="left" />
-      l
     </div>
     <div class="tool_bar-center">
       <slot name="center" />
-      c
+      {{ `${packageJson.name}-${packageJson.version}` }}
     </div>
     <div class="tool_bar-right">
       <WallPaperQuick />
+      <Internet />
       <Battery />
       <slot name="right" />
     </div>
   </div>
 </template>
 <script lang="ts" setup>
+import packageJson from '@/../package.json'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 
 const WallPaperQuick = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/WallPaperQuick.vue'))
 const Battery = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/Battery.vue'))
-
+const User = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/User.vue'))
+const Internet = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/Internet.vue'))
 </script>
 <style lang="less" scoped>
 .tool_bar {
@@ -33,6 +36,7 @@ const Battery = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
+  color: #fff;
   background: rgba( 255, 255, 255, 0.4 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 4.5px );
@@ -60,7 +64,6 @@ const Battery = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap:4px;
   }
 }
 

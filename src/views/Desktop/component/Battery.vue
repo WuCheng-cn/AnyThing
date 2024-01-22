@@ -1,6 +1,6 @@
 <template>
   <ToolBarIconContain>
-    <n-icon :component="batteryIcon" size="24" />
+    <n-icon :component="batteryIcon" size="20" />
   </ToolBarIconContain>
 </template>
 <script lang="ts" setup>
@@ -20,15 +20,12 @@ function init () {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     navigator.getBattery().then((battery) => {
-      console.log(battery)
       const { charging, level } = battery
       setBatteryIcon(charging, level)
       battery.addEventListener('chargingchange', () => {
-        console.log('chargingchange', battery.charging)
         setBatteryIcon(battery.charging, battery.level)
       })
       battery.addEventListener('levelchange', () => {
-        console.log('levelchange', battery.level)
         setBatteryIcon(battery.charging, battery.level)
       })
     })

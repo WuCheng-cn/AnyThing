@@ -16,8 +16,8 @@ module.exports = {
     parser: '@typescript-eslint/parser',
   },
   rules: {
-    'no-debugger': 'off', // 禁用 debugger
-    'no-console': 'off', // 禁用 console
+    'no-debugger': 'warn', // 禁用 debugger
+    'no-console': 'warn', // 禁用 console
     'no-bitwise': 'off', // 禁用按位运算符
     'no-tabs': 'warn', // 禁用 tab
     'array-element-newline': ['error', 'consistent'], // 强制数组元素间出现换行
