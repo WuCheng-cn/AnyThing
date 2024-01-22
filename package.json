@@ -81,7 +81,7 @@
     "less-loader": "^11.1.0",
     "prettier": "^2.8.1",
     "standard-version": "^9.5.0",
-    "typescript": "^5.3.3",
+    "typescript": "5.1.6",
     "vite": "^4.0.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-externals": "^0.6.2",
