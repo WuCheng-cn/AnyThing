@@ -133,21 +133,21 @@ function dragenter (e: HTMLElementEvent<HTMLElement>, index: number) {
 
 function dragend () {
   clearTimeout(timer)
- if(cloneEl.value){
-  cloneEl.value.classList.add('dragging_back')
-  const cssText = `--animate-time: ${getAnimateTime()}ms`
-  cloneEl.value.parentElement!.style.cssText = cssText
-  // 将克隆元素位置移动到目标元素位置
-  // clearTimeout(timer)
-  if (targetEl.value) {
-    const { left, top } = targetEl.value.getBoundingClientRect()
-    const cssText = `
+  if (cloneEl.value) {
+    cloneEl.value.classList.add('dragging_back')
+    const cssText = `--animate-time: ${getAnimateTime()}ms`
+    cloneEl.value.parentElement!.style.cssText = cssText
+    // 将克隆元素位置移动到目标元素位置
+    // clearTimeout(timer)
+    if (targetEl.value) {
+      const { left, top } = targetEl.value.getBoundingClientRect()
+      const cssText = `
       left: ${left}px;
       top: ${top}px;
     `
-    cloneEl.value.style.cssText = cssText
+      cloneEl.value.style.cssText = cssText
+    }
   }
- }
   setTimeout(() => {
     cloneEl.value?.remove()
     cloneEl.value = undefined
@@ -157,7 +157,7 @@ function dragend () {
   }, getAnimateTime())
 }
 
-function getAnimateTime(){
+function getAnimateTime () {
   // 根据克隆元素移动距离计算动画时间，最大值为500ms
   const { pageX, pageY } = initial.value
   const { left, top } = cloneEl.value?.getBoundingClientRect() || { left: 0, top: 0 }
