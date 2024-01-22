@@ -3,7 +3,6 @@
     class="desktop"
     :style="{ backgroundImage: `url(${backgroundImage})` }"
     @mouseup="dragend"
-    @mouseleave="dragend"
     @mousemove="mouseMove($event)"
   >
     <ToolBar key="ToolBar" />
@@ -134,10 +133,13 @@ function dragenter (e: HTMLElementEvent<HTMLElement>, index: number) {
 
 function dragend () {
   clearTimeout(timer)
-  cloneEl.value?.classList.add('dragging_back')
+ if(cloneEl.value){
+  cloneEl.value.classList.add('dragging_back')
+  const cssText = `--animate-time: ${getAnimateTime()}ms`
+  cloneEl.value.parentElement!.style.cssText = cssText
   // 将克隆元素位置移动到目标元素位置
   // clearTimeout(timer)
-  if (targetEl.value && cloneEl.value) {
+  if (targetEl.value) {
     const { left, top } = targetEl.value.getBoundingClientRect()
     const cssText = `
       left: ${left}px;
@@ -145,13 +147,22 @@ function dragend () {
     `
     cloneEl.value.style.cssText = cssText
   }
+ }
   setTimeout(() => {
     cloneEl.value?.remove()
     cloneEl.value = undefined
     if (targetEl.value?.classList.contains('dragging')) {
       targetEl.value?.classList.remove('dragging')
     }
-  }, 500)
+  }, getAnimateTime())
+}
+
+function getAnimateTime(){
+  // 根据克隆元素移动距离计算动画时间，最大值为500ms
+  const { pageX, pageY } = initial.value
+  const { left, top } = cloneEl.value?.getBoundingClientRect() || { left: 0, top: 0 }
+  const distance = Math.sqrt(Math.pow(pageX - left, 2) + Math.pow(pageY - top, 2))
+  return Math.min(distance / 2, 500)  
 }
 onMounted(() => {
   
@@ -185,7 +196,7 @@ onMounted(() => {
 }
 
 :deep(.dragging_back){
-  transition: all .5s;
+  transition: all var(--animate-time) ease-in-out !important;
 }
 
 :deep(.dragging_copy) {
