@@ -20,41 +20,20 @@
         @mousedown="dragstart($event, index)"
       />
     </transition-group>
+    <TaskBar key="TaskBar" />
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { InApp } from '@/interface/desktop/InApp'
-import AppIcon from '@/assets/img/appIcon/app.png'
-import AppIconSvg from '@/assets/img/appIcon/anyIcon.svg'
+import { storeToRefs } from 'pinia'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 import { useConfig } from '@/config'
 
 const APP = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/APP.vue'))
 const ToolBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/ToolBar.vue'))
+const TaskBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/Taskbar.vue'))
 
-const AppList = ref<InApp[]>([
-  {
-    name: '模板打印',
-    icon: AppIconSvg,
-  },
-  {
-    name: '图形引擎',
-    icon: AppIcon,
-  },
-  {
-    name: '代码编辑器',
-    icon: AppIcon,
-  },
-  {
-    name: 'GIS引擎',
-    icon: AppIcon,
-  },
-  {
-    name: '切换壁纸',
-    icon: AppIcon,
-  },
-])
+const { appListAll: AppList } = storeToRefs(useConfig().DesktopConfig) 
 
 const backgroundImage = computed(() => {
   const { currentBackgroundImg, defaultBackgroundImg } = useConfig().DesktopConfig
@@ -174,13 +153,14 @@ function getAnimateTime () {
   background-attachment: fixed;
   background-position: center;
   transition: background-image 1s;
+  overflow: hidden;
+  user-select: none;
 }
 .main {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  user-select: none;
   padding: 50px;
   display: grid;
   grid-template-rows: repeat(auto-fill, 72px);

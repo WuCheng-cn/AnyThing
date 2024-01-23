@@ -1,5 +1,10 @@
 export enum EAppIconSize{
   /**
+   * # 任务栏图标尺寸
+   */
+  TASK =  32,
+
+  /**
    * # 默认图标尺寸
    */
   NORMAL =  72,
