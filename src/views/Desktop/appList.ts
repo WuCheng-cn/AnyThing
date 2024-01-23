@@ -7,18 +7,21 @@ export const AppList = [
   {
     name: '模板打印',
     icon: AppIconSvg,
+    handler:()=>AnyDialogHelper.showMacModel(CodeView)
   },
   {
     name: '图形引擎',
     icon: AppIconSvg,
+    handler:()=>AnyDialogHelper.showMacModel(CodeView)
   },
   {
     name: '代码编辑器',
     icon: AppIconSvg,
-    handler:()=>AnyDialogHelper.showModel(CodeView)
+    handler:()=>AnyDialogHelper.showMacModel(CodeView)
   },
   {
     name: 'GIS引擎',
     icon: AppIconSvg,
+    handler:()=>AnyDialogHelper.showMacModel(CodeView)
   },
 ] as InApp[];

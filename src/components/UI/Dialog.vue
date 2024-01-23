@@ -68,14 +68,16 @@ function virtualClick () {
   // 在屏幕对应的位置上创建一个隐藏元素，点击该元素并阻止事件传递
   if (!mousePosition) return
   const virtualElement = document.createElement('div')
-  virtualElement.style.position = 'fixed'
-  virtualElement.style.top = `${mousePosition.y}px`
-  virtualElement.style.left = `${mousePosition.x}px`
-  virtualElement.style.width = '1px'
-  virtualElement.style.height = '1px'
-  virtualElement.style.zIndex = '9999'
-  virtualElement.style.opacity = '0'
-  virtualElement.style.pointerEvents = 'none'
+  virtualElement.style.cssText = `
+    position: fixed;
+    top: ${mousePosition.y}px;
+    left: ${mousePosition.x}px;
+    width: 1px;
+    height: 1px;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+  `
   document.body.appendChild(virtualElement)
   virtualElement.click()
   virtualElement.remove()

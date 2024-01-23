@@ -13,7 +13,7 @@
       name="drag"
     >
       <APP
-        v-for="(item, index) in AppList"
+        v-for="(item, index) in appListWithHandler"
         :key="item.name"
         :data="item"
         @mouseenter="dragenter($event, index)"
@@ -33,7 +33,7 @@ const APP = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/comp
 const ToolBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/ToolBar.vue'))
 const TaskBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/Taskbar.vue'))
 
-const { appListAll: AppList } = storeToRefs(useConfig().DesktopConfig) 
+const { appListWithHandler, appList } = storeToRefs(useConfig().DesktopConfig) 
 
 const backgroundImage = computed(() => {
   const { currentBackgroundImg, defaultBackgroundImg } = useConfig().DesktopConfig
@@ -103,9 +103,9 @@ function dragenter (e: HTMLElementEvent<HTMLElement>, index: number) {
   e.preventDefault()
   // 避免源对象触发自身的dragenter事件
   if (dragIndex.value !== index && cloneEl.value && !cloneEl.value?.classList.contains('dragging_back')) {
-    const source = AppList.value[dragIndex.value]
-    AppList.value.splice(dragIndex.value, 1)
-    AppList.value.splice(index, 0, source)
+    const source = appList.value[dragIndex.value]
+    appList.value.splice(dragIndex.value, 1)
+    appList.value.splice(index, 0, source)
     // 排序变化后目标对象的索引变成源对象的索引
     dragIndex.value = index
   }

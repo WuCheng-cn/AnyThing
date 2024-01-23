@@ -35,7 +35,7 @@ export const DesktopConfig = defineStore('desktopConfig', {
     }
   },
   getters:{
-    appListAll: (state) => {
+    appListWithHandler: (state) => {
       return state.appList?.map((item)=>({
        ...item,
         handler:AppList.find((app)=>app.name===item.name)?.handler

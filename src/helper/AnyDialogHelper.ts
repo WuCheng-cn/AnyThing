@@ -1,6 +1,8 @@
 import { App, Component, createApp, h, Transition } from "vue";
 import naive from 'naive-ui'
 import DialogVue from "@/components/UI/Dialog.vue";
+import DialogMac from "@/components/UI/DialogMac.vue";
+import { InDialogConfig } from "@/interface/base/InDialogConfig";
 
 /**
  * 对话框帮助类
@@ -19,7 +21,7 @@ export class AnyDialogHelper {
    * @param config 对话框配置
    * @returns 对话框的Promise
    */
-  static #bulid<RES>(view: Component, param: Record<string, unknown>, config = {}): Promise<RES> {
+  static #bulid<RES>(view: Component, param: Record<string, unknown>, config?:InDialogConfig): Promise<RES> {
     const parentNode = document.createElement('div')
     const domId = `any_dialog_${Math.random()}`
     parentNode.setAttribute('id', domId)
@@ -48,7 +50,7 @@ export class AnyDialogHelper {
        */
       const renderApp = {
         render: () => h(
-          DialogVue,
+          config?.dialogComponent || DialogVue,
           {
             "onOn-after-leave": () => {
               unmount()
@@ -76,5 +78,9 @@ export class AnyDialogHelper {
    */
   static showModel<RES>(view: Component, param?: unknown, config = {}): Promise<RES> {
     return this.#bulid(view, { param })
+  }
+
+  static showMacModel<RES>(view: Component, param?: unknown, config = {}): Promise<RES> {
+    return this.#bulid(view, { param }, { dialogComponent: DialogMac, ...config })
   }
 }
