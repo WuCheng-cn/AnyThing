@@ -31,7 +31,10 @@ export const DesktopConfig = defineStore('desktopConfig', {
         name: '系统设置',
         icon: SettingIcon,
       }] as InApp[],
-      appList: AppList
+      historyTaskAppList: [] as InApp[],
+      appList: AppList,
+      currentApp: null as InApp | null,
+      currentAppRef: undefined as Ref<HTMLElement> | undefined,
     }
   },
   getters:{

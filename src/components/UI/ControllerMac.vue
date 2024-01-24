@@ -38,6 +38,7 @@ defineProps({
 <style lang="less" scoped>
 .any_contorller_mac {
   cursor: default;
+  width: 68px;
   height: 100%;
   display: flex;
   align-items: center;
