@@ -14,6 +14,7 @@
     >
       <APP
         v-for="(item, index) in appListWithHandler"
+        :ref="setRef($el, index)"
         :key="item.name"
         :data="item"
         @mouseenter="dragenter($event, index)"
@@ -144,6 +145,15 @@ function getAnimateTime () {
   const distance = Math.sqrt(Math.pow(pageX - left, 2) + Math.pow(pageY - top, 2))
   return Math.min(distance / 2, 500)  
 }
+
+const setRef = (el: HTMLElement, index: number) => {
+  console.log('setRef', el, index)
+  if (el) {
+    // 给appList中的元素添加对应的dom
+    
+    appList.value[index].dom = el
+  }
+}
 </script>
 <style lang="less" scoped>
 .desktop{
@@ -178,10 +188,13 @@ function getAnimateTime () {
 }
 
 :deep(.dragging_copy) {
-  position: absolute;
-  z-index: 9999;
+  position: absolute !important; 
+  z-index: 9999 !important;
   top: -9999px;
   left: -9999px;
+  bottom: unset;
+  right: unset;
+  transform: unset;
   pointer-events: none;
 }
 

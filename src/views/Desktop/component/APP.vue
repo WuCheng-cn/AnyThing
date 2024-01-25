@@ -1,5 +1,17 @@
 <template>
-  <div ref="AppRef" class="app_item" @click="handleClick">
+  <div class="app_item" @click="handleClick">
+    <div v-if="currentAppTaskList.length && isTaskApp" class="task">
+      <div class="task_list">
+        <div
+          v-for="(item,index) in currentAppTaskList" 
+          :key="item.app.name"
+          class="task_item"
+          @click="handleTaskClick(item)"
+        >
+          {{ item.app.name + index }}
+        </div>
+      </div>
+    </div>
     <div class="main">
       <n-image
         class="app_icon"
@@ -13,14 +25,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { PropType, ref } from 'vue'
-import { InApp } from '@/interface/desktop/InApp'
+import { PropType, ref, computed } from 'vue'
 import { useConfig } from '@/config'
 import { storeToRefs } from 'pinia'
+import { AppEntity } from '@/entity/desktop/AppEntity'
+import { AppTaskEntity } from '@/entity/desktop/AppTaskEntity'
 
 const props = defineProps({
   data: {
-    type: Object as PropType<InApp>,
+    type: Object as PropType<AppEntity>,
     required: true,
   },
   /**
@@ -38,20 +51,30 @@ const props = defineProps({
     type: Number,
     default: undefined,
   },
+  /**
+   * # 是否是任务栏的应用
+   */
+  isTaskApp: {
+    type: Boolean,
+    default: false,
+  },
 })
-const { appIconSize, historyTaskAppList } = storeToRefs(useConfig().DesktopConfig)
+const { appIconSize } = storeToRefs(useConfig().DesktopConfig)
 
-const AppRef = ref<HTMLElement>()
+const currentAppTaskList = computed(() => {
+  const { appTaskList } = useConfig().DesktopConfig
+  return appTaskList.filter((item) => item.app.name === props.data.name)
+})
 
 function handleClick () {
-  useConfig().DesktopConfig.currentApp = props.data
-  useConfig().DesktopConfig.currentAppRef = AppRef.value
-  // 将点击的app放到历史任务栏中，如果已经存在则不添加
-  if (!historyTaskAppList.value.find((item) => item.name === props.data.name)) {
-    historyTaskAppList.value.push(props.data)
+  if (props.data.handler && !props.isTaskApp) {
+    props.data.handler(props.data)
   }
-  if (props.data.handler) {
-    props.data.handler()
+}
+
+function handleTaskClick (item: AppTaskEntity) {
+  if (item.app && item.app.handler) {
+    item.app.handler(item)
   }
 }
 
@@ -59,17 +82,47 @@ function handleClick () {
 <style lang="less" scoped>
 .app_item {
   cursor: pointer;
+  position: relative;
   box-sizing: border-box;
-  z-index: 2;
   border: 2px dashed transparent;
   border-radius: 12px;
-  animation: app_click 0s;
-  &:hover {
-    animation-duration: 1s;
+  &:hover{
+    .task{
+      display: block;
+    }
   }
-  &:active{
-    animation: none;
+  .task{
+    display: none;
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, 0);
+    transition: all 0.3s;
+    padding: 10px;
+    z-index: 9999;
+    .task_list{
+      display: flex;
+      gap: 10px;
+    }
+    .task_item{
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      color: #121212;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
+  // animation: app_click 0s;
+  // &:hover {
+  //   animation-duration: 1s;
+  // }
+  // &:active{
+  //   animation: none;
+  // }
 }
 
 .main {

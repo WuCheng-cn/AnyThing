@@ -55,7 +55,9 @@ export class AnyDialogHelper {
             "onOn-after-leave": () => {
               unmount()
               // reject()
-            }
+            },
+            beforClose:config?.beforClose,
+            onModelMounted:config?.onModelMounted,
           },
           {
             default: () => h(view, dialogParam)
@@ -76,11 +78,11 @@ export class AnyDialogHelper {
    * @param config 对话框配置
    * @returns 对话框的Promise
    */
-  static showModel<RES>(view: Component, param?: unknown, config = {}): Promise<RES> {
-    return this.#bulid(view, { param })
+  static showModel<RES>(view: Component, param?: unknown, config?:InDialogConfig): Promise<RES> {
+    return this.#bulid(view, { param }, config)
   }
 
-  static showMacModel<RES>(view: Component, param?: unknown, config = {}): Promise<RES> {
+  static showMacModel<RES>(view: Component, param?: unknown, config?:InDialogConfig): Promise<RES> {
     return this.#bulid(view, { param }, { dialogComponent: DialogMac, ...config })
   }
 }

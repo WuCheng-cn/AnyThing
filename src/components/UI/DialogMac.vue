@@ -1,7 +1,7 @@
 <template>
   <div ref="PositionProviderRef" class="position_provider">
     <transition name="any_model" appear>
-      <div v-if="!isClose" ref="AnyModelRef" :class="['any_model_mac', isFullScreen ? 'full' : '' ]">
+      <div v-if="!isClose" ref="AnyModelRef" :class="['any_model_mac']">
         <div
           class="header" 
           @mousedown="startDrag"
@@ -26,12 +26,29 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, PropType } from 'vue'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 import { AnyResizeControllerHelper } from '@/helper/AnyResizeControllerHelper'
 import { useStore } from '@/store'
 
 const ControllerMac = AnyComponentHelper.asyncComponent(() => import('@/components/UI/ControllerMac.vue'))
+
+const props = defineProps({
+  /**
+   * # 关闭前的回调
+   */
+  beforClose: {
+    type: Function as PropType<()=> Promise<boolean>>,
+    default: undefined,
+  },
+  /**
+   * # 对话框挂载时的回调
+   */
+  onMounted: {
+    type: Function as PropType<()=> void>,
+    default: undefined,
+  },
+})
 
 const emits = defineEmits(['on-after-leave'])
 
@@ -53,7 +70,11 @@ const initData = {
   transtion: '',
 }
 
-function onClose () {
+async function onClose () {
+  if (props.beforClose) {
+    const res = await props.beforClose()
+    if (!res) return
+  }
   isClose.value = true
   setTimeout(() => {
     emits('on-after-leave')
@@ -66,6 +87,20 @@ function onMinimize () {
 
 function onMaximize () {
   isFullScreen.value = !isFullScreen.value
+  let cssText = ''
+  if (isFullScreen.value) {
+    cssText = `
+     width: 100vw;
+     height: 100vh;
+     top: 0;
+     left: 0;
+     border-radius: 0 ;
+     transform: none ;
+     z-index: 9999;
+   `
+  }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  AnyModelRef.value!.style.cssText = cssText
 }
 
 function mousemove (e: MouseEvent) {
@@ -120,6 +155,9 @@ function stopDrag () {
 }
 
 onMounted(() => {
+  if (props.onMounted) {
+    props.onMounted()
+  }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   new AnyResizeControllerHelper(AnyModelRef.value)
@@ -151,15 +189,6 @@ onMounted(() => {
   user-select: none;
   transition: all .3s;
   z-index: 999;
-  &.full {
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    border-radius: 0 !important;
-    transform: none !important;
-    z-index: 9999;
-  }
 
   .header {
     cursor: grab;

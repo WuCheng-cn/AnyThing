@@ -5,7 +5,6 @@ import { AnyFieldConfig } from "./AnyFieldConfig";
 import { EDateFormType } from "@/enum/EDateFormType";
 import { InRecord } from "@/interface/base/InRecord";
 
-const AppConfig = useConfig().AppConfig;
 /**
  * # 表单配置实现类
  */
@@ -27,13 +26,13 @@ export class AnyFormFieldConfig extends AnyFieldConfig implements InFormFieldCon
    * # 最大长度
    * @description 仅在```type```为```text ， textarea```时生效
    */
-  maxLength?: number = AppConfig.maxLength;
+  maxLength?: number = useConfig().AppConfig.maxLength;
 
   /**
    * # 最小长度
    * @description 仅在```type```为```text ， textarea```时生效
    */
-  minLength?: number = AppConfig.minLength;
+  minLength?: number = useConfig().AppConfig.minLength;
 
   /**
    * # 是否必填/必选

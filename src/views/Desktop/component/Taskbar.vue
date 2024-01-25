@@ -12,24 +12,46 @@
       @mousemove.prevent="handleMove"
     />
     <div class="split_line" />
-    <APP
-      v-for="(item) in historyTaskAppList"
-      :key="item.name"
-      :data="item"
-      hide-name
-      class="task_app_item"
-      @mousemove.prevent="handleMove"
-    />
+    <transition-group name="history_in">
+      <APP
+        v-for="(item) in appListInTaskList"
+        :ref="setRef($el, item.name)"
+        :key="item.name + 'task'"
+        :data="item"
+        is-task-app
+        hide-name
+        class="task_app_item"
+        @mousemove.prevent="handleMove"
+      />
+    </transition-group>
   </div>
 </template>
 <script lang="ts" setup>
+import { watch, nextTick, computed } from 'vue'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 import { useConfig } from '@/config'
 import { storeToRefs } from 'pinia'
 
 const APP = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/APP.vue'))
 
-const { defaultTaskAppList, historyTaskAppList } = storeToRefs(useConfig().DesktopConfig)
+const { defaultTaskAppList, appTaskList, appListInTaskList } = storeToRefs(useConfig().DesktopConfig)
+
+const taskDomDictinary = new Map<string, HTMLElement>()
+
+const taskNum = computed(() => {
+  return appTaskList.value.length
+})
+
+watch(taskNum, () => {
+  nextTick(() => {
+    appTaskList.value.forEach((item) => {
+      const dom = taskDomDictinary.get(item.app.name)
+      if (dom) {
+        item.setTaskBarDom(dom)
+      }
+    })
+  })
+})
 
 function handleMove (e:MouseEvent) {
   const item = e.target as HTMLElement
@@ -39,7 +61,7 @@ function handleMove (e:MouseEvent) {
   const itemRect = item.getBoundingClientRect()
   const offsetRate = Math.abs(e.clientX - itemRect.left) / itemRect.width
   
-  resetAllScale()
+  // resetAllScale()
 
   const baseScale = 0.6
   // 当前元素放大比例
@@ -49,9 +71,10 @@ function handleMove (e:MouseEvent) {
   // prev 放大比例
   const prevScale = 1 + baseScale * Math.abs(offsetRate - 1)
 
-  const cssText = `width: ${60 * currentScale}px; top: ${-60 * (currentScale - 1)}px;height: ${60 * currentScale}px;`
-  item.style.cssText = cssText
-
+  if (item.classList.contains('task_app_item')) {
+    const cssText = `width: ${60 * currentScale}px; top: ${-60 * (currentScale - 1)}px;height: ${60 * currentScale}px;`
+    item.style.cssText = cssText
+  }
   if (next && next.classList.contains('task_app_item')) {
     const cssText = `width: ${60 * nextScale}px; top: ${-60 * (nextScale - 1)}px;height: ${60 * nextScale}px;`
     next.style.cssText = cssText
@@ -71,6 +94,12 @@ function resetAllScale () {
   })
 }
 
+const setRef = (el: HTMLElement, appName:string) => {
+  if (el) {
+    taskDomDictinary.set(appName, el)
+  }
+}
+
 </script>
 <style lang="less" scoped>
   .task_bar {
@@ -78,7 +107,7 @@ function resetAllScale () {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
+    max-width: 600px;
     height: 80px;
     border-radius: 40px;
     display: flex;
@@ -91,7 +120,7 @@ function resetAllScale () {
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     animation: task_bar-enter 1s;
     transition: all 1s;
-    z-index: 1;
+    z-index: 9999;
     .split_line{
       width: 2px;
       height: 50px;
@@ -111,10 +140,33 @@ function resetAllScale () {
       }
     }
   }
+  .history_in-enter-active {
+    position: relative;
+    animation: history_in .5s;
+  }
+  .history_in-leave-active {
+    position: relative;
+    animation: history_in .5s reverse;
+  }
+
+@keyframes history_in {
+    0% {
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translate(50%,50%);
+    }
+    100% {
+      width: 60px;
+      opacity: 1;
+      overflow: hidden;
+      transform: translate(0,0);
+    }
+  }
 
   @keyframes task_bar-enter {
     0% {
-      width: 10px;
+      max-width: 10px;
       height: 10px;
       padding: 0;
       overflow: hidden;
@@ -123,7 +175,7 @@ function resetAllScale () {
       bottom: -80px;
     }
     20% {
-      width: 16px;
+      max-width: 16px;
       height: 16px;
       padding: 0;
       overflow: hidden;
@@ -132,7 +184,7 @@ function resetAllScale () {
       bottom: 30px;
     }
     30% {
-      width: 16px;
+      max-width: 16px;
       height: 16px;
       padding: 0;
       overflow: hidden;
@@ -141,12 +193,13 @@ function resetAllScale () {
       bottom: 15px;
     }
     50% {
-      width: 1px;
+      max-width: 1px;
       padding: 0;
       overflow: hidden;
       background: rgba( 255, 255, 255, 0.7);
     }
     100% {
+      max-width: 600px;
       overflow: hidden;
       border-radius: 40px;
     }

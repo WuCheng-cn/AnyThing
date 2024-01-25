@@ -5,6 +5,9 @@ import { InApp } from "@/interface/desktop/InApp"
 import SettingIcon from '@/assets/img/appIcon/setting.svg'
 import DefaultBackgroundImg from '@/assets/img/MacBg-2k.jpg'
 import { AppList } from "@/views/Desktop/appList"
+import { InAppTask } from "@/interface/desktop/InAppTask"
+import { AppTaskEntity } from "@/entity/desktop/AppTaskEntity"
+import { AppEntity } from "@/entity/desktop/AppEntity"
 
 /**
  * # 桌面相关配置
@@ -18,7 +21,6 @@ export const DesktopConfig = defineStore('desktopConfig', {
         'appIconSize',
         'defaultBackgroundImg',
         'defaultTaskAppList',
-        'appList',
       ]
     }
   ],
@@ -31,18 +33,26 @@ export const DesktopConfig = defineStore('desktopConfig', {
         name: '系统设置',
         icon: SettingIcon,
       }] as InApp[],
-      historyTaskAppList: [] as InApp[],
+      appTaskList: [] as AppTaskEntity[],
       appList: AppList,
-      currentApp: null as InApp | null,
-      currentAppRef: undefined as Ref<HTMLElement> | undefined,
+      currentApp: null as AppEntity | null,
     }
   },
-  getters:{
+  getters: {
     appListWithHandler: (state) => {
-      return state.appList?.map((item)=>({
-       ...item,
-        handler:AppList.find((app)=>app.name===item.name)?.handler
-      }))
+      return state.appList?.map((item) => {
+        const handler = AppList.find((app) => app.name === item.name)?.handler
+        if (handler) {
+          item.handler = handler
+        }
+        return new AppEntity().assign(item)
+      })
+    },
+    appListInTaskList: (state) => {
+      // 从appList中获取在任务栏中的app
+      return state.appList?.filter((item) => {
+        return state.appTaskList.some((task) => task.app.name === item.name)
+      })
     }
   },
   actions: {

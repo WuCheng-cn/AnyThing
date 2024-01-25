@@ -3,10 +3,10 @@ export class AnyComponentHelper {
   /**
    * 注册异步组件
    */
-  static asyncComponent(loader: AsyncComponentLoader) {
+  static asyncComponent(loader: AsyncComponentLoader, delay = 20) {
     return defineAsyncComponent({
       loader,
-      delay: 20,
+      delay,
     })
   }
 }
