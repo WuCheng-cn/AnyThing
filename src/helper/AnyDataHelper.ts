@@ -61,6 +61,26 @@ export class AnyDataHelper {
         , delay)
     }
   }
+
+  /**
+   * # 延迟函数(按帧数延迟)
+   */
+  static defer(frames: number): () => boolean {
+    let count = 0
+    const animate = () => {
+      requestAnimationFrame(() => {
+        count++
+        if (count < frames) {
+          animate()
+        }
+      })
+    }
+    animate()
+    return function () {
+      return count === frames
+    }
+  }
+
 }
 
 

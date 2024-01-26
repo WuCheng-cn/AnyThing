@@ -5,19 +5,25 @@ import { Expose } from "class-transformer";
 
 export class AppTaskEntity extends AnyBaseModel implements InAppTask {
   @Expose()
+  id?:number|string;
+
+  @Expose()
   app!: AppEntity;
 
   @Expose()
-  modelDom!: HTMLElement;
+  modelDom?: HTMLElement;
 
   @Expose()
-  taskBarDom!: HTMLElement;
+  taskBarDom?: HTMLElement;
 
   @Expose()
-  isActive!: boolean;
+  taskViewDom?: HTMLElement | undefined;
 
   @Expose()
-  isMinimize!: boolean;
+  isActive = true;
+
+  @Expose()
+  isMinimize = false;
 
   constructor(app: AppEntity) {
     super();
@@ -38,8 +44,12 @@ export class AppTaskEntity extends AnyBaseModel implements InAppTask {
     this.modelDom = modelDom;
   }
 
-  setTaskBarDom(taskBarDom: HTMLElement) {
+  setTaskBarDom(taskBarDom?: HTMLElement) {
     this.taskBarDom = taskBarDom;
+  }
+
+  setTaskViewDom(taskDom?: HTMLElement) {
+    this.taskViewDom = taskDom;
   }
   
 }

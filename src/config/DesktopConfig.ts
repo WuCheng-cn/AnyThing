@@ -21,6 +21,7 @@ export const DesktopConfig = defineStore('desktopConfig', {
         'appIconSize',
         'defaultBackgroundImg',
         'defaultTaskAppList',
+        'appList',
       ]
     }
   ],

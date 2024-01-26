@@ -2,10 +2,7 @@
   <div ref="PositionProviderRef" class="position_provider">
     <transition name="any_model" appear>
       <div v-if="!isClose" ref="AnyModelRef" :class="['any_model_mac']">
-        <div
-          class="header" 
-          @mousedown="startDrag"
-        >
+        <div class="header" @mousedown="startDrag">
           <ControllerMac
             :on-close="onClose" 
             :on-minimize="onMinimize"
@@ -26,33 +23,42 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted, PropType } from 'vue'
+import { ref, onMounted, PropType, nextTick } from 'vue'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 import { AnyResizeControllerHelper } from '@/helper/AnyResizeControllerHelper'
 import { useStore } from '@/store'
+import { InMinimizeConfig } from '@/interface/desktop/InMinimizeConfig'
 
 const ControllerMac = AnyComponentHelper.asyncComponent(() => import('@/components/UI/ControllerMac.vue'))
 
 const props = defineProps({
   /**
-   * # 关闭前的回调
+   * # 对话框挂载时的回调
    */
-  beforClose: {
-    type: Function as PropType<()=> Promise<boolean>>,
+  onModelMounted: {
+    type: Function as PropType<(modelDom: HTMLElement) => void>,
     default: undefined,
   },
   /**
-   * # 对话框挂载时的回调
+   * # 关闭前的回调
    */
-  onMounted: {
-    type: Function as PropType<()=> void>,
+  beforClose: {
+    type: Function as PropType<() => Promise<boolean>>,
     default: undefined,
   },
+  /**
+   * # 最小化前的回调
+   */
+  beforMinimize: {
+    type: Function as PropType<() => Promise<InMinimizeConfig>>,
+    default: undefined,
+  },
+
 })
 
 const emits = defineEmits(['on-after-leave'])
 
-const { clickedPosition } = useStore().clickPositionStore 
+const { clickedPosition } = useStore().clickPositionStore
 
 const PositionProviderRef = ref<HTMLElement>()
 
@@ -70,10 +76,28 @@ const initData = {
   transtion: '',
 }
 
+const minimizeTo = {
+  x: 0,
+  y: 0,
+}
+
 async function onClose () {
   if (props.beforClose) {
     const res = await props.beforClose()
     if (!res) return
+  }
+  if (isFullScreen.value) {
+    const cssText = `
+    width: 100vw ;
+    height: 100vh ;
+    left: 0 ;
+    top: 0 ;
+    bottom: 0 ;
+    border-radius: 0 ;
+    z-index: 9999 !important;
+  `
+    AnyModelRef.value!.style.cssText = cssText
+    AnyModelRef.value!.classList.remove('any_model_full_screen')
   }
   isClose.value = true
   setTimeout(() => {
@@ -81,26 +105,37 @@ async function onClose () {
   }, 1000)
 }
 
-function onMinimize () {
-  console.log('onMinimize')
+async function onMinimize () {
+  AnyModelRef.value!.classList.add('any_model_minimize')
+}
+
+function setCssProperty () {
+  if (clickedPosition) {
+    PositionProviderRef.value?.style.setProperty('--startX', `${clickedPosition.x}px`)
+    PositionProviderRef.value?.style.setProperty('--startY', `${clickedPosition.y}px`)
+  }
+  nextTick(async () => {
+    const scaleRateX = 216 / 1920
+    const scaleRateY = 150 / 1080
+    if (props.beforMinimize) {
+      const { minimizeToX, minimizeToY } = await props.beforMinimize()
+      minimizeTo.x = minimizeToX
+      minimizeTo.y = minimizeToY
+    }
+    PositionProviderRef.value?.style.setProperty('--scaleX', `${scaleRateX}`)
+    PositionProviderRef.value?.style.setProperty('--scaleY', `${scaleRateY}`)
+    PositionProviderRef.value?.style.setProperty('--minimizeToX', `${minimizeTo.x}px`)
+    PositionProviderRef.value?.style.setProperty('--minimizeToY', `${minimizeTo.y}px`)
+  })
 }
 
 function onMaximize () {
   isFullScreen.value = !isFullScreen.value
-  let cssText = ''
   if (isFullScreen.value) {
-    cssText = `
-     width: 100vw;
-     height: 100vh;
-     top: 0;
-     left: 0;
-     border-radius: 0 ;
-     transform: none ;
-     z-index: 9999;
-   `
+    AnyModelRef.value!.classList.add('any_model_full_screen')
+  } else {
+    AnyModelRef.value!.classList.remove('any_model_full_screen')
   }
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  AnyModelRef.value!.style.cssText = cssText
 }
 
 function mousemove (e: MouseEvent) {
@@ -131,10 +166,11 @@ function mousemove (e: MouseEvent) {
 }
 
 function startDrag (e: MouseEvent) {
+  if (isFullScreen.value) return
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { width, height } = AnyModelRef.value!.getBoundingClientRect()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { left, top } = AnyModelRef.value!.getBoundingClientRect() 
+  const { left, top } = AnyModelRef.value!.getBoundingClientRect()
   const { clientX, clientY } = e
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   initData.transtion = AnyModelRef.value!.style.transition
@@ -142,7 +178,7 @@ function startDrag (e: MouseEvent) {
   initData.height = height
   initData.offsetX = clientX - left
   initData.offsetY = clientY - top
-  
+
   document.addEventListener('mousemove', mousemove)
   document.addEventListener('mouseup', stopDrag)
 }
@@ -155,30 +191,35 @@ function stopDrag () {
 }
 
 onMounted(() => {
-  if (props.onMounted) {
-    props.onMounted()
+  if (props.onModelMounted) {
+    props.onModelMounted(AnyModelRef.value!)
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   new AnyResizeControllerHelper(AnyModelRef.value)
-  if (clickedPosition) {
-    PositionProviderRef.value?.style.setProperty('--startX', `${clickedPosition.x}px`)
-    PositionProviderRef.value?.style.setProperty('--startY', `${clickedPosition.y}px`)
-  }
+  setCssProperty()
 })
 
 </script>
 <style lang="less" scoped>
-.position_provider{
-  --startX: 0;
-  --startY: 0;
+.position_provider {
+  --startX: 0px;
+  --startY: 0px;
+  --minimizeToX: 0px;
+  --minimizeToY: 0px;
+  --scaleX: 1;
+  --scaleY: 1;
+  width: 100%;
+  height: 100%;
 }
+
 .any_model_mac {
-  --top:12vh;
-  --left:20vw;
+  --top: 12vh;
+  --left: 20vw;
   position: fixed;
   top: var(--top);
   left: var(--left);
+  bottom: 0;
   width: calc(100vw - 2 * var(--left));
   height: calc(100vh - 2 * var(--top));
   display: flex;
@@ -187,8 +228,20 @@ onMounted(() => {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
   user-select: none;
-  transition: all .3s;
+  transition: all .5s;
+  transform: scale(1);
   z-index: 999;
+
+  &.any_model_minimize {
+    padding: 0 !important;
+    overflow: hidden !important;
+    left: var(--minimizeToX) !important;
+    bottom: calc(100vh - var(--minimizeToY)) !important;
+    pointer-events: none !important;
+    transform: scale(var(--scaleX), var(--scaleY)) !important;
+    transform-origin: left bottom !important;
+    opacity: 0 !important;
+  }
 
   .header {
     cursor: grab;
@@ -218,6 +271,17 @@ onMounted(() => {
     overflow: auto;
   }
 }
+
+.any_model_full_screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  border-radius: 0 !important;
+  z-index: 9999 !important;
+}
+
 .any_model-enter-active {
   animation: any_model-enter 1s;
 }
@@ -227,26 +291,25 @@ onMounted(() => {
 }
 
 @keyframes any_model-enter {
-    0% {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      padding: 0;
-      overflow: hidden;
-      background-color: #fff;
-      top: calc(var(--startY) - 5px);
-      left: calc(var(--startX) - 5px);
-      pointer-events: none;
-      opacity: 0;
-    }
-    50% {
-      position: fixed;
-      width: 2px;
-      padding: 0;
-      overflow: hidden;
-      left: calc(var(--startX -5px));
-      pointer-events: none;
-      opacity: .8;
-    }
+  0% {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #fff;
+    top: calc(var(--startY) - 5px);
+    left: calc(var(--startX) - 5px);
+    pointer-events: none;
   }
+
+  30% {
+    position: fixed;
+    width: 3px;
+    padding: 0;
+    overflow: hidden;
+    left: calc(var(--startX -5px));
+    pointer-events: none;
+  }
+}
 </style>

@@ -1,14 +1,21 @@
 <template>
-  <div class="app_item" @click="handleClick">
+  <div
+    ref="appRef"
+    class="app_item"
+    @click="handleClick"
+  >
     <div v-if="currentAppTaskList.length && isTaskApp" class="task">
       <div class="task_list">
         <div
-          v-for="(item,index) in currentAppTaskList" 
-          :key="item.app.name"
+          v-for="(item) in currentAppTaskList"
+          :key="item.id" 
           class="task_item"
           @click="handleTaskClick(item)"
         >
-          {{ item.app.name + index }}
+          <div class="name">{{ item.app.name }}-{{ item.id }}</div>
+          <div class="preview">
+            <div :ref="(el)=>setTaskRef(el as HTMLElement , item)" class="preview_main" />
+          </div>
         </div>
       </div>
     </div>
@@ -25,7 +32,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { PropType, ref, computed } from 'vue'
+import { PropType, ref, computed, onMounted } from 'vue'
 import { useConfig } from '@/config'
 import { storeToRefs } from 'pinia'
 import { AppEntity } from '@/entity/desktop/AppEntity'
@@ -59,11 +66,13 @@ const props = defineProps({
     default: false,
   },
 })
-const { appIconSize } = storeToRefs(useConfig().DesktopConfig)
+
+const appRef = ref<HTMLElement>()
+
+const { appIconSize, appList, appTaskList } = storeToRefs(useConfig().DesktopConfig)
 
 const currentAppTaskList = computed(() => {
-  const { appTaskList } = useConfig().DesktopConfig
-  return appTaskList.filter((item) => item.app.name === props.data.name)
+  return appTaskList.value.filter((item) => item.app.name === props.data.name) as AppTaskEntity[]
 })
 
 function handleClick () {
@@ -73,10 +82,57 @@ function handleClick () {
 }
 
 function handleTaskClick (item: AppTaskEntity) {
-  if (item.app && item.app.handler) {
-    item.app.handler(item)
+  if (item.modelDom && item.isMinimize) {
+    item.modelDom.classList.remove('any_model_minimize')
+    item.isMinimize = false
+  } else if (item.modelDom && !item.isMinimize) {
+    item.modelDom.classList.add('any_model_minimize')
+    item.isMinimize = true
   }
 }
+
+function setTaskRef (el: HTMLElement, item: AppTaskEntity) {
+  if (el) {
+    item.setTaskViewDom(el)
+    // 把ModelDom复制一个到el上
+    const modelDom = item.modelDom
+    if (modelDom) {      
+      const cloneDom = modelDom.cloneNode(true) as HTMLElement
+      const scaleRateX = 196 / 1920 
+      const scaleRateY = 100 / 1080 
+      const cssText = `
+        position: relative;
+        overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+        left: unset;
+        top: unset;
+        right: unset;
+        bottom: unset; 
+        pointer-events: none;
+        transform: scale(${scaleRateX}, ${scaleRateY});
+        transform-origin: left top;  
+        opacity: 1;
+        transition:unset;
+      `
+      cloneDom.style.cssText = cssText
+      el.appendChild(cloneDom)
+    }
+  }
+}
+
+onMounted(() => {
+  if (props.isTaskApp) {
+    appTaskList.value.filter((item) => item.app.name === props.data.name).forEach((item) => {
+      item.setTaskBarDom(appRef.value)
+    })
+  } else {
+    const app = appList.value.find((item) => item.name === props.data.name)
+    if (app) {
+      app.dom = appRef.value
+    }
+  }
+})
 
 </script>
 <style lang="less" scoped>
@@ -88,15 +144,17 @@ function handleTaskClick (item: AppTaskEntity) {
   border-radius: 12px;
   &:hover{
     .task{
-      display: block;
+      opacity: 1;
+      pointer-events: unset;
     }
   }
   .task{
-    display: none;
+    pointer-events: none;
+    opacity: 0;
     position: absolute;
     left: 50%;
-    bottom: 100%;
-    transform: translate(-50%, 0);
+    bottom: 0;
+    transform: translate(-50%, -90px);
     transition: all 0.3s;
     padding: 10px;
     z-index: 9999;
@@ -105,8 +163,9 @@ function handleTaskClick (item: AppTaskEntity) {
       gap: 10px;
     }
     .task_item{
-      width: 100px;
-      height: 100px;
+      cursor: pointer;
+      width: 216px;
+      height: 150px;
       background: #fff;
       color: #121212;
       border-radius: 12px;
@@ -114,6 +173,30 @@ function handleTaskClick (item: AppTaskEntity) {
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+
+      .preview{
+        position: relative;
+        flex: 1;
+        width: 100%;
+        height: 0;
+        .preview_main{
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .name{
+        height: 20px;
+        width: 100%;
+        font-size: 12px;
+        font-weight: 500;
+        color: #333;
+        text-align: left;
+        margin-bottom: 10px;
+      }
     }
   }
   // animation: app_click 0s;

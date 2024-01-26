@@ -57,6 +57,7 @@ export class AnyDialogHelper {
               // reject()
             },
             beforClose:config?.beforClose,
+            beforMinimize:config?.beforMinimize,
             onModelMounted:config?.onModelMounted,
           },
           {

@@ -16,6 +16,11 @@ export class DesktopManageHelper {
     this.setCurrentApp(app)
     const { appTaskList } = useConfig().DesktopConfig
     const task = new AppTaskEntity(app)
+    const taskBarDom = this.getTaskDomByApp(app)
+    if(taskBarDom) {
+      task.setTaskBarDom(taskBarDom)
+    }
+    task.id = Date.now()
     task.setActive(true)
     appTaskList.push(task)
     return task
@@ -23,7 +28,13 @@ export class DesktopManageHelper {
 
   static removeTask(task: AppTaskEntity) {
     const { appTaskList } = useConfig().DesktopConfig
-    const index = appTaskList.findIndex((item) => item === task)
+    const index = appTaskList.findIndex((item) => item.id === task.id)
     appTaskList.splice(index, 1)
+  }
+  
+  static getTaskDomByApp(app: AppEntity) {
+    const { appTaskList } = useConfig().DesktopConfig
+    const task = appTaskList.find((item) => item.app.name === app.name)
+    return (task?.taskBarDom as HTMLElement)|| null
   }
 }

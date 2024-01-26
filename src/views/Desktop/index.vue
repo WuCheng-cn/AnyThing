@@ -14,7 +14,6 @@
     >
       <APP
         v-for="(item, index) in appListWithHandler"
-        :ref="setRef($el, index)"
         :key="item.name"
         :data="item"
         @mouseenter="dragenter($event, index)"
@@ -151,11 +150,14 @@ const setRef = (el: HTMLElement, index: number) => {
   if (el) {
     // 给appList中的元素添加对应的dom
     
-    appList.value[index].dom = el
+    // appList.value[index].dom = el
   }
 }
 </script>
 <style lang="less" scoped>
+html{
+  overflow: hidden;
+}
 .desktop{
   position: relative;
   background-repeat: no-repeat;

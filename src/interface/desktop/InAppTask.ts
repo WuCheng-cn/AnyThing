@@ -9,12 +9,17 @@ export interface InAppTask {
   /**
    * # 任务对应的窗口dom
    */
-  modelDom: HTMLElement;
+  modelDom?: HTMLElement;
 
   /**
    * # 任务在任务栏对应的dom
    */
-  taskBarDom: HTMLElement;
+  taskBarDom?: HTMLElement;
+
+  /**
+   * # 任务缩略图dom
+   */
+  taskViewDom?: HTMLElement;
 
   /**
    * # 任务是否激活

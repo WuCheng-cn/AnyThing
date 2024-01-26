@@ -14,7 +14,7 @@ self.MonacoEnvironment = {
     if (label === 'json') {
       return new JsonWorker()
     }
-    return new EditorWorker()
+    return new EditorWorker() 
   },
 }
 

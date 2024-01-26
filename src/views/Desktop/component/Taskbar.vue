@@ -11,11 +11,10 @@
       class="task_app_item"
       @mousemove.prevent="handleMove"
     />
-    <div class="split_line" />
+    <!-- <div class="split_line" /> -->
     <transition-group name="history_in">
       <APP
         v-for="(item) in appListInTaskList"
-        :ref="setRef($el, item.name)"
         :key="item.name + 'task'"
         :data="item"
         is-task-app
@@ -92,12 +91,6 @@ function resetAllScale () {
     ;(item as HTMLElement).style.height = '60px'
     ;(item as HTMLElement).style.top = '0'
   })
-}
-
-const setRef = (el: HTMLElement, appName:string) => {
-  if (el) {
-    taskDomDictinary.set(appName, el)
-  }
 }
 
 </script>
