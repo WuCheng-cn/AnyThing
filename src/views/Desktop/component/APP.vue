@@ -10,7 +10,7 @@
           v-for="(item) in currentAppTaskList"
           :key="item.id" 
           class="task_item"
-          @click="handleTaskClick(item)"
+          @click.stop="handleTaskClick(item)"
         >
           <div class="name">{{ item.app.name }}-{{ item.id }}</div>
           <div class="preview">
@@ -78,17 +78,18 @@ const currentAppTaskList = computed(() => {
 function handleClick () {
   if (props.data.handler && !props.isTaskApp) {
     props.data.handler(props.data)
+  } else if (props.isTaskApp && currentAppTaskList.value.length === 1) {
+    handleTaskClick(currentAppTaskList.value[0])
   }
 }
 
-function handleTaskClick (item: AppTaskEntity) {
-  if (item.modelDom && item.isMinimize) {
-    item.modelDom.classList.remove('any_model_minimize')
-    item.isMinimize = false
-  } else if (item.modelDom && !item.isMinimize) {
-    item.modelDom.classList.add('any_model_minimize')
-    item.isMinimize = true
+function handleTaskClick (item: AppTaskEntity) {  
+  if (item.isMinimize) {
+    item.modelDom?.classList.remove('any_model_minimize')
+  } else {
+    item.modelDom?.classList.add('any_model_minimize')
   }
+  item.isMinimize = !item.isMinimize
 }
 
 function setTaskRef (el: HTMLElement, item: AppTaskEntity) {

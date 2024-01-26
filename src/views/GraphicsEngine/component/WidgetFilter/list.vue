@@ -30,7 +30,7 @@
         />
       </div>
       <div class="b" />
-    </div>
+    </div> 
   </div>
 </template>
 <script lang="ts" setup>
@@ -67,7 +67,7 @@ function getTopPosition (index:number) {
   const widgetItemHeiget = `${widgetItemWidth} * 1.25`
   const topPosition = `calc((${widgetItemHeiget} + 10px) * ${Math.floor(index / props.columns)} + 10px)`
   return topPosition
-}
+} 
 
 </script>
 <style lang="less" scoped>

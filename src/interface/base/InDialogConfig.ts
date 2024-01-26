@@ -1,5 +1,5 @@
 import { DefineComponent } from "vue";
-import { InMinimizeConfig } from "../desktop/InMinimizeConfig";
+import { InInitializeConfig } from "../desktop/InInitializeConfig";
 
 export interface InDialogConfig {
   /**
@@ -10,7 +10,7 @@ export interface InDialogConfig {
   /**
    * # 对话框挂载时的回调
    */
-  onModelMounted?: (modelDom:HTMLElement) => void
+  onModelMounted?: (modelDom:HTMLElement) => Promise<InInitializeConfig>
 
   /**
    * # 对话框关闭前的回调
@@ -22,6 +22,6 @@ export interface InDialogConfig {
    * # 对话框缩小前的回调
    * @description 返回false则不缩小对话框
    */
-  beforMinimize?: () => Promise<InMinimizeConfig>
+  beforMinimize?: () => Promise<void>
 
 }

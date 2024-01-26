@@ -26,13 +26,13 @@ export class AnyFormFieldConfig extends AnyFieldConfig implements InFormFieldCon
    * # 最大长度
    * @description 仅在```type```为```text ， textarea```时生效
    */
-  maxLength?: number = useConfig().AppConfig.maxLength;
+  maxLength?: number = 16;
 
   /**
    * # 最小长度
    * @description 仅在```type```为```text ， textarea```时生效
    */
-  minLength?: number = useConfig().AppConfig.minLength;
+  minLength?: number = 0;
 
   /**
    * # 是否必填/必选

@@ -1,62 +1,35 @@
-import { watch } from "vue";
-import { AnyDialogHelper } from "@/helper/AnyDialogHelper"
-import { DesktopManageHelper } from "./hooks/DesktopManageHelper";
 import { AppEntity } from "@/entity/desktop/AppEntity";
-import { AppTaskEntity } from "@/entity/desktop/AppTaskEntity";
-import CodeView from '@/views/CodeView/index.vue'
 import AppIconSvg from '@/assets/img/appIcon/anyIcon.svg'
+import { UseNormalApp } from "./hooks/UseNormalApp";
+import { AnyComponentHelper } from "@/helper/AnyComponentHelper";
 
-const onModelMounted = async (modelDom:HTMLElement, task: AppTaskEntity) => {
-  task.setModelDom(modelDom)
-}
+const CodeView = AnyComponentHelper.asyncComponent(()=>import('@/views/CodeView/index.vue'))
+const TempPrint = AnyComponentHelper.asyncComponent(()=>import('@/views/TempPrint/index.vue'))
+const GraphicsEngine = AnyComponentHelper.asyncComponent(()=>import('@/views/GraphicsEngine/index.vue'))
+const GIS = AnyComponentHelper.asyncComponent(()=>import('@/views/GIS/Cesium/index.vue'))
 
-const beforClose = async (task: AppTaskEntity) => {
-  DesktopManageHelper.removeTask(task)
-  return true
-}
 
-const beforMinimize = async (task: AppTaskEntity) => {
-  task.setMinimize(true)
-  const { left , top } = task.taskBarDom!.getBoundingClientRect()
-  return {
-    minimizeToX:left,
-    minimizeToY:top,
-    targetDom:task.taskViewDom,
-  }
-}
-
-const handler = (app: AppEntity| AppTaskEntity) => {
-  if (app instanceof AppEntity) {
-    const task = DesktopManageHelper.addTask(app)
-    AnyDialogHelper.showMacModel(CodeView, {}, {
-      onModelMounted: (modelDom:HTMLElement) => onModelMounted(modelDom,task),
-      beforClose: () => beforClose(task),
-      beforMinimize: () => beforMinimize(task),
-    })
-  }else if (app instanceof AppTaskEntity) {
-    app.setMinimize(!app.isMinimize)
-  }
-}
+const {handler} = UseNormalApp()
 
 export const AppList = [
   new AppEntity().assign({
     name: '模板打印',
     icon: AppIconSvg,
-    handler
+    handler:handler(TempPrint)
   }),
   new AppEntity().assign({
     name: '图形引擎',
     icon: AppIconSvg,
-    handler
+    handler:handler(GraphicsEngine)
   }),
   new AppEntity().assign({
     name: '代码编辑器',
     icon: AppIconSvg,
-    handler
+    handler:handler(CodeView)
   }),
   new AppEntity().assign({
     name: 'GIS引擎',
     icon: AppIconSvg,
-    handler
+    handler:handler(GIS)
   }),
 ];

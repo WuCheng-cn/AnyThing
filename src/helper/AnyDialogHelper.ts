@@ -3,6 +3,7 @@ import naive from 'naive-ui'
 import DialogVue from "@/components/UI/Dialog.vue";
 import DialogMac from "@/components/UI/DialogMac.vue";
 import { InDialogConfig } from "@/interface/base/InDialogConfig";
+import { directivePlugin } from "@/directives";
 
 /**
  * 对话框帮助类
@@ -21,7 +22,7 @@ export class AnyDialogHelper {
    * @param config 对话框配置
    * @returns 对话框的Promise
    */
-  static #bulid<RES>(view: Component, param: Record<string, unknown>, config?:InDialogConfig): Promise<RES> {
+  static #bulid<RES>(view: Component, param: Record<string, any>, config?:InDialogConfig): Promise<RES> {
     const parentNode = document.createElement('div')
     const domId = `any_dialog_${Math.random()}`
     parentNode.setAttribute('id', domId)
@@ -65,7 +66,7 @@ export class AnyDialogHelper {
           }
         )
       }
-      app = createApp(renderApp).use(naive)
+      app = createApp(renderApp).use(naive).use(directivePlugin)
       document.body.appendChild(parentNode)
       // 挂载组件
       app?.mount(parentNode)
@@ -79,11 +80,11 @@ export class AnyDialogHelper {
    * @param config 对话框配置
    * @returns 对话框的Promise
    */
-  static showModel<RES>(view: Component, param?: unknown, config?:InDialogConfig): Promise<RES> {
+  static showModel<RES>(view: Component, param?: Record<string, any>, config?:InDialogConfig): Promise<RES> {
     return this.#bulid(view, { param }, config)
   }
 
-  static showMacModel<RES>(view: Component, param?: unknown, config?:InDialogConfig): Promise<RES> {
+  static showMacModel<RES>(view: Component, param?: Record<string, any>, config?:InDialogConfig): Promise<RES> {
     return this.#bulid(view, { param }, { dialogComponent: DialogMac, ...config })
   }
 }

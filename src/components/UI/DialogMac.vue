@@ -27,16 +27,16 @@ import { ref, onMounted, PropType, nextTick } from 'vue'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 import { AnyResizeControllerHelper } from '@/helper/AnyResizeControllerHelper'
 import { useStore } from '@/store'
-import { InMinimizeConfig } from '@/interface/desktop/InMinimizeConfig'
+import { InInitializeConfig } from '@/interface/desktop/InInitializeConfig'
 
 const ControllerMac = AnyComponentHelper.asyncComponent(() => import('@/components/UI/ControllerMac.vue'))
 
 const props = defineProps({
   /**
    * # 对话框挂载时的回调
-   */
+   */ 
   onModelMounted: {
-    type: Function as PropType<(modelDom: HTMLElement) => void>,
+    type: Function as PropType<(modelDom: HTMLElement) => Promise<InInitializeConfig>>,
     default: undefined,
   },
   /**
@@ -50,7 +50,7 @@ const props = defineProps({
    * # 最小化前的回调
    */
   beforMinimize: {
-    type: Function as PropType<() => Promise<InMinimizeConfig>>,
+    type: Function as PropType<() => Promise<void>>,
     default: undefined,
   },
 
@@ -106,6 +106,9 @@ async function onClose () {
 }
 
 async function onMinimize () {
+  if (props.beforMinimize) {
+    props.beforMinimize()
+  }
   AnyModelRef.value!.classList.add('any_model_minimize')
 }
 
@@ -117,11 +120,6 @@ function setCssProperty () {
   nextTick(async () => {
     const scaleRateX = 216 / 1920
     const scaleRateY = 150 / 1080
-    if (props.beforMinimize) {
-      const { minimizeToX, minimizeToY } = await props.beforMinimize()
-      minimizeTo.x = minimizeToX
-      minimizeTo.y = minimizeToY
-    }
     PositionProviderRef.value?.style.setProperty('--scaleX', `${scaleRateX}`)
     PositionProviderRef.value?.style.setProperty('--scaleY', `${scaleRateY}`)
     PositionProviderRef.value?.style.setProperty('--minimizeToX', `${minimizeTo.x}px`)
@@ -190,14 +188,16 @@ function stopDrag () {
   document.removeEventListener('mouseup', stopDrag)
 }
 
-onMounted(() => {
+onMounted(async () => {
   if (props.onModelMounted) {
-    props.onModelMounted(AnyModelRef.value!)
+    const { minimizeToX, minimizeToY } = await props.onModelMounted(AnyModelRef.value!)
+    minimizeTo.x = minimizeToX
+    minimizeTo.y = minimizeToY 
   }
+  setCssProperty()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   new AnyResizeControllerHelper(AnyModelRef.value)
-  setCssProperty()
 })
 
 </script>

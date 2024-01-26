@@ -1,4 +1,4 @@
-export interface InMinimizeConfig {
+export interface InInitializeConfig {
   /**
    * # 对话框缩到的x坐标
    */
