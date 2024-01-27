@@ -1,1 +1,0 @@
-import{_ as o}from"./plugin-vue_export-helper-c27b6911.js";import{e,f as c,g as t}from"./vendor-a3ce1f9d.js";const s={};function a(i,r){const n=e("n-image");return c(),t(n,{src:"人生嘛，失败总是难免的","fallback-src":"https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg","object-fit":"contain"})}const m=o(s,[["render",a]]);export{m as default};

@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vue_export-helper-c27b6911.js";import{f as _,l as c}from"./vendor-a3ce1f9d.js";const t={},n={class:"any-screen"};function s(o,r){return _(),c("div",n)}const i=e(t,[["render",s],["__scopeId","data-v-324c9cd6"]]);export{i as default};
