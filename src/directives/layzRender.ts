@@ -19,7 +19,7 @@ export const layzRender: ObjectDirective = {
             width:${width}px;
             height:${height}px;
             opacity:1;
-            transition:all .5s;
+            transition:opacity .5s;
           `;
           (el as HTMLElement).style.cssText = cssText
         }, delay)
