@@ -246,6 +246,7 @@ onMounted(async () => {
   user-select: none;
   transition: all .5s;
   transform: scale(1);
+  overflow: hidden;
 
   &.any_model_minimize {
     padding: 0 !important;
@@ -283,7 +284,7 @@ onMounted(async () => {
   .main {
     flex: 1;
     padding: 10px;
-    overflow: auto;
+    overflow: hidden;
   }
 }
 
