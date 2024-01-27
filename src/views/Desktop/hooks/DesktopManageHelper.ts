@@ -17,7 +17,7 @@ export class DesktopManageHelper {
     const { appTaskList } = useConfig().DesktopConfig
     const task = new AppTaskEntity(app)
     const taskBarDom = this.getTaskDomByApp(app)
-    if(taskBarDom) {
+    if (taskBarDom) {
       task.setTaskBarDom(taskBarDom)
     }
     task.id = Date.now()
@@ -31,10 +31,16 @@ export class DesktopManageHelper {
     const index = appTaskList.findIndex((item) => item.id === task.id)
     appTaskList.splice(index, 1)
   }
-  
+
   static getTaskDomByApp(app: AppEntity) {
     const { appTaskList } = useConfig().DesktopConfig
     const task = appTaskList.find((item) => item.app.name === app.name)
-    return (task?.taskBarDom as HTMLElement)|| null
+    return (task?.taskBarDom as HTMLElement) || null
+  }
+
+  static setHighestModel(modelDom: HTMLElement) {
+    const { highestIndex, refreshHighestIndex } = useConfig().DesktopConfig
+    modelDom.style.zIndex = highestIndex.toString()
+    refreshHighestIndex()
   }
 }

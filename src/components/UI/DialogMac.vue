@@ -1,7 +1,12 @@
 <template>
   <div ref="PositionProviderRef" class="position_provider">
     <transition name="any_model" appear>
-      <div v-if="!isClose" ref="AnyModelRef" :class="['any_model_mac']">
+      <div
+        v-if="!isClose"
+        ref="AnyModelRef"
+        :class="['any_model_mac']"
+        @click="handleModelClick"
+      >
         <div class="header" @mousedown="startDrag">
           <ControllerMac
             :on-close="onClose" 
@@ -28,6 +33,7 @@ import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 import { AnyResizeControllerHelper } from '@/helper/AnyResizeControllerHelper'
 import { useStore } from '@/store'
 import { InInitializeConfig } from '@/interface/desktop/InInitializeConfig'
+import { DesktopManageHelper } from '@/views/Desktop/hooks/DesktopManageHelper'
 
 const ControllerMac = AnyComponentHelper.asyncComponent(() => import('@/components/UI/ControllerMac.vue'))
 
@@ -79,6 +85,10 @@ const initData = {
 const minimizeTo = {
   x: 0,
   y: 0,
+}
+
+function handleModelClick () {
+  DesktopManageHelper.setHighestModel(AnyModelRef.value as HTMLElement)
 }
 
 async function onClose () {
@@ -279,7 +289,7 @@ onMounted(async () => {
   top: 0 !important;
   bottom: 0 !important;
   border-radius: 0 !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
 }
 
 .any_model-enter-active {

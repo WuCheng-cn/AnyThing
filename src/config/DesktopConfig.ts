@@ -37,6 +37,7 @@ export const DesktopConfig = defineStore('desktopConfig', {
       appTaskList: [] as AppTaskEntity[],
       appList: AppList,
       currentApp: null as AppEntity | null,
+      highestIndex:99,
     }
   },
   getters: {
@@ -68,6 +69,9 @@ export const DesktopConfig = defineStore('desktopConfig', {
       image.onerror = () => {
         loading.value = false
       }
+    },
+    refreshHighestIndex(){
+      this.highestIndex += 1
     }
   }
 })
