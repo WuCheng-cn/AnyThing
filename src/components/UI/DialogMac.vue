@@ -5,7 +5,7 @@
         v-if="!isClose"
         ref="AnyModelRef"
         :class="['any_model_mac']"
-        @click="handleModelClick"
+        @mousedown="handleModelClick"
       >
         <div class="header" @mousedown="startDrag">
           <ControllerMac
@@ -34,6 +34,8 @@ import { AnyResizeControllerHelper } from '@/helper/AnyResizeControllerHelper'
 import { useStore } from '@/store'
 import { InInitializeConfig } from '@/interface/desktop/InInitializeConfig'
 import { DesktopManageHelper } from '@/views/Desktop/hooks/DesktopManageHelper'
+import { useConfig } from '@/config'
+import { storeToRefs } from 'pinia'
 
 const ControllerMac = AnyComponentHelper.asyncComponent(() => import('@/components/UI/ControllerMac.vue'))
 
@@ -65,6 +67,8 @@ const props = defineProps({
 const emits = defineEmits(['on-after-leave'])
 
 const { clickedPosition } = useStore().clickPositionStore
+
+const { highestIndex } = storeToRefs(useConfig().DesktopConfig)
 
 const PositionProviderRef = ref<HTMLElement>()
 
@@ -168,6 +172,7 @@ function mousemove (e: MouseEvent) {
     top: ${y}px;
     left: ${x}px;
     transition: unset;
+    z-index:${highestIndex.value};
   `
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   AnyModelRef.value!.style.cssText = cssText
@@ -205,6 +210,7 @@ onMounted(async () => {
     minimizeTo.y = minimizeToY 
   }
   setCssProperty()
+  DesktopManageHelper.setHighestModel(AnyModelRef.value as HTMLElement)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   new AnyResizeControllerHelper(AnyModelRef.value)
@@ -240,7 +246,6 @@ onMounted(async () => {
   user-select: none;
   transition: all .5s;
   transform: scale(1);
-  z-index: 999;
 
   &.any_model_minimize {
     padding: 0 !important;

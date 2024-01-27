@@ -1,5 +1,12 @@
 <template>
-  <div id="cesium-viewer" ref="viewerDivRef" />
+  <div class="cesium-container">
+    <div
+      id="cesium-viewer"
+      ref="viewerDivRef"
+      v-layzRender 
+      v-resize:100="resizeCesiumView"
+    />
+  </div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
@@ -10,7 +17,11 @@ let viewer: Viewer | null = null
 const viewerDivRef = ref<HTMLDivElement>()
 window.CESIUM_BASE_URL = 'libs/cesium/'
 
-onMounted(() => {
+function resizeCesiumView () {
+  if (viewer) {
+    viewer.resize()
+    return
+  }
   viewer = new Viewer(viewerDivRef.value as HTMLElement, {
     imageryProvider: new UrlTemplateImageryProvider({
       url: 'https://webst02.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
@@ -31,11 +42,15 @@ onMounted(() => {
     requestRenderMode: false, // 启用请求渲染模式，不需要渲染，节约资源吧
     fullscreenElement: document.body, // 全屏时渲染的HTML元素 暂时没发现用处，虽然我关闭了全屏按钮，但是键盘按F11 浏览器也还是会进入全屏
   })
+}
+
+onMounted(() => {
+  
 })
 </script>
 
-<style scoped>
-#cesium-viewer {
+<style scoped lang="less">
+.cesium-container{
   width: 100%;
   height: 100%;
 }
