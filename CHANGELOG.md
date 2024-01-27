@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.1 (2024-01-27)
+
+
+### ⚡️ Performance Improvements | 性能优化
+
+* **desktop**: 延迟渲染指令变更为仅过渡可见性 ([adb6f38](https://gitee.com/aragakki_yui/any-thing/commits/adb6f38)) - by **吴成**
+
+
+### 🐛 Bug Fixes | 修复 bug
+
+* **desktop**: 修复弹窗内容延迟渲染导致的溢出滚动条抖动 ([fbe8511](https://gitee.com/aragakki_yui/any-thing/commits/fbe8511)) - by **吴成**
+
+
+
+
+
 # 1.2.0 (2024-01-27)
 
 
