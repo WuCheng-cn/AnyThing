@@ -46,7 +46,7 @@ export default defineConfig({
       ]
     }),
     insertHtml({
-      head: [// 在head标签中插入引入Cesium.js的标签
+      body: [// 在标签中插入引入Cesium.js的标签
         h('script', {
           src: 'libs/cesium/Cesium.js'
         })
