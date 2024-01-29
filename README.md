@@ -1,18 +1,16 @@
-# Vue 3 + TypeScript + Vite
+AnyThing
+=========
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 简介
 
-## Recommended IDE Setup
+- 本来这个项目是用来练手各种东西的，某一天我突发奇想把它工程化了，然后又一拍脑袋给它做了个类似pc桌面的入口，再顺带调了调桌面上的交互逻辑，于是就有了这个项目。
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 应用扩展说明
 
-## Type Support For `.vue` Imports in TS
+- 扩展应用请前往 ```src/views/Desktop/(LocalApp | CloudApp)``` 目录下创建文件夹，然后开始写你的页面。
+- 注册应用请前往 ```src/views/Desktop/appList.ts``` 文件，在 AppList 里注册你的应用。  
+*注：已经封装了一个通用的应用处理逻辑（handler函数传入你的页面即可），当然你也可以自己写。
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Tips
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- 出于性能考虑，建议你的页面根节点不要设置宽高，只需在根节点上加上```v-lazyResize```指令即可。我会主动把窗口宽高设置给你的。
