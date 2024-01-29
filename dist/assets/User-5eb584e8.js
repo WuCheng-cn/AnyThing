@@ -1,0 +1,1 @@
+import{d as n,r as o,o as t,c as s,e as a}from"./vendor-55e0ca6f.js";const e=""+new URL("avator-f1e2feee.jpg",import.meta.url).href,f=n({__name:"User",setup(c){return(l,p)=>{const r=o("n-avatar");return t(),s(r,{lazy:"",round:"",size:24,src:a(e),"fallback-src":a(e)},null,8,["src","fallback-src"])}}});export{f as default};

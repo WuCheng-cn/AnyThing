@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vue_export-helper-c27b6911.js";import{o as n,B as t,x as _}from"./vendor-55e0ca6f.js";const a={},r={class:"toolBarIconContain"};function s(o,c){return n(),t("div",r,[_(o.$slots,"default",{},void 0,!0)])}const f=e(a,[["render",s],["__scopeId","data-v-3807dfff"]]);export{f as default};
