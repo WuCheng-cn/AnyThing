@@ -10,11 +10,11 @@
  */
 import { App } from "vue";
 import { resize } from "./resize";
-import { layzRender } from "./layzRender";
+import { lazyResize } from "./lazyResize";
 
 export const directivePlugin = {
   install(app:App<Element>){    
     app.directive('resize',resize)
-    app.directive('layzRender',layzRender)
+    app.directive('lazyResize',lazyResize)
   }
 }

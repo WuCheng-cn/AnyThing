@@ -3,6 +3,11 @@ import { InInitializeConfig } from "../desktop/InInitializeConfig";
 
 export interface InDialogConfig {
   /**
+   * # 对话框标题
+   */
+  title?: string
+
+  /**
    * # 要使用的对话框组件
    */
   dialogComponent?: DefineComponent<{}, {}, any>

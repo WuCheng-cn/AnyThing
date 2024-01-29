@@ -14,7 +14,7 @@
             :on-maximize="onMaximize"
           />
           <div class="title">
-            弹窗标题
+            {{ title || '弹窗标题' }}
           </div>
         </div>
         <div class="main">
@@ -36,10 +36,18 @@ import { InInitializeConfig } from '@/interface/desktop/InInitializeConfig'
 import { DesktopManageHelper } from '@/views/Desktop/hooks/DesktopManageHelper'
 import { useConfig } from '@/config'
 import { storeToRefs } from 'pinia'
+import { InDialogParam } from '@/interface/base/InDialogParam'
 
 const ControllerMac = AnyComponentHelper.asyncComponent(() => import('@/components/UI/ControllerMac.vue'))
 
 const props = defineProps({
+  /**
+   * # 对话框标题
+   */
+  title: {
+    type: String,
+    default: undefined,
+  },
   /**
    * # 对话框挂载时的回调
    */ 
@@ -61,7 +69,6 @@ const props = defineProps({
     type: Function as PropType<() => Promise<void>>,
     default: undefined,
   },
-
 })
 
 const emits = defineEmits(['on-after-leave'])
@@ -247,7 +254,7 @@ onMounted(async () => {
   transition: all .5s;
   transform: scale(1);
   overflow: hidden;
-
+z-index: 9999;
   &.any_model_minimize {
     padding: 0 !important;
     overflow: hidden !important;

@@ -2,9 +2,11 @@
 import { AnyDialogHelper } from "@/helper/AnyDialogHelper"
 import { AppEntity } from "@/entity/desktop/AppEntity";
 import { AppTaskEntity } from "@/entity/desktop/AppTaskEntity";
-import { nextTick,DefineComponent } from 'vue'
+import { nextTick, DefineComponent } from 'vue'
 import { InInitializeConfig } from "@/interface/desktop/InInitializeConfig";
 import { DesktopManageHelper } from "./DesktopManageHelper";
+import { InDialogParam } from "@/interface/base/InDialogParam";
+import { InDialogConfig } from "@/interface/base/InDialogConfig";
 
 export function UseNormalApp() {
   /**
@@ -42,14 +44,19 @@ export function UseNormalApp() {
   /**
    * 常规应用点击处理函数
    */
-  const handler = (view: DefineComponent<{}, {}, any> ,param?:Record<string, any>) => (app: AppEntity | AppTaskEntity) => {
+  const handler = (view: DefineComponent<{}, {}, any>, param?: InDialogParam, dialogConfig?: InDialogConfig) => (app: AppEntity | AppTaskEntity, callBack: Function) => {
     if (app instanceof AppEntity) {
       const task = DesktopManageHelper.addTask(app)
+      if (callBack) {
+        callBack()
+      }
       AnyDialogHelper.showMacModel(view, param, {
         onModelMounted: (modelDom: HTMLElement) => onModelMounted(modelDom, task),
         beforClose: () => beforClose(task),
         beforMinimize: () => beforMinimize(task),
+        ...(dialogConfig ?  dialogConfig  : {})
       })
+      
     } else if (app instanceof AppTaskEntity) {
     }
   }

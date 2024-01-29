@@ -4,9 +4,10 @@
     @mouseleave="resetAllScale"
   >
     <APP
-      v-for="(item) in defaultTaskAppList"
+      v-for="(item) in defaultTaskAppListWithHandler"
       :key="item.name"
       :data="item"
+      is-task-app
       hide-name
       class="task_app_item"
       @mousemove.prevent="handleMove"
@@ -33,7 +34,7 @@ import { storeToRefs } from 'pinia'
 
 const APP = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/APP.vue'))
 
-const { defaultTaskAppList, appTaskList, appListInTaskList } = storeToRefs(useConfig().DesktopConfig)
+const { defaultTaskAppListWithHandler, appTaskList, appListInTaskList } = storeToRefs(useConfig().DesktopConfig)
 
 const taskDomDictinary = new Map<string, HTMLElement>()
 

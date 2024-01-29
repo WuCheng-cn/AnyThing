@@ -3,7 +3,7 @@
     <div
       id="cesium-viewer"
       ref="viewerDivRef"
-      v-layzRender 
+      v-lazyResize 
       v-resize:100="resizeCesiumView"
     />
   </div>

@@ -1,13 +1,10 @@
 import { Ref } from "vue"
 import { defineStore } from "pinia"
 import { EAppIconSize } from "@/enum/EAppIconSize"
-import { InApp } from "@/interface/desktop/InApp"
-import SettingIcon from '@/assets/img/appIcon/setting.svg'
-import DefaultBackgroundImg from '@/assets/img/MacBg-2k.jpg'
-import { AppList } from "@/views/Desktop/appList"
-import { InAppTask } from "@/interface/desktop/InAppTask"
+import { AppList,DefaultTaskAppList } from "@/views/Desktop/appList"
 import { AppTaskEntity } from "@/entity/desktop/AppTaskEntity"
 import { AppEntity } from "@/entity/desktop/AppEntity"
+import DefaultBackgroundImg from '@/assets/img/MacBg-2k.jpg'
 
 /**
  * # 桌面相关配置
@@ -30,10 +27,7 @@ export const DesktopConfig = defineStore('desktopConfig', {
       appIconSize: EAppIconSize.NORMAL,
       defaultBackgroundImg: DefaultBackgroundImg,
       currentBackgroundImg: '',
-      defaultTaskAppList: [{
-        name: '系统设置',
-        icon: SettingIcon,
-      }] as InApp[],
+      defaultTaskAppList: DefaultTaskAppList,
       appTaskList: [] as AppTaskEntity[],
       appList: AppList,
       currentApp: null as AppEntity | null,
@@ -44,6 +38,15 @@ export const DesktopConfig = defineStore('desktopConfig', {
     appListWithHandler: (state) => {
       return state.appList?.map((item) => {
         const handler = AppList.find((app) => app.name === item.name)?.handler
+        if (handler) {
+          item.handler = handler
+        }
+        return new AppEntity().assign(item)
+      })
+    },
+    defaultTaskAppListWithHandler: (state) => {
+      return state.defaultTaskAppList?.map((item) => {
+        const handler = DefaultTaskAppList.find((app) => app.name === item.name)?.handler
         if (handler) {
           item.handler = handler
         }

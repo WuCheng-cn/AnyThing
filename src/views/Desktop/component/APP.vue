@@ -22,7 +22,6 @@
     <div class="main">
       <n-image
         class="app_icon"
-        lazy
         preview-disabled
         :width="size || appIconSize"
         :src="data.icon"
@@ -37,6 +36,7 @@ import { useConfig } from '@/config'
 import { storeToRefs } from 'pinia'
 import { AppEntity } from '@/entity/desktop/AppEntity'
 import { AppTaskEntity } from '@/entity/desktop/AppTaskEntity'
+import { DesktopManageHelper } from '../hooks/DesktopManageHelper'
 
 const props = defineProps({
   data: {
@@ -80,6 +80,10 @@ function handleClick () {
     props.data.handler(props.data)
   } else if (props.isTaskApp && currentAppTaskList.value.length === 1) {
     handleTaskClick(currentAppTaskList.value[0])
+  } else if (props.isTaskApp && props.data.handler && !currentAppTaskList.value.length) {
+    props.data.handler(props.data, () => {
+      DesktopManageHelper.setTaskBarDomByApp(appRef.value!, props.data)
+    })
   }
 }
 
@@ -124,9 +128,7 @@ function setTaskRef (el: HTMLElement, item: AppTaskEntity) {
 
 onMounted(() => {
   if (props.isTaskApp) {
-    appTaskList.value.filter((item) => item.app.name === props.data.name).forEach((item) => {
-      item.setTaskBarDom(appRef.value)
-    })
+    DesktopManageHelper.setTaskBarDomByApp(appRef.value!, props.data)
   } else {
     const app = appList.value.find((item) => item.name === props.data.name)
     if (app) {
@@ -143,6 +145,7 @@ onMounted(() => {
   box-sizing: border-box;
   border: 2px dashed transparent;
   border-radius: 12px;
+  z-index: 2;
   &:hover{
     .task{
       opacity: 1;

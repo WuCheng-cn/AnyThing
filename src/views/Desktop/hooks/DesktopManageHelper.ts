@@ -43,4 +43,11 @@ export class DesktopManageHelper {
     modelDom.style.zIndex = highestIndex.toString()
     refreshHighestIndex()
   }
+
+  static setTaskBarDomByApp(taskBarDom: HTMLElement, app: AppEntity) {
+    const { appTaskList } = useConfig().DesktopConfig
+    appTaskList.filter((item) => item.app.name === app.name).forEach((item) => {
+      item.setTaskBarDom(taskBarDom)
+    })
+  }
 }

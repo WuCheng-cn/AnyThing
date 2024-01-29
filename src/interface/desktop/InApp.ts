@@ -19,7 +19,7 @@ export interface InApp {
   /**
    * # 应用处理器
    */
-  handler?: (app:AppEntity,isTaskApp:boolean) => void;
+  handler?: (app:AppEntity,callBack?:Function) => void;
 
   /**
    * # 应用在桌面对应的dom

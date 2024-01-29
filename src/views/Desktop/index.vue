@@ -1,27 +1,31 @@
 <template>
-  <div
-    class="desktop"
-    :style="{ backgroundImage: `url(${backgroundImage})` }"
-    @mouseup="dragend"
-    @mouseleave="dragend"
-    @mousemove="mouseMove($event)"
-  >
-    <ToolBar key="ToolBar" />
-    <transition-group
-      class="main"
-      tag="div"
-      name="drag"
+  <transition-group name="fade">
+    <div
+      v-if="isShowDesktop"
+      class="desktop"
+      :style="{ backgroundImage: `url(${backgroundImage})` }"
+      @mouseup="dragend"
+      @mouseleave="dragend"
+      @mousemove="mouseMove($event)"
     >
-      <APP
-        v-for="(item, index) in appListWithHandler"
-        :key="item.name"
-        :data="item"
-        @mouseenter="dragenter($event, index)"
-        @mousedown="dragstart($event, index)"
-      />
-    </transition-group>
-    <TaskBar key="TaskBar" />
-  </div>
+      <ToolBar key="ToolBar" />
+      <transition-group
+        class="main"
+        tag="div"
+        name="drag"
+      >
+        <APP
+          v-for="(item, index) in appListWithHandler"
+          :key="item.name"
+          :data="item"
+          @mouseenter="dragenter($event, index)"
+          @mousedown="dragstart($event, index)"
+        />
+      </transition-group>
+      <TaskBar key="TaskBar" />
+    </div>
+    <Loading v-else @animationend="isShowDesktop = true" />
+  </transition-group>
 </template>
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
@@ -29,6 +33,7 @@ import { storeToRefs } from 'pinia'
 import { AnyComponentHelper } from '@/helper/AnyComponentHelper'
 import { useConfig } from '@/config'
 
+const Loading = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/Loading.vue'))
 const APP = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/APP.vue'))
 const ToolBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/ToolBar.vue'))
 const TaskBar = AnyComponentHelper.asyncComponent(() => import('@/views/Desktop/component/Taskbar.vue'))
@@ -39,6 +44,8 @@ const backgroundImage = computed(() => {
   const { currentBackgroundImg, defaultBackgroundImg } = useConfig().DesktopConfig
   return currentBackgroundImg || defaultBackgroundImg
 })
+
+const isShowDesktop = ref(false)
 
 const dragIndex = ref<number>(0)
 
@@ -183,6 +190,14 @@ html{
 
 .drag-move {
   transition: transform .5s;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 :deep(.dragging_back){

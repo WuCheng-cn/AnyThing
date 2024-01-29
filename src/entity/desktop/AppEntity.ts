@@ -14,7 +14,7 @@ export class AppEntity extends AnyBaseModel implements InApp {
   description?: string | undefined;
 
   @Expose()
-  handler?: ((app: AppEntity | AppTaskEntity) => void);
+  handler?: ((app: AppEntity | AppTaskEntity,callBack?:Function) => void);
 
   @Expose()
   dom?: HTMLElement ;

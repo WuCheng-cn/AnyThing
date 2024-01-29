@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <iframe
-      v-layzRender
+      v-lazyResize
       class="view"
       src="https://music.163.com/" 
       frameborder="0"
