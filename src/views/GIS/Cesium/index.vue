@@ -1,5 +1,6 @@
 <template>
   <div class="cesium-container">
+    <n-spin v-show="isLoading" size="medium" />
     <div
       id="cesium-viewer"
       ref="viewerDivRef"
@@ -14,14 +15,27 @@ import { TileMapServiceImageryProvider, Viewer, UrlTemplateImageryProvider, Prov
 import 'cesium/Build/CesiumUnminified/Widgets/widgets.css'
 
 let viewer: Viewer | null = null
+
 const viewerDivRef = ref<HTMLDivElement>()
+
+const isLoading = ref(false)
+
 window.CESIUM_BASE_URL = 'libs/cesium/'
 
-function resizeCesiumView () {
-  if (viewer) {
-    viewer.resize()
-    return
+function init () {
+  isLoading.value = true
+  const script = document.createElement('script')
+  script.src = 'libs/cesium/Cesium.js'
+  script.type = 'text/javascript'
+  script.async = true
+  script.onload = () => {
+    isLoading.value = false
+    renderView()
   }
+  document.body.appendChild(script)
+} 
+
+function renderView () {
   viewer = new Viewer(viewerDivRef.value as HTMLElement, {
     imageryProvider: new UrlTemplateImageryProvider({
       url: 'https://webst02.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
@@ -44,8 +58,14 @@ function resizeCesiumView () {
   })
 }
 
+function resizeCesiumView () {
+  if (viewer) {
+    viewer.resize()
+  }
+}
+
 onMounted(() => {
-  
+  init()
 })
 </script>
 

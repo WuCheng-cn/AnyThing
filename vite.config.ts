@@ -45,13 +45,13 @@ export default defineConfig({
         },
       ]
     }),
-    insertHtml({
-      body: [// 在标签中插入引入Cesium.js的标签
-        h('script', {
-          src: 'libs/cesium/Cesium.js'
-        })
-      ]
-    })
+    // insertHtml({
+    //   body: [// 在标签中插入引入Cesium.js的标签
+    //     h('script', {
+    //       src: 'libs/cesium/Cesium.js'
+    //     })
+    //   ]
+    // })
 
   ],
   resolve: {
