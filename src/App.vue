@@ -4,7 +4,9 @@
     :theme-overrides="useConfig().AppConfig.themeOverrides"
   >
     <n-message-provider>
-      <router-view />
+      <transition name="fade" mode="out-in">
+        <router-view />
+      </transition>
     </n-message-provider>
   </n-config-provider>
 </template>
@@ -22,6 +24,14 @@ watch(clickedPositionRef, (value) => {
   deep: true,
 })
 </script>
-<style scoped>
+<style lang="less" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s !important;
+}
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0 !important;
+}
 </style>

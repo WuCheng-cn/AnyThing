@@ -2,7 +2,12 @@ import { createRouter, RouteRecordRaw, createWebHistory, createWebHashHistory } 
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '',
+    path: '/login',
+    name: '登录',
+    component: () => import('@/views/Login.vue')
+  },
+  {
+    path: '/desktop',
     name: '桌面',
     component: () => import('@/views/Desktop/index.vue')
   },
@@ -40,6 +45,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/demo',
         name: 'demo',
         component: () => import('@/views/Demo/index.vue')
+      },
+      // 重定向
+      {
+        path: '/',
+        redirect: '/login'
       },
     ]
   },

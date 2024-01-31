@@ -9,4 +9,20 @@ export class AnyComponentHelper {
       delay,
     })
   }
+
+  /**
+   * 加载图片
+   */
+  static loadImage(src: string) {
+    return new Promise<string>((resolve, reject) => {
+      const image = new Image()
+      image.src = src
+      image.onload = () => {
+        resolve(src)
+      }
+      image.onerror = () => {
+        reject()
+      }
+    })
+  }
 }
