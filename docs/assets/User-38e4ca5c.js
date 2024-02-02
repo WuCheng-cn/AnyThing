@@ -1,0 +1,1 @@
+import{a}from"./avator-96f844ed.js";import{d as o,r as n,o as s,c,e as r}from"./vendor-a32ff1ab.js";const f=o({__name:"User",setup(t){return(l,_)=>{const e=n("n-avatar");return s(),c(e,{lazy:"",round:"",size:24,src:r(a),"fallback-src":r(a)},null,8,["src","fallback-src"])}}});export{f as default};

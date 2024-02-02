@@ -59,6 +59,9 @@ export default defineConfig({
       '@': '/src/'
     }
   },
+  build: {
+    outDir: 'docs', // 打包输出目录
+  },
   optimizeDeps: {
     exclude: ['@antv/x6-vue-shape'],
   },
