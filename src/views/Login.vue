@@ -55,6 +55,7 @@ const isLoaded = ref(false)
 
 async function init () {
   await AnyComponentHelper.loadImage(defaultBackgroundImg)
+  await AnyComponentHelper.loadImage(avatar)
   isLoaded.value = true
 }
 
