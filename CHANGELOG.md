@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# 1.4.0 (2024-02-02)
+
+
+### ⚡️ Performance Improvements | 性能优化
+
+* **desktop**: 首屏优化 ([b6c2290](https://gitee.com/aragakki_yui/any-thing/commits/b6c2290)) - by **吴成**
+
+
+### ✨ Features | 新功能
+
+* **view**: 新增登录页 ([ec4b250](https://gitee.com/aragakki_yui/any-thing/commits/ec4b250)) - by **吴成**
+
+
+### 🐛 Bug Fixes | 修复 bug
+
+* **desktop**: 修复头像资源加载问题 ([0a0def5](https://gitee.com/aragakki_yui/any-thing/commits/0a0def5)) - by **吴成**
+
+
+### 📝 Documentation | 文档变更
+
+* **custom**: 更新 REDEME ([e5a5815](https://gitee.com/aragakki_yui/any-thing/commits/e5a5815)) - by **吴成**
+
+
+### 📦️ Builds | 打包
+
+* **custom**: 打包发布 ([6457d19](https://gitee.com/aragakki_yui/any-thing/commits/6457d19)) - by **吴成**
+* **custom**: 打包文件夹更名为 docs，适配 github 静态部署 ([c114c7a](https://gitee.com/aragakki_yui/any-thing/commits/c114c7a)) - by **吴成**
+
+
+
+
+
 # 1.3.0 (2024-01-29)
 
 
