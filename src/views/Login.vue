@@ -6,7 +6,6 @@
           <div class="info">
             <n-avatar
               class="avator"
-              lazy
               round
               :size="160"
               :src="avatar"

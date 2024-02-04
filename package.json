@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "eslint": "eslint --ext .js,.vue src",
+    "commit": "cz",
     "release": "standard-version --preset gitmoji-config"
   },
   "config": {

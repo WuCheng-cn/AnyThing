@@ -23,8 +23,8 @@ export default class GraphicsHelper extends Graph {
    * @param container 画布容器
    * @returns 画布实例
    */
- static create(container: HTMLElement): Graph {
-   const graph = new Graph({ container, ...GraphOption })
+  static create(container: HTMLElement): Graph {
+    const graph = new Graph({ container, ...GraphOption })
     if (import.meta.env.DEV) {
       this.#createdDevTools(graph)
     }
@@ -33,7 +33,7 @@ export default class GraphicsHelper extends Graph {
     return graph
     // graph.fromJSON(data)
   }
-  
+
   /**
    * # 创建开发者工具
    * @param instance 画布实例
@@ -54,7 +54,7 @@ export default class GraphicsHelper extends Graph {
       .use(new Snapline(SnaplineOption))
       .use(new Transform(TransformOption))
       .use(new Selection(SelectionOption))
-      .use(new Clipboard(ClipboardOption))
+      // .use(new Clipboard(ClipboardOption))
       .use(new Keyboard(KeyboardOption))
       .use(new History(HistoryOption))
     return instance
@@ -97,14 +97,14 @@ export default class GraphicsHelper extends Graph {
   /**
    * 注册自定义组件
    */
-  static registComponent(Registry:InRegistItem[]): void {
+  static registComponent(Registry: InRegistItem[]): void {
     Registry.forEach(item => {
       register({
         shape: item.nodeShape,
         width: item.width,
         height: item.height,
         component: item.component,
-        data:item.defaultOption,
+        data: item.defaultOption,
       })
     })
   }
