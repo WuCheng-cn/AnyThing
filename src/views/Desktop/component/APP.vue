@@ -3,18 +3,24 @@
     ref="appRef"
     class="app_item"
     @click="handleClick"
+    @mouseenter="handleMouseEnter"
   >
     <div v-if="currentAppTaskList.length && isTaskApp" class="task">
       <div class="task_list">
         <div
           v-for="(item) in currentAppTaskList"
-          :key="item.id" 
+          :key="item.id"
           class="task_item"
           @click.stop="handleTaskClick(item)"
         >
-          <div class="name">{{ item.app.name }}-{{ item.id }}</div>
+          <div class="header">
+            <div class="name">{{ item.app.name }}-{{ item.id }}</div>
+            <!-- <div class="contorller contorller-close" @click.stop="handleCloseTask(item)">
+              <n-icon class="icon" :component="X" />
+            </div> -->
+          </div>
           <div class="preview">
-            <div :ref="(el)=>setTaskRef(el as HTMLElement , item)" class="preview_main" />
+            <div :ref="(el) => setTaskRef(el as HTMLElement, item)" class="preview_main" />
           </div>
         </div>
       </div>
@@ -37,6 +43,7 @@ import { storeToRefs } from 'pinia'
 import { AppEntity } from '@/entity/desktop/AppEntity'
 import { AppTaskEntity } from '@/entity/desktop/AppTaskEntity'
 import { DesktopManageHelper } from '../hooks/DesktopManageHelper'
+import { X } from '@vicons/tabler'
 
 const props = defineProps({
   data: {
@@ -69,6 +76,8 @@ const props = defineProps({
 
 const appRef = ref<HTMLElement>()
 
+const taskViewRefs = ref<WeakMap<AppTaskEntity, HTMLElement >>(new WeakMap())
+
 const { appIconSize, appList, appTaskList } = storeToRefs(useConfig().DesktopConfig)
 
 const currentAppTaskList = computed(() => {
@@ -87,7 +96,7 @@ function handleClick () {
   }
 }
 
-function handleTaskClick (item: AppTaskEntity) {  
+function handleTaskClick (item: AppTaskEntity) {
   if (item.isMinimize) {
     item.modelDom?.classList.remove('any_model_minimize')
   } else {
@@ -98,32 +107,46 @@ function handleTaskClick (item: AppTaskEntity) {
 
 function setTaskRef (el: HTMLElement, item: AppTaskEntity) {
   if (el) {
-    item.setTaskViewDom(el)
-    // 把ModelDom复制一个到el上
-    const modelDom = item.modelDom
-    if (modelDom) {      
-      const cloneDom = modelDom.cloneNode(true) as HTMLElement
-      const scaleRateX = 196 / 1920 
-      const scaleRateY = 100 / 1080 
-      const cssText = `
-        position: relative;
-        overflow: hidden;
-        width: 1920px;
-        height: 1080px;
-        left: unset;
-        top: unset;
-        right: unset;
-        bottom: unset; 
-        pointer-events: none;
-        transform: scale(${scaleRateX}, ${scaleRateY});
-        transform-origin: left top;  
-        opacity: 1;
-        transition:unset;
-      `
-      cloneDom.style.cssText = cssText
-      el.appendChild(cloneDom)
-    }
+    taskViewRefs.value.set(item, el)
+    // item.setTaskViewDom(el)
+    // // 把ModelDom复制一个到el上
+    // const modelDom = item.modelDom
+    // if (modelDom) {      
+    //   const cloneDom = modelDom.cloneNode(true) as HTMLElement
+    //   const scaleRateX = 196 / 1920 
+    //   const scaleRateY = 100 / 1080 
+    //   const cssText = `
+    //     position: relative;
+    //     overflow: hidden;
+    //     width: 1920px;
+    //     height: 1080px;
+    //     left: unset;
+    //     top: unset;
+    //     right: unset;
+    //     bottom: unset; 
+    //     pointer-events: none;
+    //     transform: scale(${scaleRateX}, ${scaleRateY});
+    //     transform-origin: left top;  
+    //     opacity: 1;
+    //     transition:unset;
+    //   `
+    //   cloneDom.style.cssText = cssText
+    //   el.appendChild(cloneDom)
+    // }
   }
+}
+
+function handleMouseEnter () {
+  if (props.isTaskApp) {
+    const taskList = appTaskList.value.filter((item) => item.app.name === props.data.name) as AppTaskEntity[]
+    taskList.forEach((item) => {
+      DesktopManageHelper.refreshTaskView(item, taskViewRefs.value.get(item) as HTMLElement)
+    })
+  }
+}
+
+function handleCloseTask (item: AppTaskEntity) {
+  DesktopManageHelper.removeTask(item)
 }
 
 onMounted(() => {
@@ -146,13 +169,15 @@ onMounted(() => {
   border: 2px dashed transparent;
   border-radius: 12px;
   z-index: 2;
-  &:hover{
-    .task{
+
+  &:hover {
+    .task {
       opacity: 1;
       pointer-events: unset;
     }
   }
-  .task{
+
+  .task {
     pointer-events: none;
     opacity: 0;
     position: absolute;
@@ -162,18 +187,20 @@ onMounted(() => {
     transition: all 0.3s;
     padding: 10px;
     z-index: 9999;
-    .task_list{
+
+    .task_list {
       display: flex;
       gap: 10px;
     }
-    .task_item{
+
+    .task_item {
       cursor: pointer;
       width: 216px;
       height: 150px;
       background: #fff;
       color: #121212;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, .2);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -182,27 +209,66 @@ onMounted(() => {
       flex-direction: column;
       padding: 10px;
 
-      .preview{
+      .preview {
         position: relative;
         flex: 1;
         width: 100%;
         height: 0;
-        .preview_main{
+
+        .preview_main {
           height: 100%;
           width: 100%;
         }
       }
-      .name{
-        height: 20px;
+
+      .header {
         width: 100%;
-        font-size: 12px;
-        font-weight: 500;
-        color: #333;
-        text-align: left;
+        display: flex;
+        align-items: center;
         margin-bottom: 10px;
+
+        .icon {
+          display: none;
+          font-weight: bold;
+        }
+
+        &:hover {
+          .icon {
+            display: block;
+          }
+        }
+
+        .name {
+          flex: 1;
+          height: 20px;
+          width: 0;
+          font-size: 12px;
+          font-weight: 500;
+          color: #333;
+          text-align: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .contorller {
+          cursor: pointer;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #fd5858;
+
+          &:active {
+            opacity: .5;
+          }
+
+        }
       }
     }
   }
+
   // animation: app_click 0s;
   // &:hover {
   //   animation-duration: 1s;
@@ -220,6 +286,7 @@ onMounted(() => {
   border-radius: 12px;
   transition: all 0.3s;
   pointer-events: none;
+
   .app_name {
     opacity: 1;
     transition: all 0.3s;
@@ -234,10 +301,12 @@ onMounted(() => {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
   }
+
   50% {
     // transform: scale(0.9);
     box-shadow: 0 0 0 10px rgba(255, 255, 255, 0), 0 0 0 0 rgba(255, 255, 255, 0.7);
   }
+
   100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 0 0 0 rgba(255, 255, 255, 0.7);
