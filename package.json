@@ -43,6 +43,7 @@
     "pinia": "^2.0.28",
     "pinia-plugin-persistedstate": "^3.0.2",
     "reflect-metadata": "^0.1.13",
+    "three": "^0.165.0",
     "vfonts": "^0.0.3",
     "vite-plugin-eslint": "^1.8.1",
     "vooks": "^0.2.12",
