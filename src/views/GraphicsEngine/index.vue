@@ -10,8 +10,13 @@
       </n-el>
     </Panle>
     <template #slider-right>
-      <div v-for="item in (currentData?.getData() as InDefaultOption)?.formConfig" :key="item.title">
-        <component :is="item.component" v-model="item.data" :resize-handler="resizeHandler" />
+      <div v-for="item in (currentNode?.getData() as InDefaultOption)?.formConfig" :key="item.title">
+        <component
+          :is="item.component"
+          v-model="item.data"
+          :resize-handler="resizeHandler"
+          :current-node="currentNode"
+        />
       </div>
       <AButton @click="handleClick" />
     </template>
@@ -86,26 +91,26 @@ onMounted(() => {
   graph.value.on('node:selected', ({ node }) => {
     console.log(node)
     console.log(node.getData())
-    currentData.value = node
+    currentNode.value = node
   })
   graph.value.on('node:resizing', ({ node }) => {
     const { width, height } = node.getSize()
     const data = node.getData() as InDefaultOption
     const baseConfig = data.formConfig.find((item) => item.title === '基础配置') as InWidgetFormConfig
     const fromData = baseConfig.data as WidgetConfigEntity
-    fromData.width = width
-    fromData.height = height
+    fromData.setWidth(width)
+    fromData.setHeight(height)
   })
 })
 
 const resizeHandler = (width: number, height: number) => {
-  currentData.value?.setSize(width, height)
+  currentNode.value?.setSize(width, height)
 }
 
-const currentData = ref<Node<Node.Properties>>()
+const currentNode = ref<Node<Node.Properties>>()
 function handleClick () {
-  useStore().graphStore.recordsCenter[currentData.value?.id || '']?.series[0].data.push(1000)
-  useStore().graphStore.recordsCenter[currentData.value?.id || '']?.xAxis.data.push('x')
+  useStore().graphStore.recordsCenter[currentNode.value?.id || '']?.series[0].data.push(1000)
+  useStore().graphStore.recordsCenter[currentNode.value?.id || '']?.xAxis.data.push('x')
 }
 </script>
 <style lang="less">

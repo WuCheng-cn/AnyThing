@@ -6,6 +6,9 @@
  * @description 解决循环引用的问题
  */
 export class AnyDataHelper {
+  /**
+   * # 深拷贝一个对象
+   */
   static deepClone<T>(data: T): T {
     /**
      * 数据缓存
@@ -81,6 +84,40 @@ export class AnyDataHelper {
     }
   }
 
+
+  /**
+   * # 实现深度合并两个对象的功能。
+   * 
+   * @param {Object} target 第一个待合并的对象。
+   * @param {Object} source 第二个待合并的对象。
+   * @return {Object} 合并后的新对象。
+   */
+  static deepMerge(target: Record<string, any>, source: Record<string, any>): Record<string, any> {
+
+    const result: Record<string, any> = {};
+
+    // 遍历第一个对象的所有键
+    for (const key in target) {
+      if (target.hasOwnProperty(key)) {
+        // 如果source中也有这个键，并且都是对象，则进行深度合并
+        if (source.hasOwnProperty(key) && typeof target[key] === 'object' && typeof source[key] === 'object') {
+          result[key] = this.deepMerge(target[key], source[key]);
+        } else {
+          // 否则直接赋值target的值
+          result[key] = target[key];
+        }
+      }
+    }
+
+    // 遍历第二个对象，确保所有source中的键都被考虑进去
+    for (const key in source) {
+      if (source.hasOwnProperty(key) && !result.hasOwnProperty(key)) {
+        result[key] = source[key];
+      }
+    }
+
+    return result;
+  }
 }
 
 
