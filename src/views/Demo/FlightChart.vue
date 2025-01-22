@@ -15,7 +15,7 @@ const chartRef = ref()
 const planePath =
       'path://M482.73408 403.02592a40.96 40.96 0 0 1 59.71968-1.90464l144.81408 144.7936a40.96 40.96 0 1 1-57.91744 57.9584l-115.79392-115.8144-115.95776 115.95776a40.96 40.96 0 0 1-57.91744-57.93792l143.0528-143.0528z'
 // var planePath = 'arrow';
-const color = ['#a6c84c', '#ffa022', '#46bee9'] // 航线的颜色
+const color = ['#18a0ff'] // 航线的颜色
 const series:any = [];
 [
   ['郑州', XAData],
@@ -31,7 +31,7 @@ const series:any = [];
         show: true, // 是否展示特效
         period: 6, // 动画的周期，秒数。
         trailLength: 0.7, // 特效尾迹的长度。取从 0 到 1 的值，数值越大尾迹越长。
-        color: 'red', // arrow箭头的颜色
+        color: '#18a0ff', // arrow箭头的颜色
         symbolSize: 3, // 线两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定
       },
       lineStyle: {
@@ -113,7 +113,7 @@ const option = {
   },
   tooltip: { // 当鼠标放航线上提示框的显示
     trigger: 'item',
-    formatter: function (params, ticket, callback) {
+    formatter: (params, ticket, callback) => {
       if (params.seriesType == 'effectScatter') {
         return '城市：' + params.data.name + '<br />人数：' + params.data.value[2]
       } else if (params.seriesType == 'lines') {
@@ -126,16 +126,16 @@ const option = {
       }
     },
   },
-  legend: { // 右下角图例组件设置 
-    orient: 'vertical', // 图例列表的布局朝向
-    top: 'bottom',
-    left: 'right',
-    data: ['郑州 Top1'],
-    textStyle: {
-      color: '#fff',
-    },
-    selectedMode: 'multiple',
-  },
+  // legend: { // 右下角图例组件设置 
+  //   orient: 'vertical', // 图例列表的布局朝向
+  //   top: 'bottom',
+  //   left: 'right',
+  //   data: ['郑州 Top1'],
+  //   textStyle: {
+  //     color: '#fff',
+  //   },
+  //   selectedMode: 'multiple',
+  // },
   // geo: {
   //   map: 'henan', // 这里使用的echarts库河南图层！
   //   label: {
@@ -175,6 +175,10 @@ onMounted(() => {
   .then((AMap) => {
     const myChart = echarts.init(document.getElementById('chart') as HTMLElement)
     myChart.setOption(option)
+    const amap = (myChart as any).getModel().getComponent('amap')
+    .getAMap()
+    
+    amap.setFitView()
   })
   .catch((e) => {
     console.log(e)
