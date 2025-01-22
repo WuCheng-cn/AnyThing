@@ -30,6 +30,9 @@
       <Select v-model="sel" />
       <Number v-model="number" />
     </n-space>
+    <div class="chart_box" style="width: 800px;height: 600px;">
+      <FlightChart />
+    </div>
   </Panle>
 </template>
 <script lang="ts" setup>
@@ -43,6 +46,7 @@ import TextArea from '@/components/Form/TextArea.vue'
 import Select from '@/components/Form/Select.vue'
 import Upload from '@/components/Form/Upload.vue'
 import Number from '@/components/Form/Number.vue'
+import FlightChart from './FlightChart.vue'
 const showModal = ref(false)
 const text = ref('')
 const sel = ref('')
