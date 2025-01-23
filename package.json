@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "eslint": "eslint --ext .js,.vue src",
-    "commit": "cz",
+    "c": "cz",
     "release": "standard-version --preset gitmoji-config"
   },
   "config": {
@@ -45,6 +45,7 @@
     "pinia": "^2.0.28",
     "pinia-plugin-persistedstate": "^3.0.2",
     "reflect-metadata": "^0.1.13",
+    "three": "^0.172.0",
     "vfonts": "^0.0.3",
     "vite-plugin-eslint": "^1.8.1",
     "vooks": "^0.2.12",
@@ -53,6 +54,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
+    "@types/three": "^0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.47.0",
     "@vicons/antd": "^0.12.0",

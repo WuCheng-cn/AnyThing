@@ -46,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'demo',
         component: () => import('@/views/Demo/index.vue')
       },
+      {
+        path: '/threejs',
+        name: 'threejs',
+        component: () => import('@/views/Threejs/index.vue')
+      },
       // 重定向
       {
         path: '/',
