@@ -4,6 +4,8 @@
 <script lang="ts" setup>
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
+// 引入轨道控制器扩展库OrbitControls.js
+import { OrbitControls } from 'three/examples/jsm/Addons.js'
 
 const webglRenderContent = ref()
 
@@ -14,9 +16,9 @@ const scene = new THREE.Scene()
 const geometry = new THREE.BoxGeometry(100, 100, 100)
 
 // 创建一个材质对象（基础材质-不受光照影响）
-const material = new THREE.MeshBasicMaterial({
-  color: 0x0000ff, // 设置材质颜色
-  transparent: true, // 开启透明
+const material = new THREE.MeshStandardMaterial({
+  color: 0xffffff, // 设置材质颜色
+  transparent: false, // 开启透明
   opacity: 0.5, // 设置透明度
 })
 
@@ -50,6 +52,26 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 
 // 执行渲染
 renderer.render(scene, camera)
+
+// 设置相机控件轨道控制器OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement)
+// 如果OrbitControls改变了相机参数，重新调用渲染器渲染三维场景
+controls.addEventListener('change', () => {
+  renderer.render(scene, camera) // 执行渲染操作
+})// 监听鼠标、键盘事件
+
+// 点光源：两个参数分别表示光源颜色和光照强度
+// 参数1：0xffffff是纯白光,表示光源颜色
+// 参数2：1.0,表示光照强度，可以根据需要调整
+const pointLight = new THREE.PointLight(0xffffff, 1.0)
+pointLight.intensity = 10000.0
+scene.add(pointLight)
+
+pointLight.position.set(400, 200, 300) 
+
+// // 光源辅助观察
+// const pointLightHelper = new THREE.PointLightHelper(pointLight, 10)
+// scene.add(pointLightHelper)
 
 onMounted(() => {
   webglRenderContent.value.appendChild(renderer.domElement)
