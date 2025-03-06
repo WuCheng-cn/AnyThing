@@ -67,6 +67,38 @@ module.exports = {
           ],
           "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"],
           "issuePrefixes": ["#"]
+        },
+        "writerOpts": {
+          "transform": (commit, context) => {
+            const emojiMap = {
+              ":sparkles:": "✨",
+              ":bug:": "🐛",
+              ":tada:": "🎉",
+              ":memo:": "📝",
+              ":art:": "🎨",
+              ":recycle:": "♻️",
+              ":zap:": "⚡️",
+              ":white_check_mark:": "✅",
+              ":rewind:": "⏪️",
+              ":package:": "📦",
+              ":rocket:": "🚀",
+              ":construction_worker:": "👷"
+            };
+
+            const emoji = emojiMap[commit.emoji];
+            const type = commit.type;
+            const scope = commit.scope ? `(${commit.scope})` : '';
+            const subject = commit.subject;
+
+            // 构建新的提交信息
+            commit.hash = commit.hash.substring(0, 7); // 限制哈希长度
+            commit.subject = `${emoji} ${type}${scope}: ${subject}`;
+
+            return commit;
+          },
+          "commitGroupsSort": "title",
+          "commitsSort": ["scope", "subject"],
+          "noteGroupsSort": "title"
         }
       }
     }
