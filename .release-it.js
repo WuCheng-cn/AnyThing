@@ -3,7 +3,7 @@ module.exports = {
     '@release-it/conventional-changelog': {
       infile: 'CHANGELOG.md',
       parserOpts: {
-        headerPattern: '/^(:[a-z]+:)\\s*(\\w+)(\\(([^)]+)\\))?\\s*:\\s*(.*)$/',
+        headerPattern: /^(:[a-z]+:)\\s*(\\w+)(\\(([^)]+)\\))?\\s*:\\s*(.*)$/,
         headerCorrespondence: ['emoji', 'type', 'scope', 'scope', 'subject'],
         noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
         issuePrefixes: ['#']
@@ -32,10 +32,13 @@ module.exports = {
           const subject = commit.subject
 
           // 构建新的提交信息
-          commit.hash = commit.hash.substring(0, 7) // 限制哈希长度
-          commit.subject = `${emoji} ${type}${scope}: ${subject}`
+          const newCommit = {
+            ...commit,
+            hash: commit.hash.substring(0, 7), // 限制哈希长度
+            subject: `${emoji} ${type}${scope}: ${subject}`
+          }
 
-          return commit
+          return newCommit
         },
         commitGroupsSort: 'title',
         commitsSort: ['scope', 'subject'],
