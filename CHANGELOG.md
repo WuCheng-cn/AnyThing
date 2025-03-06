@@ -1,5 +1,9 @@
 # Changelog
 
+## <small>1.5.5 (2025-03-06)</small>
+
+* :white_check_mark: test(custom): 测试release配置 ([411a005](https://gitee.com/WuCheng-cn/any-thing/commits/411a005))
+
 ## [1.5.4](https://gitee.com/WuCheng-cn/any-thing/compare/1.5.3...1.5.4) (2025-03-06)
 
 ## [1.5.3](https://gitee.com/WuCheng-cn/any-thing/compare/1.5.2...1.5.3) (2025-03-06)

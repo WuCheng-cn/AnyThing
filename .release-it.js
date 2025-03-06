@@ -10,6 +10,7 @@ module.exports = {
         "writerOpts": {
           "transform": (commit) => {
             const type = commit.type;
+            console.log(type);
             const emojiMap = {
               ":sparkles:": "✨",
               ":bug:": "🐛",
