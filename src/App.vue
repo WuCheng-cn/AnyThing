@@ -16,7 +16,7 @@ import { useClickPosition } from 'vooks'
 import { useStore } from '@/store'
 import { useConfig } from './config'
 const clickedPositionRef = useClickPosition()
-
+//action
 watch(clickedPositionRef, (value) => {
   useStore().clickPositionStore.setClickedPosition(value)
 }, {
