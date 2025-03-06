@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>1.5.6 (2025-03-06)</small>
+
+* :white_check_mark: test(custom): 测试release配置 ([5ab45a2](https://gitee.com/WuCheng-cn/any-thing/commits/5ab45a2))
+* :white_check_mark: test(custom): 测试release配置 ([411a005](https://gitee.com/WuCheng-cn/any-thing/commits/411a005))
+
 ## <small>1.5.5 (2025-03-06)</small>
 
 * :white_check_mark: test(custom): 测试release配置 ([411a005](https://gitee.com/WuCheng-cn/any-thing/commits/411a005))
