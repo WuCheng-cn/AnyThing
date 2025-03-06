@@ -70,6 +70,7 @@ module.exports = {
         },
         "writerOpts": {
           "transform": (commit, context) => {
+            console.log('调试信息',commit); // 添加调试信息
             const emojiMap = {
               ":sparkles:": "✨",
               ":bug:": "🐛",
