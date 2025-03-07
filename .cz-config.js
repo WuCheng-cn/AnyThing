@@ -2,16 +2,16 @@ module.exports = {
   types: [
     { name: '✨ feat:     新功能', value: ':sparkles: feat' },
     { name: '🐛 fix:      修复 bug', value: ':bug: fix' },
-    { name: '🎉 init:     初始化', value: '🎉 init' },
-    { name: '📝 docs:     文档变更', value: '📝 docs' },
-    { name: '🎨 style:    代码样式美化', value: '🎨 style' },
-    { name: '♻️  refactor: 重构', value: '♻️ refactor' },
-    { name: '⚡️ perf:     性能优化', value: '⚡️ perf' },
-    { name: '✅ test:     测试', value: '✅ test' },
-    { name: '⏪️ revert:   回退', value: '⏪️ revert' },
-    { name: '📦️ build:    打包', value: '📦️ build' },
-    { name: '🚀 chore:    构建/工程依赖/工具', value: '🚀 chore' },
-    { name: '👷 ci:       CI 相关变更', value: '👷 ci' }
+    { name: '🎉 init:     初始化', value: ':tada: init' },
+    { name: '📝 docs:     文档变更', value: ':memo: docs' },
+    { name: '🎨 style:    代码样式美化', value: ':art: style' },
+    { name: '♻️  refactor: 重构', value: ':recycle: refactor' },
+    { name: '⚡️ perf:     性能优化', value: ':zap: perf' },
+    { name: '✅ test:     测试', value: ':white_check_mark: test' },
+    { name: '⏪️ revert:   回退', value: ':rewind: revert' },
+    { name: '📦️ build:    打包', value: ':package: build' },
+    { name: '🚀 chore:    构建/工程依赖/工具', value: ':rocket: chore' },
+    { name: '👷 ci:       CI 相关变更', value: ':construction_worker: ci' }
   ],
   scopes: [
     { name: 'public' }, 
