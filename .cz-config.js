@@ -1,7 +1,7 @@
 module.exports = {
   types: [
-    { name: '✨ feat:     新功能', value: '✨ feat' },
-    { name: '🐛 fix:      修复 bug', value: '🐛 fix' },
+    { name: '✨ feat:     新功能', value: ':sparkles: feat' },
+    { name: '🐛 fix:      修复 bug', value: ':bug: fix' },
     { name: '🎉 init:     初始化', value: '🎉 init' },
     { name: '📝 docs:     文档变更', value: '📝 docs' },
     { name: '🎨 style:    代码样式美化', value: '🎨 style' },
