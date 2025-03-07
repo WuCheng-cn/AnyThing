@@ -1,5 +1,14 @@
 # Changelog
 
+## <small>1.5.12 (2025-03-07)</small>
+
+* :rocket: chore(custom): 测试 ([b62b91c](https://gitee.com/WuCheng-cn/any-thing/commits/b62b91c))
+* :rocket: chore(custom): 测试配置 ([a1b1e98](https://gitee.com/WuCheng-cn/any-thing/commits/a1b1e98))
+* :rocket: chore(custom): 配置变更 ([87dba75](https://gitee.com/WuCheng-cn/any-thing/commits/87dba75))
+* :white_check_mark: test(custom): 测试 ([87c19e5](https://gitee.com/WuCheng-cn/any-thing/commits/87c19e5))
+* :white_check_mark: test(custom): 测试 ([ec651df](https://gitee.com/WuCheng-cn/any-thing/commits/ec651df))
+* :white_check_mark: test(custom): 测试 ([0e2f770](https://gitee.com/WuCheng-cn/any-thing/commits/0e2f770))
+
 ## <small>1.5.11 (2025-03-06)</small>
 
 * :rocket: chore(custom): 测试配置 ([a1b1e98](https://gitee.com/WuCheng-cn/any-thing/commits/a1b1e98))

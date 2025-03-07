@@ -3,7 +3,7 @@ module.exports = {
     '@release-it/conventional-changelog': {
       infile: 'CHANGELOG.md',
       parserOpts: {
-        headerPattern: /^(:[a-z]+:)\\s*(\\w+)(\\(([^)]+)\\))?\\s*:\\s*(.*)$/,
+        headerPattern: /^(:[a-z_]+:) (\w*)(?:\(([\w\$\.\-\* ]*)\))?\: (.*)$$/,
         headerCorrespondence: ['emoji', 'type', 'scope', 'scope', 'subject'],
         noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
         issuePrefixes: ['#']
