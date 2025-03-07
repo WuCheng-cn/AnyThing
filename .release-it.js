@@ -89,7 +89,7 @@ module.exports = {
             // hash: commit.hash.substring(0, 7), // 限制哈希长度
             // subject: `${emoji} ${type}${scope}: ${subject}`
           }
-
+          console.log('newCommit', newCommit)
           return newCommit
         },
         commitGroupsSort: 'title',
