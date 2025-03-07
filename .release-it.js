@@ -30,6 +30,7 @@ module.exports = {
           const type = commit.type
           const scope = commit.scope ? `(${commit.scope})` : ''
           const subject = commit.subject
+          console.log('调试信息emoji', emoji,type,scope,subject) // 添加调试信息
 
           // 构建新的提交信息
           const newCommit = {
