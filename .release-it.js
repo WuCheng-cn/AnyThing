@@ -56,7 +56,7 @@ module.exports = {
         ]
       },
       parserOpts: {
-        headerPattern: /^(:[a-z_]+:) (\w*)(?:\(([\w\$\.\-\* ]*)\))?\: (.*)$$/,
+        headerPattern: /^(?:[a-z_]+:) (\w*)(?:\(([\w\$\.\-\* ]*)\))?\: (.*)$$/,
         headerCorrespondence: ['emoji', 'type', 'scope', 'scope', 'subject'],
         noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
         issuePrefixes: ['#']
@@ -86,8 +86,8 @@ module.exports = {
           // 构建新的提交信息
           const newCommit = {
             ...commit,
-            hash: commit.hash.substring(0, 7), // 限制哈希长度
-            subject: `${emoji} ${type}${scope}: ${subject}`
+            // hash: commit.hash.substring(0, 7), // 限制哈希长度
+            // subject: `${emoji} ${type}${scope}: ${subject}`
           }
 
           return newCommit
