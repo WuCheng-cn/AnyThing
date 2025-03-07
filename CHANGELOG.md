@@ -1,5 +1,11 @@
 # CHANGELOG | 变更日志
 
+## [1.0.2](https://gitee.com/WuCheng-cn/any-thing/compare/1.0.1...1.0.2) (2025-03-07)
+
+### ⚡️ Performance Improvements | 性能优化
+
+* **custom:** 去除弃用依赖standrad-version ([d2b5278](https://gitee.com/WuCheng-cn/any-thing/commit/d2b52783bcdb1d367ba79c6f1df8bd7e1d03b124))
+
 ## 1.0.1 (2025-03-07)
 
 ### ♻️ Code Refactoring | 重构
