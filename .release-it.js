@@ -56,7 +56,7 @@ module.exports = {
         ]
       },
       parserOpts: {
-        headerPattern: /^(?:[a-z_]+:) (\w*)(?:\(([\w\$\.\-\* ]*)\))?\: (.*)$$/,
+        headerPattern: /^(?:[a-z_]+:)?[ ](\w*)(?:\(([\w\$\.\-\* ]*)\))?\: (.*)$$/,
         headerCorrespondence: ['emoji', 'type', 'scope', 'scope', 'subject'],
         noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
         issuePrefixes: ['#']
