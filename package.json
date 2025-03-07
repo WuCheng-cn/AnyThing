@@ -1,7 +1,7 @@
 {
   "name": "anything",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "vite",
     "s": "yarn dev --host",
