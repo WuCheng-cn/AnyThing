@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <iframe
-      v-lazyResize:50
+      v-lazyResize="50"
       class="view"
       src="https://cn.bing.com/?mkt=zh-cn&mkt=zh-cn&mkt=zh-cn&mkt=zh-cn&mkt=zh-cn&mkt=zh-cn" 
       frameborder="0"

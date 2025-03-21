@@ -1,0 +1,17 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+# dist
+dist-ssr
+dist
+*.local
+docs
+
